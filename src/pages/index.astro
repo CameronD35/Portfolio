@@ -1,9 +1,12 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { Image } from "astro:assets";
+import bgImage from "../images/bg.svg"
 
 const pageTitle = "Home Page"
 ---
 
 <BaseLayout pageTitle={pageTitle}>
 	<h2>My awesome blog subtitle</h2>
+	<Image src={bgImage} alt="Litty bg."/>
 </BaseLayout>

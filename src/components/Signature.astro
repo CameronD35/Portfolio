@@ -1,0 +1,28 @@
+---
+interface Props {
+
+    width: string;
+    color?: string;
+
+}
+
+const { width, color = "var(--custom-white)" } = Astro.props;
+import { Icon } from "astro-icon/components";
+---
+
+<div class="signatureContainer">
+
+    <Icon name="signature"/>
+
+</div>
+
+<style define:vars={{width, color}}>
+
+    [data-icon] {
+
+        width: var(--width);
+        color: var(--color);
+
+    }
+
+</style>

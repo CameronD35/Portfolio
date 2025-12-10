@@ -1,16 +1,23 @@
 ---
-const { platform, username } = Astro.props;
+const { platform, username, color, hoverColor } = Astro.props;
 ---
 
-<a href={`https://www.${platform}.com/${username}`}>{platform}</a>
+<a href={`https://www.${platform.toLowerCase()}.com/${username}`}>{platform}</a>
 
-<style>
+<style define:vars={{color, hoverColor}}>
     a {
 
         padding: 0.5rem 1rem;
-        color: white;
-        background-color: #4c1d95;
+        color: var(--color);
         text-decoration: none;
+
+        transition-duration: 0.2s;
+
+    }
+
+    a:hover {
+
+        color: var(--hoverColor);
 
     }
 </style>

@@ -1,24 +1,89 @@
 ---
 import Social from './Social.astro';
+import Signature from './Signature.astro';
+import '../styles/global.css';
+import Seperator from './seperator.astro';
 
 // force footer to bottom of page if content height smaller than screen height
 ---
 
 <footer class="footer">
-    <Social platform="twitter" username="ballsinmoufff" />
-    <Social platform="github" username="CameronD35" />
-    <Social platform="youtube" username="@MarzTGLive" />
+    
+    <div class="socialContainer">
+
+        <Social platform="Twitter" username="ballsinmoufff" color="var(--custom-light-brown)" hoverColor="var(--custom-white)"/>
+        <Seperator height="20px" width="2px" color="var(--custom-brown)"/>
+        <Social platform="GitHub" username="CameronD35" color="var(--custom-light-brown)" hoverColor="var(--custom-white)"/>
+        <Seperator height="20px" width="2px" color="var(--custom-brown)"/>
+        <Social platform="YouTube" username="@MarzTGLive" color="var(--custom-light-brown)" hoverColor="var(--custom-white)"/>
+
+    </div>
+
+    <Signature width="200px" color="var(--custom-light-brown)"/>
+    
 </footer>
 
+<!-- <svg viewBox="0 0 400 400" xmlns='http://www.w3.org/2000/svg' id="svg_filter">
+    <filter id='noiseFilter'>
+        <feTurbulence 
+        type='fractalNoise' 
+        baseFrequency='5.55' 
+        numOctaves='3' 
+        stitchTiles='stitch'/>
+    </filter>
+    
+    <rect width='400px' height='400px' filter='url(#noiseFilter)'/>
+</svg> -->
+
 <style>
+
+
 
     footer {
 
         display: flex;
         gap: 1rem;
         margin-top: 2rem;
+        align-items: center;
+        justify-content: space-between;
 
-        background-color: purple;
+        background-color: var(--custom-dark-brown);
+
+        width: 100%;
+        padding: 2em;
+
+        /* clip-path: url(#cool-curve); */
+
+    }
+
+    /* footer::before {
+
+        content: '';
+
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 150%;
+        z-index: -2;
+        background: linear-gradient(0deg, var(--custom-dark-brown) 60%, var(--custom-dark-brown-0));
+                    /* url(#noiseFilter); */
+
+    } */
+
+    #svg_filter {
+
+        position: fixed;
+
+    }
+
+    .socialContainer{
+
+        display: flex;
+        align-items: center;
+
 
     }
 

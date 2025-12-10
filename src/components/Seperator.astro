@@ -1,0 +1,43 @@
+---
+interface Props {
+
+    height: string;
+    width: string;
+    spacing?: string;
+    color?: string;
+    horizontal?: boolean;
+
+}
+
+const { height, width, spacing = "5px", color = "var(--custom-white)", horizontal = false } = Astro.props;
+---
+
+<style define:vars={{height, width, spacing, color}}>
+    
+    .seperator {
+
+        height: var(--height);
+        width: var(--width);
+        background-color: var(--color);
+        border-radius: var(--width);
+
+    }
+
+    .seperator[data-horizontal="true"] {
+
+        padding-left: var(--spacing);
+        padding-right: var(--spacing);
+
+    }
+
+    .seperator[data-horizontal="false"] {
+
+        padding-top: var(--spacing);
+        padding-bottom: var(--spacing);
+
+    }
+
+
+</style>
+
+<div class="seperator" data-horizontal={horizontal}></div>
