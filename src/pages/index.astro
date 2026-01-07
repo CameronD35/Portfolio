@@ -1,19 +1,52 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { Image } from "astro:assets";
 import FullWidthSection from "../components/FullWidthSection.astro";
 import bgImage from "../images/bg.svg";
+import Signature from "../components/Signature.astro";
+import "../styles/global.css"
+import MajorSection from "../components/MajorSection.astro";
 
 const pageTitle = "Home Page"
 ---
 
 <BaseLayout pageTitle={pageTitle}>
 	
-	<FullWidthSection height="100vh" bgImg={bgImage}>
+	<FullWidthSection height="100vh" bgImg={bgImage} className="center-items">
 
-		<h2>My awesome blog subtitle</h2>
-		test
+		<Signature width="80vw" color="var(--custom-white-st)"/>
 
 	</FullWidthSection>
 
+	<MajorSection title="Tutoring" isLeft="false"/>
+	<MajorSection title="Software Engineering" isLeft="true"/>
+	<MajorSection title="Graphic Design" isLeft="false"/>
+	<MajorSection title="Photography" isLeft="true"/>
+
 </BaseLayout>
+
+<style is:global>
+
+
+	.signatureContainer svg::before {
+
+		content: url("../icons/signature.svg");
+		/* position: absolute;
+		inset: 100px; */
+		background-color: blueviolet;
+		width: 100px;
+		height: 100px;
+		 /* Adjust sizing as needed */
+
+	}
+
+	@keyframes animate-sig {
+
+		100% {
+
+			stroke-dashoffset: 0px;
+
+		} 
+
+	}
+
+</style>

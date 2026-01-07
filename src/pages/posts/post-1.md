@@ -22,4 +22,8 @@ Welcome to my _new blog_ about learning Astro! Here, I will share my learning jo
 
 ## What's next
 
+I'm doing meth
+
+$ \int{5x+2} $
+
 I will finish the Astro tutorial, and then keep adding more posts. Watch this space for more to come.

@@ -8,15 +8,8 @@ export default function setHeaderFixing() {
 
     const currentHeaderState = (header.getAttribute("fixed") === "true");
 
-    if ((userScrollDistance + 5) > headerHeight && !currentHeaderState) {
+    const mainMenu = document.querySelector("#main-menu");
 
-        // do a nice animation
-        header.setAttribute("fixed", "true");
-
-    } else {
-
-        header.setAttribute("fixed", "false");
-
-    }
+    console.log(`${currentHeaderState}, ${headerHeight}, ${userScrollDistance}`);
 
 }

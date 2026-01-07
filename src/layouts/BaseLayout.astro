@@ -11,9 +11,15 @@ const { pageTitle } = Astro.props;
 	<head>
 		<meta charset="utf-8" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/katex.min.css">
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{pageTitle}</title>
+
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Oi&display=swap" rel="stylesheet">
+
 	</head>
 	<body>
 		<Header />
@@ -30,8 +36,10 @@ const { pageTitle } = Astro.props;
 
 			import "../scripts/menu.js"; 
 			import setFooterFixing from "../scripts/footerManage.js";
+			import setHeaderFixing from "../scripts/headerManage.js";
 
 			setFooterFixing();
+			setHeaderFixing();
 
 		</script>
 	</body>

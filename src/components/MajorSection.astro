@@ -1,0 +1,96 @@
+---
+import FullWidthSection from "./FullWidthSection.astro";
+import PreviewGallery from "./PreviewGallery.astro";
+import '../styles/global.css'
+
+const { title, link, isLeft } = Astro.props;
+
+---
+
+<FullWidthSection height="100vh">
+
+    <div class="majorContentBox" data-isLeft=`${isLeft}`>
+
+        <div class="galleryBox">
+
+            <PreviewGallery/>
+
+        </div>
+
+        <div class="infoBox">
+
+            <span class="title">{title.toUpperCase()}</span>
+            <span>This is a fire description.</span>
+
+
+
+        </div>
+
+    </div>
+    
+
+</FullWidthSection>
+
+<style>
+
+    .majorContentBox {
+
+        width: 100%;
+        height: 100%;
+        padding: 5%;
+        color: var(--custom-white);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+
+    }
+
+    [data-isLeft="true"] {
+
+        flex-direction: row-reverse;
+
+        .infoBox {
+
+            align-items: start !important;
+
+        }
+        
+        .title {
+
+            text-align: left !important;
+
+        }
+
+    }
+
+    .galleryBox {
+
+        /* background-color: green; */
+        width: 40%;
+        height: 100%;
+
+    }
+
+    .infoBox {
+
+        /* background-color: blue; */
+        width: 60%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: end;
+        justify-content: center;
+
+    }
+
+    .title {
+
+        font-family: "Oi", serif;
+        font-size: 2em;
+        text-align: right;
+
+    }
+    
+
+</style>

@@ -1,8 +1,28 @@
 ---
-const { height, sectionTitle, bgImg } = Astro.props;
+interface Props {
+
+    height: string;
+    bgImg?: any;
+    className?: string;
+
+}
+
+const { height, bgImg, className } = Astro.props;
+
+let styleString;
+let classString;
+
+console.log(bgImg);
+
+if (bgImg) { styleString = `background-image: url(${bgImg.src});`; }
+else { styleString = `background-color: var(--custom-black);` }
+
+if (className) { classString = `section ${className}` }
+else {classString = `section`}
+
 ---
 
-<div class="section" style=`background-image: url(${bgImg.src});`>
+<div class=`${classString}` style=`${styleString}`>
 
     <slot/>
 
@@ -17,6 +37,14 @@ const { height, sectionTitle, bgImg } = Astro.props;
 
 
         background-size: cover;
+
+    }
+
+    .center-items {
+        
+        display: flex;
+		align-items: center;
+		justify-content: center;
 
     }
 

@@ -1,10 +1,11 @@
 html {
   background-color: var(--custom-white);
-  font-family: system-ui;
+  font-family: "Inter", sans-serif;
 }
 
 :root{
 
+--custom-black: rgba(10, 10, 10, 1);
 --custom-dark-brown: rgba(31, 23, 6, 1);
 --custom-brown: rgba(83, 57, 42, 1);
 --custom-tan: rgba(172, 132, 90, 1);
@@ -12,6 +13,7 @@ html {
 --custom-green: rgba(69, 107, 90, 1);
 --custom-white: rgba(225, 226, 226, 1);
 
+--custom-black-st: rgba(10, 10, 10, 0.7);
 --custom-dark-brown-st: rgba(31, 23, 6, 0.7);
 --custom-brown-st: rgba(83, 57, 42, 0.7);
 --custom-tan-st: rgba(172, 132, 90, 0.7);
@@ -19,6 +21,7 @@ html {
 --custom-green-st: rgba(69, 107, 90, 0.7);
 --custom-white-st: rgba(225, 226, 226, 0.7);
 
+--custom-black-t: rgba(10, 10, 10, 0.4);
 --custom-dark-brown-t: rgba(31, 23, 6, 0.4);
 --custom-brown-t: rgba(83, 57, 42, 0.4);
 --custom-tan-t: rgba(172, 132, 90, 0.4);
@@ -26,12 +29,17 @@ html {
 --custom-green-t: rgba(69, 107, 90, 0.4);
 --custom-white-t: rgba(225, 226, 226, 0.4);
 
+--custom-black-0: rgba(10, 10, 10, 0);
 --custom-dark-brown-0: rgba(31, 23, 6, 0);
 --custom-brown-0: rgba(83, 57, 42, 0);
 --custom-tan-0: rgba(172, 132, 90, 0);
 --custom-light-brown-0: rgba(88, 80, 71, 0);
 --custom-green-0: rgba(69, 107, 90, 0);
 --custom-white-0: rgba(225, 226, 226, 0);
+
+--minorBlur: blur(3px);
+--standardBlur: blur(6px);
+--BIGBlur: blur(9px);
 
 }
 
