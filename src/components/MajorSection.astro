@@ -3,11 +3,20 @@ import FullWidthSection from "./FullWidthSection.astro";
 import PreviewGallery from "./PreviewGallery.astro";
 import '../styles/global.css'
 
-const { title, link, isLeft } = Astro.props;
+interface Props {
+
+    title: string;
+    link?: string;
+    isLeft?: string;
+    color?: string;
+
+}
+
+const { title, link, isLeft = "false", color = "var(--custom-black)" } = Astro.props;
 
 ---
 
-<FullWidthSection height="100vh">
+<FullWidthSection height="100vh" color=`${color}`>
 
     <div class="majorContentBox" data-isLeft=`${isLeft}`>
 
@@ -42,7 +51,6 @@ const { title, link, isLeft } = Astro.props;
         display: flex;
         justify-content: center;
         align-items: center;
-        position: relative;
 
     }
 

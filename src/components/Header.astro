@@ -20,4 +20,22 @@ import "../styles/global.css";
 
     }
 
+    nav::after{
+
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        height: 200%;
+
+
+
+
+        mask: linear-gradient(to bottom, rgba(0,0,0,1) 30%, rgba(0,0,0,0));
+
+        backdrop-filter: var(--BIG-blur);
+        -webkit-backdrop-filter: var(--BIG-blur);
+
+    }
+
 </style>

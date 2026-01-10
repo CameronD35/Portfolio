@@ -1,21 +1,23 @@
 ---
+import "../styles/global.css"
 interface Props {
 
     height: string;
     bgImg?: any;
     className?: string;
+    color?: string;
 
 }
 
-const { height, bgImg, className } = Astro.props;
+const { height, bgImg, className, color } = Astro.props;
 
 let styleString;
 let classString;
 
-console.log(bgImg);
+console.log(color);
 
-if (bgImg) { styleString = `background-image: url(${bgImg.src});`; }
-else { styleString = `background-color: var(--custom-black);` }
+if (bgImg) { styleString = `background-image: url(${bgImg.src})`; }
+else { styleString = `background-color: ${color}`}
 
 if (className) { classString = `section ${className}` }
 else {classString = `section`}

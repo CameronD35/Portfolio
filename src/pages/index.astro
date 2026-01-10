@@ -17,27 +17,15 @@ const pageTitle = "Home Page"
 
 	</FullWidthSection>
 
-	<MajorSection title="Tutoring" isLeft="false"/>
-	<MajorSection title="Software Engineering" isLeft="true"/>
-	<MajorSection title="Graphic Design" isLeft="false"/>
-	<MajorSection title="Photography" isLeft="true"/>
+	<MajorSection title="Tutoring" isLeft="false" color="var(--custom-green)"/>
+	<MajorSection title="Software Engineering" isLeft="true" color="var(--custom-brown)"/>
+	<MajorSection title="Graphic Design" isLeft="false" color="var(--custom-tan)"/>
+	<MajorSection title="Photography" isLeft="true" color="var(--custom-dark-brown)"/>
 
 </BaseLayout>
 
 <style is:global>
 
-
-	.signatureContainer svg::before {
-
-		content: url("../icons/signature.svg");
-		/* position: absolute;
-		inset: 100px; */
-		background-color: blueviolet;
-		width: 100px;
-		height: 100px;
-		 /* Adjust sizing as needed */
-
-	}
 
 	@keyframes animate-sig {
 
@@ -49,4 +37,12 @@ const pageTitle = "Home Page"
 
 	}
 
+	.section::before {
+    	content: '';
+		position: absolute;
+		inset: 0;
+		background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='1' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.02'/%3E%3C/svg%3E");
+		pointer-events: none;
+	}
+	
 </style>

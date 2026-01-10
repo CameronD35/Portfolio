@@ -37,9 +37,11 @@ html {
 --custom-green-0: rgba(69, 107, 90, 0);
 --custom-white-0: rgba(225, 226, 226, 0);
 
---minorBlur: blur(3px);
---standardBlur: blur(6px);
---BIGBlur: blur(9px);
+--minor-blur: blur(3px);
+--standard-blur: blur(6px);
+--BIG-blur: blur(9px);
+
+--standard-transition-timing: cubic-bezier(0.175, 0.885, 0.32, 1.275);
 
 }
 
@@ -89,6 +91,7 @@ h1 {
   width: 100%;
   display: none;
   margin: 0;
+  position: relative;
 
 }
 
@@ -96,20 +99,54 @@ h1 {
 
   display: block;
   text-align: center;
-  padding: 10px 0;
   text-decoration: none;
   font-size: 1.2rem;
   font-weight: bold;
   text-transform: uppercase;
-  color: var(--custom-dark-brown);
+  position: relative;
 
 }
 
-.nav-links a:hover,
-.nav-links a:focus {
+.nav-links a span {
 
-  background-color: var(--custom-green);
-  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+
+}
+
+.nav-links a span::after{
+
+  content: "";
+  position: absolute;
+
+  height: 2px;
+  width: 110%;
+  background-color: var(--custom-white);
+  bottom: -5px;
+  left: -5%;
+  transform: scaleX(0);
+  border-radius: 2px;
+  transform-origin: center;
+  text-align: center;
+
+  transition: 0.5s var(--standard-transition-timing);
+
+}
+
+/* .nav-links a:hover,
+.nav-links a:focus {
+  color: blue;
+} */
+
+.nav-links a:hover {
+
+  span::after {
+
+    transform: scaleX(1);
+
+  }
 }
 
 /* :has(.menu[aria-expanded="true"]) .nav-links {
