@@ -1,19 +1,21 @@
 ---
 import "../styles/global.css";
+import NavComponent from "./NavComponent.astro";
 ---
 
 <div id="main-menu" class="nav-links">
     <div class="home-link">
 
-        <a href="/"><span>Home</span></a>
+        <NavComponent href="/" title="Home"/>
         
     </div>
 
     <div class="other-links">
 
-        <a href="/about"><span>About</span></a>
-        <a href="/projects"><span>Projects</span></a>
-        <a href="/blog"><span>Blog</span></a>
+        <NavComponent href="/about" title="About"/>
+        <NavComponent href="/skills" title="Skills" isDropdown="true"/>
+        <NavComponent href="/projects" title="Projects"/>
+        <NavComponent href="/blog" title="Blog"/>
 
     </div>
 

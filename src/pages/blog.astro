@@ -7,11 +7,24 @@ const pageTitle = "Blog";
 ---
 
 <BaseLayout pageTitle={pageTitle}>
-	<h2>My awesome blog subtitle</h2>
+    <div class="blog-content-box">
+        <h2>My awesome blog subtitle</h2>
 
-    <ul>
-        
-        {allPosts.map((post: any) => <BlogPost url={post.url} title={post.frontmatter.title}/>)}
+        <ul>
+            
+            {allPosts.map((post: any) => <BlogPost url={post.url} title={post.frontmatter.title}/>)}
 
-    </ul>
+        </ul>
+
+    </div>
 </BaseLayout>
+
+<style is:global>
+
+    .blog-content-box {
+
+        padding: 5% 5% 0% 5%;
+
+    }
+
+</style>

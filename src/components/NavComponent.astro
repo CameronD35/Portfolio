@@ -1,0 +1,44 @@
+---
+interface Props {
+
+    href: string;
+    title: string;
+    isDropdown?: string;
+
+}
+
+const { href, title, isDropdown = "false" } = Astro.props;
+import { Icon } from "astro-icon/components";
+---
+
+<a href={href} data-is-dropdown={isDropdown} data-title={title}>
+    <span class="navLinkTitle">
+        {title}
+    </span>
+    <Icon name="Dropdown_Arrow"/>
+</a>
+
+<style>
+
+    [data-is-dropdown="false"] {
+
+        [data-icon] {
+
+            display: none;
+
+        }
+
+    }
+
+    [data-is-dropdown="true"] {
+
+        [data-icon] {
+
+            height: 25%;
+            width: auto;
+
+        }
+
+    }
+
+</style>

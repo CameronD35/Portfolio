@@ -1,4 +1,4 @@
-export default function setHeaderFixing() {
+function setHeaderFixing() {
 
     const header = document.querySelector("header");
 
@@ -13,3 +13,23 @@ export default function setHeaderFixing() {
     console.log(`${currentHeaderState}, ${headerHeight}, ${userScrollDistance}`);
 
 }
+
+function setHeaderColor() {
+
+    const currentPath = window.location.pathname;
+
+    console.log(currentPath, currentPath === "/")
+
+    if (currentPath !== "/") {
+
+        document.documentElement.style.setProperty("--nav-color", "var(--custom-dark-brown)");
+
+    } else {
+
+        document.documentElement.style.setProperty("--nav-color", "var(--custom-white)");
+
+    }
+
+}
+
+export { setHeaderFixing, setHeaderColor };
