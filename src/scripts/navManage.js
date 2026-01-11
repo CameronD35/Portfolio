@@ -1,9 +1,15 @@
-export function appendDropdown(title, items) {
+import createDropdown from "./createDropdown";
 
-    const navElem = document.querySelector(`[data-title=${title}]`);
+export function appendDropdown() {
 
-    let dropdownArrow = document.createElement()
+    const navElems = document.querySelectorAll(`[data-is-dropdown="true"]`);
 
-    navElem.appendChild()
+    navElems.forEach((elem, i) => {
+
+        const items = ["test1", "test2"]
+
+        // createDropdown(elem, items)
+        
+    })
 
 }

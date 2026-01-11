@@ -1,0 +1,55 @@
+---
+interface Props {
+
+    visible?: string;
+
+}
+
+import "../styles/global.css"
+
+const { visible = "false"} = Astro.props;
+---
+
+<div class="dropdown" data-visible={visible}>
+    <ul>
+
+        <li>item 1</li>
+        <li>item 2</li>
+        <li>item 3</li>
+
+    </ul>
+</div>
+
+<style>
+
+    .dropdown {
+
+        width: 100px;
+        height: 100px;
+        background-color: var(--custom-dark-brown-t);
+        position: absolute;
+        top: 100%;
+
+    }
+
+    [data-visible="false"] {
+
+        display: none;
+
+    }
+
+
+    ul {
+
+        padding: 0;
+
+    }
+
+    li {
+
+        list-style-type: none;
+        text-align: left;
+
+    }
+
+</style>
