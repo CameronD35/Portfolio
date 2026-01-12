@@ -10,7 +10,8 @@ const { url, frontmatter } = Astro.props;
 
 console.log(frontmatter)
 
-import { Image } from "astro:assets";
+const imageURL = frontmatter?.image?.url?? "https://docs.astro.build/assets/rose.webp";
+
 import "../styles/global.css";
 
 ---
@@ -18,7 +19,7 @@ import "../styles/global.css";
 <li class="blog-post-card">
     <a href={url} class="blog-post-card-link">
 
-        <div class="card" style={`--bg-image: url(${frontmatter.image.url})`}>
+        <div class="card" style={`--bg-image: url(${imageURL})`}>
             <span class="title">{frontmatter.title}</span>
             <span class="desc">{frontmatter.description}</span>
             <!-- <Image src={frontmatter.image.url} alt={frontmatter.image.alt} width="100" height="100"/> -->
