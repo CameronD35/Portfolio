@@ -8,11 +8,11 @@ const pageTitle = "Blog";
 
 <BaseLayout pageTitle={pageTitle}>
     <div class="blog-content-box">
-        <h2>My awesome blog subtitle</h2>
+        <h1>Blogs</h1>
 
-        <ul>
+        <ul class="blog-list">
             
-            {allPosts.map((post: any) => <BlogPost url={post.url} title={post.frontmatter.title}/>)}
+            {allPosts.map((post: any) => <BlogPost url={post.url} frontmatter={post.frontmatter}/>)}
 
         </ul>
 
@@ -24,6 +24,21 @@ const pageTitle = "Blog";
     .blog-content-box {
 
         padding: 5% 5% 0% 5%;
+
+    }
+
+    .blog-content-box ul {
+
+        list-style-type: none;
+        padding: 0;
+
+    }
+
+    .blog-list {
+
+        display: flex;
+        flex-direction: column;
+        
 
     }
 

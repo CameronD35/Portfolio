@@ -1,5 +1,109 @@
 ---
-const { url, title } = Astro.props;
+interface Props {
+
+    url: string;
+    frontmatter: any;
+
+}
+
+const { url, frontmatter } = Astro.props;
+
+console.log(frontmatter)
+
+import { Image } from "astro:assets";
+import "../styles/global.css";
+
 ---
 
-<li><a href={url}>{title}</a></li>
+<li class="blog-post-card">
+    <a href={url} class="blog-post-card-link">
+
+        <div class="card" style={`--bg-image: url(${frontmatter.image.url})`}>
+            <span class="title">{frontmatter.title}</span>
+            <span class="desc">{frontmatter.description}</span>
+            <!-- <Image src={frontmatter.image.url} alt={frontmatter.image.alt} width="100" height="100"/> -->
+        </div>
+
+    </a>
+</li>
+
+<style>
+
+    .blog-post-card {
+
+        padding: 2% 0%;
+        max-height: 15%;
+
+    }
+
+    .blog-post-card-link {
+
+        text-decoration: none;
+
+    }
+
+    .title {
+
+        font-size: 2em;
+        font-weight: bold;
+        color: var(--custom-white);
+        transition: 0.5s var(--standard-transition-timing-no-bounce);
+
+    }
+
+    .desc {
+
+        font-size: 1em;
+        font-weight: normal;
+        color: var(--custom-white);
+        transition: 0.5s var(--standard-transition-timing-no-bounce);
+
+    }
+
+    .card {
+
+        background-color: var(--custom-black-st);
+        padding: 2%;
+        display: flex;
+        flex-direction: column;
+        border-radius: 2em;
+        overflow: hidden;
+        position: relative;
+        background-size: cover;
+
+    }
+
+    .card:hover{
+
+        .title {
+
+            font-size: 2.5em;
+
+        }
+
+        .desc {
+
+            font-size: 1.25em;
+
+        }
+
+    }
+
+    .card::after {
+
+        content: '';
+        position: absolute;
+        width: 60%;
+        height: 100%;
+        top: 0;
+        right: 0;
+        background-image: var(--bg-image);
+        background-size: 150%;
+        background-position: center;
+        mask: linear-gradient(to left, white 60%, transparent);
+
+    }
+
+
+</style>
+

@@ -8,13 +8,34 @@ export default function setFooterFixing() {
 
     const footer = document.querySelector('.footer');
 
-    if (bodyHeight < windowHeight) {
+    const footerHeight = footer.scrollHeight;
 
-        footer?.classList.add("fixed");
+
+    const isFixed = footer.classList.contains("fixed");
+
+    if (isFixed) {
+
+        const bodyIsLarger = (bodyHeight > (windowHeight - footerHeight));
+
+        console.log("larger:" + bodyIsLarger);
+
+        if (bodyIsLarger) {
+
+            footer?.classList.remove("fixed");
+
+        }
 
     } else {
 
-        footer?.classList.remove("fixed");
+        const bodyIsSmaller = (bodyHeight < windowHeight);
+
+        console.log("smaller: " + bodyIsSmaller);
+
+        if (bodyIsSmaller) {
+
+            footer?.classList.add("fixed");
+
+        }
 
     }
 

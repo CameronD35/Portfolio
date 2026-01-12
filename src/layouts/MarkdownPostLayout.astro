@@ -5,21 +5,24 @@ const { frontmatter } = Astro.props;
 
 <BaseLayout pageTitle={frontmatter.title}>
 
-    <div class="info">
+    <div class="post-content-container">
+        <div class="info">
 
-        <span><i><b>Written by {frontmatter.author}</b> | Published on: {frontmatter.pubDate.toString().slice(0, 10)}</i></span>
+            <span><i><b>Written by {frontmatter.author}</b> | Published on: {frontmatter.pubDate.toString().slice(0, 10)}</i></span>
+
+        </div>
+
+        <div class="tags">
+
+            {frontmatter.tags.map((tag: string) => 
+                <p class="tag"><a href={`/tags/${tag}`}>{tag}</a></p>
+            )}
+
+        </div>
+
+        <slot />
 
     </div>
-
-    <div class="tags">
-
-        {frontmatter.tags.map((tag: string) => 
-            <p class="tag"><a href={`/tags/${tag}`}>{tag}</a></p>
-        )}
-
-    </div>
-
-    <slot />
 
 </BaseLayout>
 
@@ -74,6 +77,12 @@ const { frontmatter } = Astro.props;
     .title {
 
         margin-top: 0;
+
+    }
+
+    .post-content-container {
+
+        padding: 5%;
 
     }
 

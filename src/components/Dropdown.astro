@@ -10,7 +10,7 @@ import "../styles/global.css"
 const { visible = "false"} = Astro.props;
 ---
 
-<div class="dropdown" data-visible={visible}>
+<div class="dropdown" data-visible={visible} data-open="false">
     <ul>
 
         <li>item 1</li>
@@ -33,6 +33,12 @@ const { visible = "false"} = Astro.props;
     }
 
     [data-visible="false"] {
+
+        display: none;
+
+    }
+
+    [data-open="false"] {
 
         display: none;
 
