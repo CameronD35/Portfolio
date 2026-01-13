@@ -4,22 +4,24 @@ interface Props {
     href?: string;
     title: string;
     isDropdown?: string;
-    clickable?: string;
 
 }
 
-const { href, title, isDropdown = "false", clickable = "true" } = Astro.props;
+const { href, title, isDropdown = "false" } = Astro.props;
 import { Icon } from "astro-icon/components";
 import Dropdown from "./Dropdown.astro";
 ---
+<div class="nav-component">
 
-<a href={href} data-is-dropdown={isDropdown} data-title={title} data-clickable={clickable}>
-    <span class="navLinkTitle">
-        {title}
-    </span>
-    <Icon name="Dropdown_Arrow"/>
-    <Dropdown visible={isDropdown}/>
-</a>
+    <a href={href} data-is-dropdown={isDropdown} data-title={title}>
+        <span class="navLinkTitle">
+            {title}
+        </span>
+        { (isDropdown === "true") && <Icon name="Dropdown_Arrow" class="arrow"/> }
+    </a>
+    { (isDropdown === "true") && <Dropdown/> }
+
+</div>
 
 <style>
 
@@ -33,18 +35,15 @@ import Dropdown from "./Dropdown.astro";
 
     }
 
-    [data-is-dropdown="true"] {
 
-        [data-icon] {
+    .arrow {
 
-            height: 25%;
-            width: auto;
-
-        }
+        height: 0.375em;
+        width: auto;
 
     }
 
-    [data-clickable="false"] {
+    [data-is-dropdown="true"] {
 
         span::after {
 

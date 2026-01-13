@@ -1,21 +1,14 @@
 ---
-interface Props {
-
-    visible?: string;
-
-}
-
 import "../styles/global.css"
-
-const { visible = "false"} = Astro.props;
+import DropdownComponent from "./DropdownComponent.astro";
 ---
 
-<div class="dropdown" data-visible={visible} data-open="false">
+<div class="dropdown" data-open="false">
     <ul>
 
-        <li>item 1</li>
-        <li>item 2</li>
-        <li>item 3</li>
+        <DropdownComponent href="/" title="Item 1"/>
+        <DropdownComponent href="/" title="Item 2"/>
+        <DropdownComponent href="/" title="Item 3"/>
 
     </ul>
 </div>
@@ -32,27 +25,21 @@ const { visible = "false"} = Astro.props;
 
     }
 
-    [data-visible="false"] {
-
-        display: none;
-
-    }
-
     [data-open="false"] {
 
-        display: none;
+            display: flex;
 
     }
 
+    [data-open="true"] {
+
+            display: flex;
+
+    }
 
     ul {
 
         padding: 0;
-
-    }
-
-    li {
-
         list-style-type: none;
         text-align: left;
 

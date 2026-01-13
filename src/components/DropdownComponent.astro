@@ -1,0 +1,31 @@
+---
+interface Props {
+
+    href?: string;
+    title: string;
+
+}
+
+const { href = "/", title } = Astro.props;
+---
+
+<li class="dropdown-component">
+
+    <a href={href} data-title={title}>
+        <span class="dropdown-component-title">
+            {title}
+        </span>
+    </a>    
+
+</li>
+
+<style>
+
+    li {
+
+        list-style-type: none;
+        text-align: left;
+
+    }
+
+</style>
