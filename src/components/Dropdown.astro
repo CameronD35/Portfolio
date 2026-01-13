@@ -17,9 +17,10 @@ import DropdownComponent from "./DropdownComponent.astro";
 
     .dropdown {
 
-        width: 100px;
-        height: 100px;
+        width: 100%;
+        height: auto;
         background-color: var(--custom-dark-brown-t);
+        backdrop-filter: var(--BIG-blur);
         position: absolute;
         top: 100%;
 
@@ -40,8 +41,10 @@ import DropdownComponent from "./DropdownComponent.astro";
     ul {
 
         padding: 0;
+        margin: 0;
         list-style-type: none;
         text-align: left;
+        width: 100%;
 
     }
 

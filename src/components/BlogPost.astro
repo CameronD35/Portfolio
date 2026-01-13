@@ -22,7 +22,6 @@ import "../styles/global.css";
         <div class="card" style={`--bg-image: url(${imageURL})`}>
             <span class="title">{frontmatter.title}</span>
             <span class="desc">{frontmatter.description}</span>
-            <!-- <Image src={frontmatter.image.url} alt={frontmatter.image.alt} width="100" height="100"/> -->
         </div>
 
     </a>
@@ -32,14 +31,15 @@ import "../styles/global.css";
 
     .blog-post-card {
 
-        padding: 2% 0%;
-        max-height: 15%;
+        padding: 2rem 0;
+        /* max-height: 15%; */
 
     }
 
     .blog-post-card-link {
 
         text-decoration: none;
+        position: relative;
 
     }
 
@@ -49,6 +49,7 @@ import "../styles/global.css";
         font-weight: bold;
         color: var(--custom-white);
         transition: 0.5s var(--standard-transition-timing-no-bounce);
+        transform-origin: left;
 
     }
 
@@ -58,13 +59,14 @@ import "../styles/global.css";
         font-weight: normal;
         color: var(--custom-white);
         transition: 0.5s var(--standard-transition-timing-no-bounce);
+        transform-origin: left;
 
     }
 
     .card {
 
         background-color: var(--custom-black-st);
-        padding: 2%;
+        padding: 2rem;
         display: flex;
         flex-direction: column;
         border-radius: 2em;
@@ -76,15 +78,9 @@ import "../styles/global.css";
 
     .card:hover{
 
-        .title {
+        .title, .desc {
 
-            font-size: 2.5em;
-
-        }
-
-        .desc {
-
-            font-size: 1.25em;
+            scale: 1.25;
 
         }
 
@@ -102,6 +98,8 @@ import "../styles/global.css";
         background-size: 150%;
         background-position: center;
         mask: linear-gradient(to left, white 60%, transparent);
+
+        z-index: -1;
 
     }
 

@@ -13,28 +13,30 @@ import Dropdown from "./Dropdown.astro";
 ---
 <div class="nav-component">
 
-    <a href={href} data-is-dropdown={isDropdown} data-title={title}>
+    <a href={href} data-is-dropdown={isDropdown} data-title={title} class="nav-title">
+
         <span class="navLinkTitle">
+
             {title}
+
         </span>
+
         { (isDropdown === "true") && <Icon name="Dropdown_Arrow" class="arrow"/> }
     </a>
+
     { (isDropdown === "true") && <Dropdown/> }
 
 </div>
 
 <style>
 
-    [data-is-dropdown="false"] {
+    .nav-component {
 
-        [data-icon] {
-
-            display: none;
-
-        }
+        position: relative;
+        width: auto;
+        height: auto;
 
     }
-
 
     .arrow {
 
