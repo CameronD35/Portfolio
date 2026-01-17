@@ -32,7 +32,7 @@ import "../styles/global.css";
     .blog-post-card {
 
         padding: 1.5rem 0;
-        /* max-height: 15%; */
+        
 
     }
 
@@ -51,6 +51,8 @@ import "../styles/global.css";
         transition: 0.5s var(--standard-transition-timing-no-bounce);
         transform-origin: left;
 
+        z-index: 1;
+
     }
 
     .desc {
@@ -60,6 +62,8 @@ import "../styles/global.css";
         color: var(--custom-white);
         transition: 0.5s var(--standard-transition-timing-no-bounce);
         transform-origin: left;
+
+        z-index: 1;
 
     }
 
@@ -74,17 +78,18 @@ import "../styles/global.css";
         position: relative;
         background-size: cover;
 
-        z-index: -1;
 
     }
 
-    .card:hover{
+    .blog-post-card:hover{
 
         .title, .desc {
 
             scale: 1.25;
 
         }
+
+        cursor: pointer;
 
     }
 
@@ -100,8 +105,6 @@ import "../styles/global.css";
         background-size: 150%;
         background-position: center;
         mask: linear-gradient(to left, white 60%, transparent);
-
-        z-index: -1;
 
     }
 

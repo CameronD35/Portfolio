@@ -15,7 +15,7 @@ import Dropdown from "./Dropdown.astro";
 
     <a href={href} data-is-dropdown={isDropdown} data-title={title} class="nav-title">
 
-        <span class="navLinkTitle">
+        <span class="nav-link-title">
 
             {title}
 
@@ -50,6 +50,12 @@ import Dropdown from "./Dropdown.astro";
         span::after {
 
             display: none;
+
+        }
+
+        .nav-link-title {
+
+            cursor: default;
 
         }
 
