@@ -2,14 +2,18 @@
 import { defineConfig } from 'astro/config';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
+import mdx from '@astrojs/mdx';
 
 import icon from 'astro-icon';
 
-import mdx from '@astrojs/mdx';
-
 // https://astro.build/config
 export default defineConfig({
-  integrations: [icon(), mdx()],
+  integrations: [icon(), mdx({
+
+    remarkPlugins: [remarkMath],
+    rehypePlugins: [rehypeKatex]
+
+  })],
   markdown: {
     remarkPlugins: [remarkMath],
     rehypePlugins: [rehypeKatex]
