@@ -1,27 +1,44 @@
 ---
 import BaseLayout from "./BaseLayout.astro";
 import 'katex/dist/katex.css';
+import "../styles/global.css"
+import Seperator from "../components/Seperator.astro";
 const { frontmatter } = Astro.props;
 ---
 
 <BaseLayout pageTitle={frontmatter.title}>
 
     <div class="post-content-container">
-        <div class="info">
+        <div class="banner" style={`background-image: url(${frontmatter.image.url})`}>
 
-            <span><i><b>Written by {frontmatter.author}</b> | Published on: {frontmatter.pubDate.toString().slice(0, 10)}</i></span>
+            <div class="info">
+
+                <span class="title">{frontmatter.title}</span>
+                <span class="author">{frontmatter.author}</span>
+
+            </div>
+
+            <div class="date-tags-container">
+
+                <span class="date">{frontmatter.pubDate.toString().slice(0, 10)}</span>
+                
+                <div class="tags">
+                    
+                    <span>Tags: </span>
+                    {frontmatter.tags.map((tag: string) => 
+                        <span class="tag"><a href={`/tags/${tag}`}>{tag}</a></span>
+                    )}
+
+                </div>
+            </div>
 
         </div>
 
-        <div class="tags">
+        <div class="script">
 
-            {frontmatter.tags.map((tag: string) => 
-                <p class="tag"><a href={`/tags/${tag}`}>{tag}</a></p>
-            )}
+            <slot />
 
         </div>
-
-        <slot />
 
     </div>
 
@@ -40,50 +57,100 @@ const { frontmatter } = Astro.props;
         display: flex;
         flex-wrap: wrap;
 
-    }
-
-    .tag {
-
-        margin: 0.25em;
-        border: dotted 1px #a1a1a1;
-        border-radius: .5em;
-        padding: .5em 1em;
-        font-size: 1.15em;
-        background-color: #F8FCFD;
+        align-items: center;
 
     }
 
-    .banner {
+    .tag a {
 
-        padding: 5px;
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
+        color: var(--custom-white);
+
+        font-size: 1em;
+
+        margin: 0 0em 0 0.5em;
+
+        text-decoration: none;
+        font-style: italic;
 
     }
 
-    .banner .banner-img {
+    .info {
 
-        position: absolute;
-        top: 0;
-        left: 0;
+        padding: 1.5em;
 
-        z-index: -2;
-        width: 100%;
-        height: 100%;
+        color: var(--custom-white);
 
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+
+    }
+
+    .date-tags-container {
+
+        padding: 1.5em;
+
+        color: var(--custom-white);
+
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: end;
 
     }
 
     .title {
 
-        margin-top: 0;
+        font-size: 2em;
+        font-weight: 700;
+
+    }
+    .author {
+
+        font-size: 1em;
+        font-style: italic;
+
+    }
+
+    .banner {
+
+        width: 90vw;
+        height: 10em;
+
+        background-position: 0% 0%;
+        background-size: cover;
+        
+        position: relative;
+
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+
+        border-radius: 2em;
+        overflow: hidden;
+
+    }
+
+    .banner::after {
+
+        content: '';
+        position: absolute;
+
+        bottom: 0%;
+
+        height: 100%;
+        width: 100%;
+        background-image: linear-gradient(to top, var(--custom-black) 20%, rgba(0,0,0,0));
 
     }
 
     .post-content-container {
 
         padding: 4em 5em 0em 5em;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
 
     }
 
