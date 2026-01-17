@@ -5,11 +5,11 @@ interface Props {
     width: string;
     spacing?: string;
     color?: string;
-    horizontal?: boolean;
+    horizontal?: string;
 
 }
 
-const { height, width, spacing = "5px", color = "var(--custom-white)", horizontal = false } = Astro.props;
+const { height, width, spacing = "5px", color = "var(--custom-white)", horizontal = "false" } = Astro.props;
 ---
 
 <style define:vars={{height, width, spacing, color}}>

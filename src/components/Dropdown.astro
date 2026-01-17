@@ -1,13 +1,16 @@
 ---
 import "../styles/global.css"
 import DropdownComponent from "./DropdownComponent.astro";
+import Seperator from "./Seperator.astro";
 ---
 
 <div class="dropdown" data-open="false">
     <ul>
 
         <DropdownComponent href="/" title="Item 1"/>
+        <Seperator height="2px" width="5em" color="var(--nav-color)" horizontal="true"/>
         <DropdownComponent href="/" title="Item 2"/>
+        <Seperator height="2px" width="5em" color="var(--nav-color)" horizontal="true"/>
         <DropdownComponent href="/" title="Item 3"/>
 
     </ul>
@@ -19,22 +22,36 @@ import DropdownComponent from "./DropdownComponent.astro";
 
         width: 100%;
         height: auto;
-        background-color: var(--custom-dark-brown-t);
+        background-color: var(--custom-black-t);
         backdrop-filter: var(--BIG-blur);
+        box-shadow: 0px 0px 10px var(--custom-black-t);
         position: absolute;
         top: 100%;
+        border-radius: 0.5em;
+        padding: 1em 0;
+        z-index: 3;
+        transition: 0.5s var(--standard-transition-timing-no-bounce);
+        transform-origin: top;
+
+        ul .seperator {
+
+            opacity: 0.25;
+
+        }
 
     }
 
     [data-open="false"] {
 
             display: flex;
+            scale: 0;
 
     }
 
     [data-open="true"] {
 
             display: flex;
+            scale: 1;
 
     }
 
@@ -43,8 +60,13 @@ import DropdownComponent from "./DropdownComponent.astro";
         padding: 0;
         margin: 0;
         list-style-type: none;
-        text-align: left;
+        text-align: center;
         width: 100%;
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        gap: 1em;
+
 
     }
 

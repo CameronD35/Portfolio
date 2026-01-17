@@ -7,15 +7,16 @@ interface Props {
 }
 
 const { href = "/", title } = Astro.props;
+import "../styles/global.css"
 ---
 
 <li class="dropdown-component">
 
-    <a href={href} data-title={title}>
+    <a href={href} data-title={title} class="dropdown-component-link">
         <span class="dropdown-component-title">
             {title}
         </span>
-    </a>    
+    </a>
 
 </li>
 
@@ -25,7 +26,52 @@ const { href = "/", title } = Astro.props;
 
         list-style-type: none;
         text-align: center;
+        position: relative;
 
+        z-index: 2;
+
+    }
+
+    .dropdown-component:hover {
+
+        .dropdown-component-title::after {
+
+            transform: scaleX(1);
+
+        }
+
+    }
+
+    .dropdown-component-link {
+
+        text-decoration: none;
+
+    }
+
+    .dropdown-component-title {
+
+        color: var(--custom-white);
+        position: relative;
+
+
+    }
+
+    .dropdown-component-title::after {
+
+        content: "";
+        position: absolute;
+
+        height: 2px;
+        width: 110%;
+        background-color: var(--custom-white);
+        bottom: -5px;
+        left: -5%;
+        transform: scaleX(0);
+        border-radius: 2px;
+        transform-origin: center;
+        text-align: center;
+
+        transition: 0.5s var(--standard-transition-timing);
 
     }
 
