@@ -5,6 +5,7 @@ import bgImage from "../images/bg.svg";
 import Signature from "../components/Signature.astro";
 import "../styles/global.css"
 import MajorSection from "../components/MajorSection.astro";
+import Button from "../components/Button.astro";
 
 const pageTitle = "Home Page"
 ---
@@ -15,12 +16,14 @@ const pageTitle = "Home Page"
 
 		<Signature width="80vw" color="var(--custom-white-st)"/>
 
+		<Button msg="Learn more about me!" href="/about" styleFlags={["fixed", "big"]}/>
+
 	</FullWidthSection>
 
-	<MajorSection title="Tutoring" isLeft="false" color="var(--custom-green)"/>
-	<MajorSection title="Software Engineering" isLeft="true" color="var(--custom-brown)"/>
-	<MajorSection title="Graphic Design" isLeft="false" color="var(--custom-tan)"/>
-	<MajorSection title="Photography" isLeft="true" color="var(--custom-dark-brown)"/>
+	<MajorSection title="Tutoring" isLeft="false" color="var(--custom-green)" buttonmsg="See my experience!"/>
+	<MajorSection title="Software Engineering" isLeft="true" color="var(--custom-brown)" buttonmsg="See some of my projects!"/>
+	<MajorSection title="Graphic Design" isLeft="false" color="var(--custom-tan)" buttonmsg="Check out my designs!"/>
+	<MajorSection title="Photography" isLeft="true" color="var(--custom-dark-brown)" buttonmsg="Check out my photos!"/>
 
 </BaseLayout>
 

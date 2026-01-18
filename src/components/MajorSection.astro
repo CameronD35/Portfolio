@@ -1,7 +1,8 @@
 ---
 import FullWidthSection from "./FullWidthSection.astro";
 import PreviewGallery from "./PreviewGallery.astro";
-import '../styles/global.css'
+import Button from "./Button.astro";
+import '../styles/global.css';
 
 interface Props {
 
@@ -9,10 +10,12 @@ interface Props {
     link?: string;
     isLeft?: string;
     color?: string;
+    buttonmsg?: string;
+    href?: string;
 
 }
 
-const { title, link, isLeft = "false", color = "var(--custom-black)" } = Astro.props;
+const { title, link, isLeft = "false", color = "var(--custom-black)", buttonmsg = title, href = "/" } = Astro.props;
 
 ---
 
@@ -28,10 +31,14 @@ const { title, link, isLeft = "false", color = "var(--custom-black)" } = Astro.p
 
         <div class="infoBox">
 
-            <span class="title">{title.toUpperCase()}</span>
-            <span>This is a fire description.</span>
+            <div class="title-subtitle">
 
+                <span class="title">{title.toUpperCase()}</span>
+                <span>This is a fire description.</span>
 
+            </div>
+
+            <Button msg={buttonmsg} href={href} styleFlags={["big"]}/>
 
         </div>
 
@@ -51,6 +58,7 @@ const { title, link, isLeft = "false", color = "var(--custom-black)" } = Astro.p
         display: flex;
         justify-content: center;
         align-items: center;
+        position: relative;
 
     }
 
@@ -67,6 +75,12 @@ const { title, link, isLeft = "false", color = "var(--custom-black)" } = Astro.p
         .title {
 
             text-align: left !important;
+
+        }
+
+        .title-subtitle {
+
+            align-items: start !important;
 
         }
 
@@ -89,6 +103,7 @@ const { title, link, isLeft = "false", color = "var(--custom-black)" } = Astro.p
         flex-direction: column;
         align-items: end;
         justify-content: center;
+        gap: 2em;
 
     }
 
@@ -97,6 +112,15 @@ const { title, link, isLeft = "false", color = "var(--custom-black)" } = Astro.p
         font-family: "Oi", serif;
         font-size: 3em;
         text-align: right;
+
+    }
+
+    .title-subtitle {
+
+        display: flex;
+        flex-direction: column;
+        align-items: end;
+        justify-content: center;
 
     }
     
