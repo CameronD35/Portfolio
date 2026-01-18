@@ -2,16 +2,29 @@
 import "../styles/global.css"
 import DropdownComponent from "./DropdownComponent.astro";
 import Seperator from "./Seperator.astro";
+
+interface Props {
+
+    components: Array<string>
+
+}
+
+const {components} = Astro.props;
+
+console.log(components);
 ---
 
 <div class="dropdown" data-open="false">
     <ul>
 
-        <DropdownComponent href="/" title="Item 1"/>
-        <Seperator height="2px" width="5em" color="var(--nav-color)" horizontal="true" isli="true"/>
-        <DropdownComponent href="/" title="Item 2"/>
-        <Seperator height="2px" width="5em" color="var(--nav-color)" horizontal="true" isli="true"/>
-        <DropdownComponent href="/" title="Item 3"/>
+        {components.map((comp, i) => (
+
+            <>
+            <DropdownComponent href={`/projects/${comp.toLowerCase().replaceAll(' ', '-')}`} title={comp}/>
+            {(i != components.length - 1) && <Seperator height="2px" width="5em" color="var(--nav-color)" horizontal="true" isli="true"/>}
+            </>
+
+        ))}
 
     </ul>
 </div>
@@ -30,7 +43,7 @@ import Seperator from "./Seperator.astro";
         position: absolute;
         top: 100%;
         border-radius: 0.5em;
-        padding: 1em 0;
+        padding: 1em 0.5em;
         z-index: 3;
         transition: 0.5s var(--standard-transition-timing-no-bounce);
         transform-origin: top;

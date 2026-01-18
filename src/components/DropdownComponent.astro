@@ -34,9 +34,9 @@ import "../styles/global.css"
 
     .dropdown-component:hover {
 
-        .dropdown-component-title::after {
+        .dropdown-component-title {
 
-            transform: scaleX(1);
+            color: var(--custom-white)
 
         }
 
@@ -50,13 +50,18 @@ import "../styles/global.css"
 
     .dropdown-component-title {
 
-        color: var(--custom-white);
+        height: auto;
+        width: auto;
+
+        color: var(--custom-white-st);
         position: relative;
+
+        transition-duration: 0.2s;
 
 
     }
 
-    .dropdown-component-title::after {
+    /* .dropdown-component-title::after {
 
         content: "";
         position: absolute;
@@ -73,6 +78,6 @@ import "../styles/global.css"
 
         transition: 0.5s var(--standard-transition-timing);
 
-    }
+    } */
 
 </style>

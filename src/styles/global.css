@@ -157,7 +157,7 @@ h1 {
 
 }
 
-.nav-links a:hover {
+.nav-component:hover {
 
   span::after {
 

@@ -4,12 +4,15 @@ interface Props {
     href?: string;
     title: string;
     isDropdown?: string;
+    dropdownComponents?: Array<string>;
 
 }
 
-const { href, title, isDropdown = "false" } = Astro.props;
+const { href, title, isDropdown = "false", dropdownComponents = [] } = Astro.props;
 import { Icon } from "astro-icon/components";
 import Dropdown from "./Dropdown.astro";
+
+// console.log(dropdownComponents)
 ---
 <div class="nav-component">
 
@@ -24,7 +27,7 @@ import Dropdown from "./Dropdown.astro";
         { (isDropdown === "true") && <Icon name="Dropdown_Arrow" class="arrow"/> }
     </a>
 
-    { (isDropdown === "true") && <Dropdown/> }
+    { (isDropdown === "true") && <Dropdown components={dropdownComponents}/> }
 
 </div>
 
