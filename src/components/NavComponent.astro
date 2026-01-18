@@ -5,12 +5,14 @@ interface Props {
     title: string;
     isDropdown?: string;
     dropdownComponents?: Array<string>;
+    containerName?: string;
 
 }
 
 const { href, title, isDropdown = "false", dropdownComponents = [] } = Astro.props;
 import { Icon } from "astro-icon/components";
 import Dropdown from "./Dropdown.astro";
+import { string } from "astro:schema";
 
 // console.log(dropdownComponents)
 ---
@@ -27,7 +29,7 @@ import Dropdown from "./Dropdown.astro";
         { (isDropdown === "true") && <Icon name="Dropdown_Arrow" class="arrow"/> }
     </a>
 
-    { (isDropdown === "true") && <Dropdown components={dropdownComponents}/> }
+    { (isDropdown === "true") && <Dropdown containerName="skills" components={dropdownComponents}/> }
 
 </div>
 
