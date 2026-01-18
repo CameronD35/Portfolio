@@ -27,25 +27,9 @@ const textCase = "uppercase";
 
 ---
 
-<style is:global define:vars={{skillColor, fontWeight, textCase}}>
-
-        .skill {
-            color: var(--skillColor);
-            font-weight: var(--fontWeight);
-            text-transform: var(--textCase);
-        }
-
-        .aboutMeContentBox {
-
-            padding: 4em 2em 0em 2em;
-
-        }
-
-</style>
-
 <BaseLayout pageTitle={pageTitle}>
 
-    <div class="aboutMeContentBox">
+    <div class="std-content-box" id="about-me-content-box">
         
         <h1>{pageTitle}</h1>
 
@@ -75,3 +59,13 @@ const textCase = "uppercase";
     </div>
 
 </BaseLayout>
+
+<style define:vars={{skillColor, fontWeight, textCase}}>
+
+        .skill {
+            color: var(--skillColor);
+            font-weight: var(--fontWeight);
+            text-transform: var(--textCase);
+        }
+
+</style>

@@ -8,9 +8,9 @@ import Seperator from "./Seperator.astro";
     <ul>
 
         <DropdownComponent href="/" title="Item 1"/>
-        <Seperator height="2px" width="5em" color="var(--nav-color)" horizontal="true"/>
+        <Seperator height="2px" width="5em" color="var(--nav-color)" horizontal="true" isli="true"/>
         <DropdownComponent href="/" title="Item 2"/>
-        <Seperator height="2px" width="5em" color="var(--nav-color)" horizontal="true"/>
+        <Seperator height="2px" width="5em" color="var(--nav-color)" horizontal="true" isli="true"/>
         <DropdownComponent href="/" title="Item 3"/>
 
     </ul>
@@ -19,6 +19,8 @@ import Seperator from "./Seperator.astro";
 <style>
 
     .dropdown {
+
+        backface-visibility: hidden;
 
         width: 100%;
         height: auto;
@@ -39,19 +41,44 @@ import Seperator from "./Seperator.astro";
 
         }
 
+        ul li {
+
+            transition: 0.25s var(--standard-transition-timing-no-bounce);
+            animation-delay: 0.2s;
+
+        }
+
     }
 
     [data-open="false"] {
 
-            display: flex;
-            scale: 0;
+        display: flex;
+        pointer-events: none;
+        transform: translateY(-1em);
+        opacity: 0;
+        filter: var(--BIG-blur);
+
+        ul li {
+
+            scale: 1.2;
+
+        }
 
     }
 
     [data-open="true"] {
 
-            display: flex;
+        display: flex;
+        pointer-events: all;
+        transform: translateY(0);
+        opacity: 1;
+        filter: none;
+
+        ul li {
+
             scale: 1;
+
+        }
 
     }
 
