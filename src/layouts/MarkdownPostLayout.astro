@@ -24,11 +24,10 @@ const { frontmatter } = Astro.props;
                 
                 <div class="tags">
                     
-                    <span>Tags: </span>
-                    {frontmatter.tags.map((tag: string) => 
+                    <span>Tags: {frontmatter.tags.join(", ")}</span>
+                    <!-- {frontmatter.tags.map((tag: string) => 
                         <span class="tag"><a href={`/tags/${tag}`}>{tag}</a></span>
-                    )}
-
+                    )} -->
                 </div>
             </div>
 
@@ -77,18 +76,21 @@ const { frontmatter } = Astro.props;
     .info {
 
         padding: 1.5em;
+        max-width: 50%;
 
         color: var(--custom-white);
 
         z-index: 1;
         display: flex;
         flex-direction: column;
+        cursor: default;
 
     }
 
     .date-tags-container {
 
         padding: 1.5em;
+        max-width: 50%;
 
         color: var(--custom-white);
 
@@ -96,6 +98,8 @@ const { frontmatter } = Astro.props;
         display: flex;
         flex-direction: column;
         align-items: end;
+        text-align: right;
+        cursor: default;
 
     }
 
@@ -158,6 +162,13 @@ const { frontmatter } = Astro.props;
 
         padding-left: 8em;
         padding-right: 8em;
+
+    }
+
+    .tags {
+
+        display: flex;
+        justify-content: right;
 
     }
 
