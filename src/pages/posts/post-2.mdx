@@ -40,7 +40,7 @@ But now we have to confine $S$ to some domain (like maybe $S \in [-100, 100]$). 
 and had a rating of $S = 6700$ while every team was lacking with $S = 37$ (or something like that)? Well, firstly, we should investigate this discrepancy and ensure there isn't
 a crazy bias (but let's not ruin the example).
 
-However, and it's not obvious at first, but think about it. If we were given a skill rating of $S = 0$, what would this mean for our probability, $P$? Chances are, you are thinking
+It's not obvious at first, but think about it. If we were given a skill rating of $S = 0$, what would this mean for our probability, $P$? Chances are, you are thinking
 that $P = 0.5$; that would be correct. However, this would mean there is a 50/50 chance and is equivalent to receiving no rating at all. One additional piece of info such as $S = \pm 1$
 would make a significant difference.
 
@@ -78,7 +78,7 @@ the purple line is derived, so I won't show that here (maybe if I learn that lat
 However, the purple graph is represented by:
 
 $$
-P_{adj}=\frac{1}{1+e^{-s}} \implies \frac{dP_{adj}}{dS_{adj}} = \frac{e^{-s}}{(1+e^{-s})^2} = \frac{1}{1+e^{-s}}(\frac{e^{-s}}{1+e^{-s}}) = P_{adj} (1-P_{adj})
+P_{adj}=\frac{1}{1+e^{-S_{adj}}} \implies \frac{dP_{adj}}{dS_{adj}} = \frac{e^{-S_{adj}}}{(1+e^{-S_{adj}})^2} = \frac{1}{1+e^{-S_{adj}}}\left(\frac{e^{-S_{adj}}}{1+e^{-S_{adj}}}\right) = P_{adj} (1-P_{adj})
 $$
 
 '$_{adj}$' stands for *adjusted*.

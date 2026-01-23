@@ -46,6 +46,10 @@ html {
 
 --nav-color: rgba(226, 226, 226, 1);
 
+--footer-color: rgba(31, 23, 6, 1);
+--footer-accent: rgba(88, 80, 71, 1);
+--footer-accent-hover: rgba(226, 226, 226, 1);
+
 }
 
 body {

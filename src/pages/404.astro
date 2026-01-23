@@ -1,0 +1,64 @@
+---
+import "../styles/global.css"
+
+
+---
+
+<div class="error-container">
+
+    <span class="error-msg">Did you just find a secret???</span>
+    <span class="error-submsg">(No you didn't, sorry)</span>
+
+    <a href="/" class="button-link">
+
+        <div class="button">It would be best if you went back home now :[</div>
+
+    </a>
+
+
+</div>
+
+<style>
+
+    .error-container{
+
+        width: 100vw;
+        height: 100vh;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+
+    }
+
+    .error-msg {
+
+        font-size: 3em;
+        font-weight: 900;
+    }
+
+    .error-submsg {
+
+        font-size: 1.5em;
+        font-style: italic;
+        padding-bottom: 2em;
+
+    }
+
+    .button {
+
+        padding: 1em;
+        border-radius: 1em;
+        background-color: var(--custom-dark-brown);
+        color: var(--custom-white);
+
+    }
+
+    .button-link {
+
+        text-decoration: none;
+
+    }
+
+</style>
