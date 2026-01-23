@@ -17,17 +17,24 @@ const styleString = styleFlags?.join(" ");
 
 ---
 
-<div class={`button ${styleString}`}>
+<a href={href} class={`button ${styleString}`}>
 
-    <a href={href}>
+    <div>
 
-        <span>{msg}</span>
+        <span class="text">{msg}</span>
 
-    </a>
+    </div>
 
-</div>
+</a>
 
 <style>
+
+    a {
+
+        text-decoration: none;
+        color: var(--custom-black-st);
+
+    }
 
     .button {
 
@@ -45,16 +52,6 @@ const styleString = styleFlags?.join(" ");
         align-items: center;
 
         transition: 0.5s var(--standard-transition-timing-no-bounce);
-
-    }
-
-    .button a {
-
-        height: 100%;
-        width: 100%;
-
-        text-decoration: none;
-        color: var(--custom-black-st);
 
     }
 
@@ -94,7 +91,6 @@ const styleString = styleFlags?.join(" ");
     .fixed {
 
         position: absolute;
-
         bottom: 10%;
 
     }
@@ -102,15 +98,12 @@ const styleString = styleFlags?.join(" ");
 
     .big {
 
-        font-size: 1.5em;
-        font-weight: 700;
+        .text {
 
-    }
+            font-size: 1.5em;
+            font-weight: 700;
 
-    span {
-
-        height: 100%;
-        width: 100%;
+        }
 
     }
 

@@ -2,9 +2,9 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ProjectCard from '../../components/ProjectCard.astro'
 
-const allProjects = Object.values(import.meta.glob(['../projects/*.md', '../projects/*.mdx'], { eager: true }));
+const allProjects = Object.values(import.meta.glob(['../experience/*.md', '../experience/*.mdx'], { eager: true }));
 console.log("projects: ", allProjects);
-const pageTitle = "Projects";
+const pageTitle = "Experience";
 ---
 
 <BaseLayout pageTitle={pageTitle}>
@@ -16,7 +16,7 @@ const pageTitle = "Projects";
 	</div>
 
     <div class="project-content-box">
-        <h1>Projects</h1>
+        <h1>Experience</h1>
 
         <ul class="project-list">
             
@@ -25,6 +25,7 @@ const pageTitle = "Projects";
         </ul>
 
     </div>
+    
 </BaseLayout>
 
 <style>
