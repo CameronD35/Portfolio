@@ -6,20 +6,18 @@ const pageTitle = "About Me";
 
 const identity = {
 
-    firstName: "Cameron",
+    name: "Cameron DeMartini",
     country: "United States",
     occupation: "Mathematics & Physics Tutor",
     hobbies: ["Graphic Design", "Programming", "RockSat"]
 
 }
 
-const skills = ["JS/CSS/HTML", "C/C++", "Java", "Single- and Multi-Variable Calculus"];
+const skills = ["JS/CSS/HTML", "C/C++", "Java", "Calculus", "Differential Equations", "Linear Algebra", "Mechanics", "Electromagnetism", "Project Management"];
 
 const happy = true;
 const finished = false;
 const goal = 3;
-
-const skillColor = "crimson";
 
 const fontWeight = "bold";
 
@@ -33,23 +31,29 @@ const textCase = "uppercase";
         
         <h1>{pageTitle}</h1>
 
-        <p>Here are some facts about me:</p>
+        <div class="name-section">
+            <span class="pre-name">My name is</span>
 
-        <ul>
+            <span class="name">
+                {identity.name}
+            </span>
+        </div>
 
-            <li>My name is {identity.firstName}</li>
-            <li>My live in {identity.country} and I work as a {identity.occupation}</li>
+        <div class="skills-box">
 
-            { identity.hobbies.length >= 2 &&
-                <li>Two of my favorite hobbies are: {identity.hobbies[0]} and {identity.hobbies[1]}</li>
-            }
+            <div class="skill-row" id="row-1">
+                {skills.map((skill) => <span class="skill">{skill}</span>)}
+            </div>
 
-        </ul>
+            <div class="skill-row" id="row-2">
+                {skills.map((skill) => <span class="skill">{skill}</span>)}
+            </div>
 
-        <p>My skills are:</p>
-        <ul>
-            {skills.map((skill) => <li class="skill">{skill}</li>)}
-        </ul>
+            <div class="skill-row" id="row-3">
+                {skills.map((skill) => <span class="skill">{skill}</span>)}
+            </div>
+
+        </div>
 
         {happy && <p>I am not happy AT ALL to be learning Astro :(</p>}
         {finished && <p>I finished this tutorial!</p>}
@@ -60,12 +64,77 @@ const textCase = "uppercase";
 
 </BaseLayout>
 
-<style define:vars={{skillColor, fontWeight, textCase}}>
+<style define:vars={{}}>
 
-        .skill {
-            color: var(--skillColor);
-            font-weight: var(--fontWeight);
-            text-transform: var(--textCase);
+    .skill {
+        font-size: 2em;
+        font-weight: 900;
+        text-transform: uppercase;
+    }
+
+    .skills-box {
+
+        mask: linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,1) 20%, rgba(0,0,0,1) 80%, rgba(0,0,0,0) 100%);
+
+    }
+
+    #row-1 .skill {
+
+        animation-name: move-left;
+        animation-duration: 3s;
+
+    }
+
+    #row-3 .skill {
+
+        transform: translateX(2em);
+
+    }
+
+    @keyframes move-left {
+
+        0% {
+
+            transform: translateX(0%);
+
         }
+
+        100% {
+
+            transform: translateX(-50%);
+
+        }
+
+    }
+
+    .skill-row {
+
+        display: flex;
+        gap: 2em;
+        text-wrap-mode: nowrap;
+        justify-content: center;
+
+        overflow: hidden;
+
+    }
+
+    .name-section {
+
+        display: flex;
+        flex-direction: column;
+
+    }
+
+    .pre-name{
+
+        font-size: 1.5em;
+
+    }
+
+    .name {
+        font-size: 3em;
+        font-weight: 900;
+
+    }
 
 </style>

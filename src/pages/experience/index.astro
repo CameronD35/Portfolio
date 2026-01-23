@@ -2,15 +2,9 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ProjectCard from '../../components/ProjectCard.astro';
 import YearBox from '../../components/YearBox.astro';
+import Overlay from '../../components/Overlay.astro';
 
 const allProjects = Object.values(import.meta.glob(['../experience/*.md', '../experience/*.mdx'], { eager: true }));
-console.log("projects: ", allProjects);
-
-// allProjects.sort((a: any, b: any) => {
-
-//     return b.frontmatter.year - a.frontmatter.year;
-
-// });
 
 let projectsByYears: Record<string, any[]> = {};
 
@@ -34,18 +28,14 @@ let sortedProjects: [string, any[]][] = sortedYears.map(
 
 );
 
-console.log(sortedProjects);
+// console.log(sortedProjects);
 
 const pageTitle = "Experience";
 ---
 
 <BaseLayout pageTitle={pageTitle}>
 
-	<div class="overlay">
-
-
-		
-	</div>
+	<Overlay/>
 
     <div class="std-content-box">
 
@@ -57,3 +47,13 @@ const pageTitle = "Experience";
     </div>
 
 </BaseLayout>
+
+<script>
+
+    import {overlayManage, clickResponse} from "../../scripts/overlayManage";
+
+    window.addEventListener("click", clickResponse);
+
+    overlayManage();
+
+</script>

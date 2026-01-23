@@ -50,6 +50,8 @@ html {
 --footer-accent: rgba(88, 80, 71, 1);
 --footer-accent-hover: rgba(226, 226, 226, 1);
 
+--overlay-bg-color: rgba(10,10,10,0.7);
+
 }
 
 body {

@@ -1,12 +1,10 @@
-export default function projectCardAnimation() {
+export default function projectCardAnimation(card) {
 
     const projectCards = document.querySelectorAll(".project-card");
 
     projectCards.forEach((card) => {
 
         card.addEventListener("mouseenter", () => {
-
-            console.log("mouse entered")
 
             for (let i = 1; i <= 3; i++) {
                 card.style.setProperty(`--secondary-${i}-x`, `${Math.floor(Math.random() * 101)}%`);
@@ -20,7 +18,5 @@ export default function projectCardAnimation() {
         });
 
     });
-
-    console.log("attached!")
 
 }
