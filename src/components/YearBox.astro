@@ -1,0 +1,34 @@
+---
+import Year from "./Year.astro"
+import ProjectCard from "./ProjectCard.astro"
+
+interface Props {
+
+    experiences: any[];
+    year: string;
+
+}
+
+const { experiences, year } = Astro.props;
+---
+
+<Year year={year}/>
+
+<ul class="experience-list">
+    
+    {experiences?.map((project: any) => <ProjectCard frontmatter={project.frontmatter}/>)}
+
+</ul>
+<style>
+
+    .experience-list {
+        
+        list-style-type: none;
+        display: flex;
+        flex-direction: column;
+        padding: 0;
+        display: flow-root;
+
+    }
+
+</style>

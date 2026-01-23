@@ -23,10 +23,12 @@ function setHeaderColor() {
     if (currentPath !== "/") {
 
         document.documentElement.style.setProperty("--nav-color", "var(--custom-dark-brown)");
+        document.querySelector("nav").style.setProperty("background-image", "linear-gradient(to bottom, var(--custom-white-t), rgba(255,255,255,0) 80%)");
 
     } else {
 
         document.documentElement.style.setProperty("--nav-color", "var(--custom-white)");
+        document.querySelector("nav").style.setProperty("background-image", "none");
 
     }
 

@@ -1,9 +1,41 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import ProjectCard from '../../components/ProjectCard.astro'
+import ProjectCard from '../../components/ProjectCard.astro';
+import YearBox from '../../components/YearBox.astro';
 
 const allProjects = Object.values(import.meta.glob(['../experience/*.md', '../experience/*.mdx'], { eager: true }));
 console.log("projects: ", allProjects);
+
+// allProjects.sort((a: any, b: any) => {
+
+//     return b.frontmatter.year - a.frontmatter.year;
+
+// });
+
+let projectsByYears: Record<string, any[]> = {};
+
+allProjects.forEach((project: any, i) => {
+
+    const year = String(project.frontmatter?.year);
+
+    if (projectsByYears[year]) { projectsByYears[year].push(project); }
+
+    else { projectsByYears[year] = [project]; }
+
+});
+
+const sortedYears = Object.keys(projectsByYears).sort((a,b) => Number(b) - Number(a));
+
+// console.log(sortedYears);
+
+let sortedProjects: [string, any[]][] = sortedYears.map(
+
+    year => [year, projectsByYears[year]]
+
+);
+
+console.log(sortedProjects);
+
 const pageTitle = "Experience";
 ---
 
@@ -15,40 +47,13 @@ const pageTitle = "Experience";
 		
 	</div>
 
-    <div class="project-content-box">
+    <div class="std-content-box">
+
         <h1>Experience</h1>
 
-        <ul class="project-list">
-            
-            {allProjects.map((project: any) => <ProjectCard frontmatter={project.frontmatter}/>)}
+        {sortedProjects.map(([year, projects]) => <YearBox year={year} experiences={projects}/>)}
 
-        </ul>
 
     </div>
-    
+
 </BaseLayout>
-
-<style>
-
-    .project-content-box {
-
-        padding: 4em 2em 0em 2em;
-
-    }
-
-    .project-content-box ul {
-
-        list-style-type: none;
-        padding: 0;
-        display: flow-root;
-
-    }
-
-    .project-list {
-
-        display: flex;
-        flex-direction: column;
-
-    }
-
-</style>

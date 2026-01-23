@@ -9,7 +9,7 @@ const { frontmatter } = Astro.props;
 <BaseLayout pageTitle={frontmatter.title}>
 
     <div class="post-content-container">
-        <div class="banner" style={`background-image: url(${frontmatter.image.url})`}>
+        <div class="banner" style={`background-image: url(../../src/images/${frontmatter.image.url})`}>
 
             <div class="info">
 

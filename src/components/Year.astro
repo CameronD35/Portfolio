@@ -1,0 +1,36 @@
+---
+import "../styles/global.css"
+
+const { year } = Astro.props;
+---
+
+<div class="year">
+
+    <span class="text">{year}</span>
+
+</div>
+
+<style>
+
+
+    .text {
+
+        font-weight: 900;
+        font-size: 10em;
+        color: var(--custom-black-t);
+        line-height: 0.8;
+
+        padding: 0;
+    }
+
+    .year {
+    
+        height: auto;
+        mask: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 70%);
+        overflow: hidden;
+        margin-bottom: -4em;
+
+    }
+
+
+</style>
