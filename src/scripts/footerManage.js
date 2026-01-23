@@ -58,7 +58,7 @@ function setFooterColor() {
 
         document.documentElement.style.setProperty("--footer-color", "var(--custom-white)");
         document.documentElement.style.setProperty("--footer-accent", "var(--custom-black-st)");
-        document.documentElement.style.setProperty("--footer-accent", "var(--custom-black)");
+        document.documentElement.style.setProperty("--footer-accent-hover", "var(--custom-black)");
 
     }
 
