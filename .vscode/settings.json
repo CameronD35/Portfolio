@@ -8,5 +8,9 @@
         "ritvikmath",
         "Seperator",
         "softmax"
-    ]
+    ],
+    "files.associations": {
+        "*.mdx": "markdown"
+    }
+
 }
