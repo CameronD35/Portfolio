@@ -25,7 +25,7 @@ const { title, link, isLeft = "false", color = "var(--custom-black)", buttonmsg 
 
         <div class="galleryBox">
 
-            <PreviewGallery/>
+            <PreviewGallery images={["img1", "img2", "img3"]} width="400px" height="600px"/>
 
         </div>
 
@@ -91,6 +91,10 @@ const { title, link, isLeft = "false", color = "var(--custom-black)", buttonmsg 
         /* background-color: green; */
         width: 40%;
         height: 100%;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
 
     }
 
