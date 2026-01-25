@@ -8,13 +8,13 @@ import { Image } from 'astro:assets';
 
 const { frontmatter } = Astro.props;
 
-const images = import.meta.glob<{default: ImageMetadata}>('/src/assets/*.{jpeg,jpg,png,gif}');
+const images = import.meta.glob<{default: ImageMetadata}>('/src/assets/blogs/*.{jpeg,jpg,png,gif}');
 
 const image = frontmatter?.image.url;
 
 console.log(image)
 
-if (!images[image]) throw new Error(`"${image}" does not exist in glob: "src/assets/*.{jpeg,jpg,png,gif}"`);
+if (!images[image]) throw new Error(`"${image}" does not exist in glob: "src/assets/blogs/*.{jpeg,jpg,png,gif}"`);
 
 const postDate = new Date(frontmatter.pubDate);
 

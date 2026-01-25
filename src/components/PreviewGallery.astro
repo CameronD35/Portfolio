@@ -1,32 +1,61 @@
 ---
+import type { ImageMetadata } from "astro";
+import "../styles/global.css";
+import { Image } from 'astro:assets';
+
 interface Props {
 
-    images: string[];
+    imageNames: string[];
+    imageDirectory?: string;
     width?: string;
     height?: string;
 
 }
 
-const { images, width = "20%", height = "20%"} = Astro.props;
+const { imageNames, imageDirectory = "photography", width = "20%", height = "20%"} = Astro.props;
 
-import "../styles/global.css"
+const images = import.meta.glob<{default: ImageMetadata}>('/src/assets/**/*.{jpeg,jpg,png,gif}');
+
+console.log(images);
+
+let relevantImages = [];
+
+imageNames.forEach((name, i) => {
+
+    imageNames[i] = `/src/assets/${imageDirectory}/${name}`
+
+    console.log(imageNames[i]);
+
+});
+
+// const image = "first-blog-banner.jpg"
+
+// console.log(image)
+
+// if (!images[image]) throw new Error(`"${image}" does not exist in glob: "src/assets/blogs/*.{jpeg,jpg,png,gif}"`);
 ---
 
 <div class="photo-gallery">
 
     <div class="image-box">
 
-        {images.map((image) =>
-            <div class="image">
+        {imageNames.map((image) =>
 
-                {image}
-        
-            </div>
+                <Image src={images[image]()} alt={"litty"} class="image"/>
+
         )}
 
     </div>
 
 </div>
+
+<script>
+
+    import { previewAnimation } from "../scripts/previewManage";
+
+    previewAnimation();
+
+</script>
 
 
 <style define:vars={{width, height}}>
@@ -49,43 +78,35 @@ import "../styles/global.css"
 
     }
 
-    .image-box:hover{
 
-        .image:nth-child(1), .image:nth-child(3) {
+    .image-box:has(.image:hover) .image:nth-child(1) {
+        transform: translateX(-20%) translateY(-20%) rotate(-3deg);
+        scale: 0.72;
+        opacity: 0.8;
+    }
 
-            scale: 0.72;
-            offset-distance: 100%;
-            opacity: 0.8;
+    .image-box:has(.image:hover) .image:nth-child(3) {
+        transform: translateX(20%) translateY(-20%) rotate(3deg);
+        scale: 0.72;
+        opacity: 0.8;
+    }
 
-        }
-
-        .image:nth-child(1) {
-
-            transform: translateX(-20%) translateY(-20%) rotate(-3deg);
-
-        }
-
-        .image:nth-child(3) {
-
-            transform: translateX(20%) translateY(-20%) rotate(3deg);
-
-        }
-
-        .image:nth-child(2) {
-
-            scale: 1.2;
-            transform: translateY(-20%);
-
-        }
-
+    .image-box:has(.image:hover) .image:nth-child(2) {
+        scale: 1.2;
+        transform: translateY(-20%);
     }
 
     .image {
 
         border-radius: 1em;
         position: absolute;
+        background-color: var(--custom-black-t);
 
         transition: 0.4s var(--standard-transition-timing);
+
+        aspect-ratio: 16 / 9;
+        width: calc(var(--width) * 0.5);
+        height: calc(var(--height) * 0.5);
 
     }
     
@@ -100,34 +121,23 @@ import "../styles/global.css"
 
     .image:nth-child(1) {
 
-        background-color: chartreuse;
         left: 5%;
 
     }
 
     .image:nth-child(2) {
 
-        background-color: blue;
         right: 25%;
         top: 25%;
 
         z-index: 1;
+        box-shadow: 0px 0px 10px var(--custom-black-t);
 
     }
 
     .image:nth-child(3) {
 
-        background-color: brown;
         right: 5%;
-
-    }
-
-    .image {
-
-        width: 50%;
-        height: 50%;
-        
-        background-color: aqua;
 
     }
 
