@@ -1,8 +1,8 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import ProjectCard from '../../components/ProjectCard.astro';
 import YearBox from '../../components/YearBox.astro';
-import "../../styles/global.css"
+import { Icon } from "astro-icon/components";
+import "../../styles/global.css";
 
 const allProjects = Object.values(import.meta.glob(['../../content/experiences/*.md', '../../content/experiences/*.mdx'], { eager: true }));
 
@@ -63,6 +63,18 @@ const pageTitle = "Experience";
 
                 </div>
 
+                <div class="back-arrow-container">
+
+                    <Icon name="Dropdown_Arrow" class="back-arrow"/>
+
+                </div>
+
+                <div class="msg-container">
+
+                    <span>Hover on the left side to exit!</span>
+
+                </div>
+
             </div>
 
         </div>
@@ -73,6 +85,8 @@ const pageTitle = "Experience";
 
 <script>
 
+    import debounce from 'lodash/debounce';
+
     const sectionContainer = document.querySelector(".section-container");
 
     const detailsSection = document.querySelector(".details-section") as HTMLElement;
@@ -81,9 +95,50 @@ const pageTitle = "Experience";
 
     const cards = document.querySelectorAll(".card");
 
-    console.log(cards);
+    const backArrowContainer = document.querySelector(".back-arrow-container") as HTMLElement;
 
-    cards.forEach((card) => {
+    const msgContainer = document.querySelector(".msg-container") as HTMLElement;
+
+    cards.forEach(addDetailHandlers);
+
+    detailsSection?.addEventListener("mousemove", debounce(checkMousePosition, 25));
+
+    backArrowContainer?.addEventListener("click", closeDetails);
+
+    window.addEventListener("scroll", debounce(moveDetails, 50));
+
+    function checkMousePosition(evt: any) {
+
+        console.log(evt.offsetX);
+
+        if (evt.offsetX <= 100) { backArrowContainer.style.transform = 'translateX(0)'; }
+
+        else { backArrowContainer.style.transform = 'translateX(-100%)'; }
+
+    }
+
+    function moveDetails() {
+
+        const scrollDistance = window.scrollY;
+
+        detailsSection.style.transform = `translateX(200%) translateY(${scrollDistance}px)`;
+
+    }
+
+    function closeDetails() {
+
+        sectionContainer?.setAttribute("data-details", "false");
+        document.body.style.overflow = '';
+
+        document.querySelector("footer")!.style.opacity = "1";
+
+        msgContainer.classList.remove("fade-in");
+
+        experienceContentBox.style.overflow = "hidden";
+
+    }
+
+    function addDetailHandlers(card: any) {
 
         card.addEventListener("click", () => {
 
@@ -93,7 +148,11 @@ const pageTitle = "Experience";
 
                 elem.setAttribute("hidden", "");
 
-            })
+            });
+
+            msgContainer.classList.add("fade-in");
+
+            backArrowContainer.style.transform = 'translateX(-100%)';
 
             console.log(targetFileName);
 
@@ -110,37 +169,123 @@ const pageTitle = "Experience";
 
         });
 
-    })
-
-    detailsSection?.addEventListener("click", () => {
-
-        sectionContainer?.setAttribute("data-details", "false");
-        document.body.style.overflow = '';
-
-        document.querySelector("footer")!.style.opacity = "1";
-
-        experienceContentBox.style.overflow = "hidden";
-
-
-    });
-
-    window.addEventListener("scroll", () => {
-
-        // const footer = document.querySelector('.footer') as HTMLElement;
-
-        // const footerHeight = footer.scrollHeight;
-
-        const scrollDistance = window.scrollY;
-
-        // console.log(scrollDistance - footerHeight, document.body.scrollHeight);
-
-        detailsSection.style.transform = `translateX(200%) translateY(${scrollDistance}px)`;
-
-    });
+    }
 
 </script>
 
 <style>
+
+    .msg-container {
+
+        position: absolute;
+        width: 300px;
+        height: 100px;
+        top: calc(50% - 50px);
+        left: calc(50% - 150px);
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        pointer-events: none;
+        scale: 2;
+        filter: none;
+
+    }
+
+    .fade-in {
+
+        animation: opening-msg-animation 2s forwards;
+
+    }
+
+    .msg-container span {
+
+        font-weight: 900;
+        color: var(--custom-white);
+        font-size: 1em;
+
+    }
+
+    @keyframes opening-msg-animation {
+
+        0% {
+
+            opacity: 0;
+            scale: 0;
+            filter: var(--BIG-blur);
+
+
+        }
+
+        40% {
+
+            opacity: 1;
+            scale: 2;
+            filter: none;
+
+        }
+
+        80% {
+
+            opacity: 1;
+            scale: 2;
+            filter: none;
+
+        }
+
+        100% {
+
+            opacity: 0;
+            scale: 3;
+            filter: var(--BIG-blur);
+
+        }
+
+    }
+
+    .back-arrow-container {
+
+        position: absolute;
+        height: 100%;
+        width: 20%;
+        top: 0;
+        left: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        transition: 0.4s var(--standard-transition-timing-no-bounce);
+            
+    }
+
+    .back-arrow-container:hover {
+
+        cursor: pointer;
+
+    }
+
+    .back-arrow-container::after {
+
+        content: '';
+        position: absolute;
+        background-color: var(--custom-black-t);
+        width: 100%;
+        height: 100%;
+
+        backdrop-filter: var(--BIG-blur);
+        mask: linear-gradient(to right, rgba(0,0,0,1) 0%, rgba(0,0,0,0));
+
+    }
+
+    .back-arrow {
+
+        transform: rotate(90deg);
+        z-index: 1;
+        color: var(--custom-white);
+        height: 2em;
+
+    }
 
     .experience-content-box {
 
@@ -193,6 +338,7 @@ const pageTitle = "Experience";
         padding: 4em;
 
         background-color: red;
+        overflow: hidden;
 
     }
 
