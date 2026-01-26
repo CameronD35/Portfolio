@@ -204,30 +204,6 @@ const logoExists = fs.existsSync(
 
     }
 
-    .project-card:has(card:hover) {
-
-        [data-icon] {
-
-            scale: 1.25;
-            filter: drop-shadow(0px 0px 5px var(--primary))
-
-        }
-
-        .desc, .title {
-
-            scale: 1.25;
-            text-shadow: 0px 0px 5px var(--primary);
-
-        }
-
-        .arrow {
-
-            transform: translateX(0);
-
-        }
-
-    }
-
     .card:hover {
 
         cursor: pointer;
@@ -235,6 +211,20 @@ const logoExists = fs.existsSync(
         .arrow {
 
             animation: card-hover-begin 0.8s var(--standard-transition-timing-no-bounce) forwards;
+
+        }
+
+        [data-icon] {
+
+            scale: 1.15;
+            filter: drop-shadow(0px 0px 5px var(--primary))
+
+        }
+
+        .desc, .title {
+
+            scale: 1.15;
+            text-shadow: 0px 0px 5px var(--primary);
 
         }
 
@@ -309,4 +299,3 @@ const logoExists = fs.existsSync(
     @property --quaternary-3-y   { syntax: '<percentage>'; initial-value: 24%; inherits: true; }
 
 </style>
-
