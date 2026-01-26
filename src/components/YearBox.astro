@@ -10,15 +10,21 @@ interface Props {
 }
 
 const { experiences, year } = Astro.props;
+
 ---
+<div class="year-box">
 
-<Year year={year}/>
+    <Year year={year}/>
 
-<ul class="experience-list">
-    
-    {experiences?.map((project: any) => <ProjectCard frontmatter={project.frontmatter}/>)}
+    <ul class="experience-list">
+        
+        {experiences?.map((project: any, i) => <ProjectCard frontmatter={project.frontmatter} fileName={experiences[i].url.split('/')[3].slice(0, -4)}/>)}
+        
+    </ul>
 
-</ul>
+</div>
+
+
 <style>
 
     .experience-list {
@@ -30,5 +36,17 @@ const { experiences, year } = Astro.props;
         display: flow-root;
 
     }
+
+    .year-box:has(.experience-list:hover) {
+
+        .text {
+
+            opacity: 1;
+
+        }
+9
+    }
+
+
 
 </style>

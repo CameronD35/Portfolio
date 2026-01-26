@@ -2,14 +2,11 @@ function setFooterFixing() {
 
     const bodyHeight = document.body.scrollHeight;
 
-    const contentHeight = document.querySelector('.content')?.scrollHeight;
-
     const windowHeight = window.innerHeight;
 
     const footer = document.querySelector('.footer');
 
     const footerHeight = footer.scrollHeight;
-
 
     const isFixed = footer.classList.contains("fixed");
 
