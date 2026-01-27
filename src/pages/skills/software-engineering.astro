@@ -1,16 +1,121 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import "../../styles/global.css"
+import RepositoryCard from '../../components/RepositoryCard.astro';
+import "../../styles/global.css";
+
+type Repository = {
+
+	name: string;
+	description: string;
+	html_url: string;
+	updated_at: string;
+	fork: boolean;
+
+}
 
 const pageTitle = "Software Engineering";
+const githubUsername = "CameronD35";
+
+const res = await fetch(`https://api.github.com/users/${githubUsername}/repos?sort=updated?per_page=100`, {
+
+	headers: {
+
+		Authorization: `token ${import.meta.env.GITHUB_TOKEN}`,
+		'X-GitHub-Api-Version': '2022-11-28',
+
+	},
+	
+});
+
+if (!res.ok) { throw new Error("GITHUB AIN'T WORKING BRUH"); }
+
+const repositories = await res.json();
+
 ---
 
 <BaseLayout pageTitle={pageTitle}>
+
+	<div class="grid"></div>
 	
 	<div class="std-content-box">
 
 		<h1>Software Engineering</h1>
+		<h3>Click on any of the repos to view them on GitHub!</h3>
+
+		<ul class="repo-list">
+
+			{repositories.map((repo: Repository) =>
+
+				<RepositoryCard name={repo.name} description={(repo.description == null)? "I was boring and didn't add a description >:[" : repo.description} url={repo.html_url} updated_at={repo.updated_at} fork={repo.fork}/>
+
+			)}
+
+
+		</ul>
+
+		<p>As you can tell, I had <b>WAY</b> to much fun on this page.</p>
 
 	</div>
 	
 </BaseLayout>
+
+<script>
+
+	document.documentElement.style.setProperty("--nav-color", "#C898FD");
+	document.documentElement.style.setProperty("--nav-bg-color", "none");
+	document.documentElement.style.setProperty("--footer-color", "#000000");
+	document.documentElement.style.setProperty("--footer-accent", "#C898FDAA");
+	document.documentElement.style.setProperty("--footer-accent-hover", "#C898FDFF");
+
+
+</script>
+
+<style>
+
+	
+	body {
+
+        background-image: linear-gradient(to bottom, #160048, #000000);
+
+    }
+
+	.grid {
+
+		content: '';
+		position: fixed;
+		background-size: 40px 40px;
+		inset: -10px;
+		background-image:
+			linear-gradient(to right, rgba(255,255,255,0.1) 1px, transparent 1px),
+			linear-gradient(to bottom, rgba(255,255,255,0.1) 1px, transparent 1px);
+		
+		z-index: 0;
+
+		pointer-events: none;
+
+	}
+
+	p {
+
+		font-size: 0.5em;
+
+	}
+
+	h1, h3, p {
+
+		color: var(--custom-white);
+
+	}
+
+    .repo-list {
+
+        display: flex;
+        flex-direction: column;
+		list-style-type: none;
+        padding: 0;
+        display: flow-root;
+
+    }
+
+
+</style>

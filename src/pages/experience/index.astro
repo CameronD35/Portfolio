@@ -7,16 +7,23 @@ import "../../styles/global.css";
 const allProjects = Object.values(import.meta.glob(['../../content/experiences/*.md', '../../content/experiences/*.mdx'], { eager: true }));
 
 let projectsByYears: Record<string, any[]> = {};
+let currentProjects: any[] = [];
 
 allProjects.forEach((project: any, i) => {
 
+    const isCurr = (project.frontmatter.curr == "true");
+
     const year = String(project.frontmatter?.year);
+
+    if (isCurr) {currentProjects.push(project); return;}
 
     if (projectsByYears[year]) { projectsByYears[year].push(project); }
 
     else { projectsByYears[year] = [project]; }
 
 });
+
+console.log("curr: ", currentProjects);
 
 const sortedYears = Object.keys(projectsByYears).sort((a,b) => Number(b) - Number(a));
 
@@ -43,6 +50,8 @@ const pageTitle = "Experience";
             
                 <h1>Experience</h1>
                 
+                {currentProjects.length > 0 && <YearBox year="ONGOING" experiences={currentProjects}/>}
+
                 {sortedProjects.map(([year, projects]) => <YearBox year={year} experiences={projects}/>)}
                 
             </div>

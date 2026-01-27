@@ -1,0 +1,177 @@
+---
+
+import "../styles/global.css";
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+
+    name: string;
+    description: string;
+    url: string;
+    updated_at: string;
+    fork: boolean;
+
+}
+
+const { name, description, url, updated_at, fork } = Astro.props;
+
+let favorite;
+
+const favorites = ["Portfolio", "SEA-Physics-Project", "networkDaemon", "RSX24-DB", "CVAlgorithmTest", "COC-ATLAS_WebInterface"];
+
+favorites.forEach((item) => {if (name == item) {favorite = true;}});
+
+---
+
+<li class="repo-card">
+    <a href={url} class="repo-card-link">
+
+        <div class="card">
+
+            <div class="info">
+
+                <span class="name">{name}</span>
+                <span class="desc">{description}</span>
+
+            </div>
+            
+            <div class="indicators">
+
+                {fork && <Icon name="github-fork" class="github-fork"/>}
+                {favorite && <span class="star">&#x2605;</span>}
+                
+            </div>
+
+        </div>
+
+    </a>
+</li>
+
+<style>
+
+    .repo-card {
+
+        padding: 1.5rem 0;
+        
+
+    }
+
+    .repo-card-link {
+
+        text-decoration: none;
+        position: relative;
+
+    }
+
+    .name {
+
+        font-size: 2em;
+        font-weight: bold;
+        color: var(--custom-white);
+
+    }
+
+    .desc {
+
+        font-size: 1em;
+        font-weight: normal;
+        color: var(--custom-white);
+
+    }
+
+    .card {
+
+        background-color: #C898FD11;
+        padding: 2em;
+        backdrop-filter: blur(2px);
+        /* padding-right: 40%; */
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        border-radius: 2em;
+        overflow: hidden;
+        position: relative;
+        background-size: cover;
+        height: fit-content;
+        transition: 0.2s;
+
+        outline: solid 2px #C898FD;
+
+
+    }
+
+    .star {
+
+        font-size: 2em;
+
+    }
+
+    .info {
+
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        width: 80%;
+        height: 100%;
+        background-size: cover;
+        transition: 0.5s var(--standard-transition-timing-no-bounce);
+        transform-origin: left;
+        z-index: 1;
+        
+    }
+
+    .indicators {
+
+        width: 20%;
+        /* background-color: red; */
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        color: var(--custom-white-st);
+
+    }
+
+    .github-fork {
+
+        height: 2em;
+        width: 2em;
+
+    }
+
+    .card:hover{
+
+        box-shadow: 
+            0px 0px 20px 5px #C898FD88,
+            inset 0px 0px 20px 5px #00000033;
+
+        .info {
+
+            scale: 1.1;
+
+        }
+
+        /* .bg-image {
+
+            scale: 1.1;
+            filter: var(--minor-blur);
+
+        } */
+
+        cursor: pointer;
+
+    }
+
+    /* .bg-image {
+
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        right: 0;
+        transition: 0.5s var(--standard-transition-timing-no-bounce);
+        transform-origin: center;
+        opacity: 0.3;
+
+    } */
+
+</style>

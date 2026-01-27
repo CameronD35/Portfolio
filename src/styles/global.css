@@ -45,12 +45,11 @@ html {
 --standard-transition-timing-no-bounce: cubic-bezier(0.175, 0.885, 0.32, 1.0);
 
 --nav-color: rgba(226, 226, 226, 1);
+--nav-bg-color: rgba(226, 226, 226, 0.4);
 
 --footer-color: rgba(31, 23, 6, 1);
 --footer-accent: rgba(88, 80, 71, 1);
 --footer-accent-hover: rgba(226, 226, 226, 1);
-
---overlay-bg-color: rgba(10,10,10,0.7);
 
 }
 
