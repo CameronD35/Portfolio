@@ -1,6 +1,13 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import "../../styles/global.css"
+import Image from 'astro/components/Image.astro';
+import "../../styles/global.css";
+
+const images = import.meta.glob<{default: ImageMetadata}>('/src/assets/photography/*.{jpeg,jpg,png,gif}');
+
+const imageNames = Object.keys(images);
+
+// console.log(images);
 
 const pageTitle = "Photography";
 ---
@@ -11,6 +18,90 @@ const pageTitle = "Photography";
 
 		<h1>Photography</h1>
 
+		<div class="photo-gallery">
+
+			<div class="photo-grid">
+
+				{imageNames.map((image: string) =>
+
+					<Image src={images[image]()} alt={"litty"} class="image"/>
+
+				)}
+
+			</div>
+
+		</div>
+
 	</div>
 	
 </BaseLayout>
+
+<style>
+
+	.photo-gallery {
+
+		max-width: 100%;
+		height: auto;
+
+	}
+
+	.photo-grid {
+
+		display: grid;
+		grid-template-columns: auto auto auto auto auto;
+		overflow: hidden;
+
+	}
+
+	.image {
+
+		transition: 0.4s var(--standard-transition-timing-no-bounce);
+
+	}
+
+	.image:hover {
+
+		scale: 1.2;
+		z-index: 2;
+		box-shadow: 0px 0px 20px 5px rgba(0, 0, 0, 0.6);
+
+	}
+
+	.photo-grid > :first-child {
+
+		transform-origin: top left;
+
+	}
+
+	.photo-grid > :nth-child(-n + 5):not(:first-child):not(:nth-child(5)) {
+
+		transform-origin: top;
+
+	}
+
+	.photo-grid > :nth-child(5n + 6) {
+
+		transform-origin: left;
+
+	}
+
+	.photo-grid > :nth-child(5) {
+
+		transform-origin: top right;
+
+	}
+
+	.photo-grid > :nth-child(5n + 5):not(:nth-child(5)) {
+
+		transform-origin: right;
+
+	}
+
+	.image {
+
+		width: 100%;
+		height: 100%;
+
+	}
+
+</style>

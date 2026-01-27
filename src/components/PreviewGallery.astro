@@ -18,8 +18,6 @@ const images = import.meta.glob<{default: ImageMetadata}>('/src/assets/**/*.{jpe
 
 console.log(images);
 
-let relevantImages = [];
-
 imageNames.forEach((name, i) => {
 
     imageNames[i] = `/src/assets/${imageDirectory}/${name}`
@@ -28,11 +26,6 @@ imageNames.forEach((name, i) => {
 
 });
 
-// const image = "first-blog-banner.jpg"
-
-// console.log(image)
-
-// if (!images[image]) throw new Error(`"${image}" does not exist in glob: "src/assets/blogs/*.{jpeg,jpg,png,gif}"`);
 ---
 
 <div class="photo-gallery">
