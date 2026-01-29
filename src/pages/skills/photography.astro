@@ -2,14 +2,133 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Image from 'astro/components/Image.astro';
 import "../../styles/global.css";
+import { transformer } from 'astro:schema';
 
 const images = import.meta.glob<{default: ImageMetadata}>('/src/assets/photography/*.{jpeg,jpg,png,gif}');
 
 const imageNames = Object.keys(images);
 
-// console.log(images);
+const numOfColumns = 5;
 
 const pageTitle = "Photography";
+
+let grid: number[][] = [];
+
+let transformArray: string[][] = [];
+
+imageNames.forEach((elem, i) => {
+
+	transformArray[i] = [];
+
+})
+
+let entries = 0;
+
+// for anyone trying to read this transformArray thing, I apologize
+// I'm truly so so sorry. Trust me, I'm not proud of this code :[
+// (but at least it works)
+
+// this puts sizes into the array with at least imageNames.length elements if the array were flattened
+while (entries < imageNames.length) {
+
+	let row: number[] = [];
+
+	let spacesLeft = numOfColumns;
+
+
+	while (spacesLeft > 2) {
+
+		let size = Math.round(Math.random() * 3);
+
+		if (size == 0) { size = 1 }
+
+		spacesLeft = spacesLeft - size;
+
+		if (entries < imageNames.length) {
+
+			row.push(size);	
+
+		} else {
+
+			row[row.length - 1] += size;
+
+		}
+
+		entries++;
+
+	}
+
+	if (spacesLeft == 1 || spacesLeft == 2) {
+
+		if (entries < imageNames.length) {
+
+			row.push(spacesLeft);	
+
+		} else {
+
+			row[row.length - 1] += spacesLeft;
+
+		}
+
+		entries++;
+
+	}
+
+	grid.push(row);
+
+}
+
+
+// randomize the array cause it appearently loves to generate [1,1,1,2] (that's psuedorandom for ya)
+// fisher-yates shuffle
+for (let i = 0; i < grid.length; i++) {
+
+	const row = grid[i];
+
+	for (let j = row.length - 1; j > 0; j--) {
+
+		const k: number = Math.floor(Math.random() * (j + 1));
+		[row[j], row[k]] = [row[k], row[j]];
+
+	}
+
+}
+
+let elementNum = 0;
+
+for (let i = 0; i < grid.length; i++) {
+
+	if (elementNum >= imageNames.length) {break;}
+	
+	for (let j = 0; j < grid[i].length; j++) {
+
+		if (j == 0) {transformArray[elementNum].push("left");}
+
+		if (elementNum == 10 || j == (grid[i].length - 1)) {transformArray[elementNum].push("right");}
+
+		elementNum++;
+
+	}
+
+}
+
+const numOfRows = grid.length;
+
+// flatten the array so that we can apply it easily to the images
+const flatGrid = grid.flat(1);
+
+grid[0].forEach((cell, i) => {
+
+	transformArray[i].push("top");
+		
+});
+
+grid[grid.length - 1].forEach((cell, i) => {
+
+	transformArray[imageNames.length - i - 1].push("bottom");
+		
+});
+
 ---
 
 <BaseLayout pageTitle={pageTitle}>
@@ -17,14 +136,15 @@ const pageTitle = "Photography";
 	<div class="std-content-box">
 
 		<h1>Photography</h1>
+		<p>I hope you love how dynamic this gallery is when hovering over images because the debugging took <b>HOURS</b></p>
 
 		<div class="photo-gallery">
 
 			<div class="photo-grid">
 
-				{imageNames.map((image: string) =>
+				{imageNames.map((image: string, i) =>
 
-					<Image src={images[image]()} alt={"litty"} class="image"/>
+					<Image src={images[image]()} alt={"litty"} class={`image`} style={`--scaling: ${1.2 - (0.02 * flatGrid[i])} ;grid-column: span ${flatGrid[i]}; ${transformArray[i].length > 0 ? `transform-origin: ${transformArray[i].join(" ")}` : ""}`} data-size={flatGrid[i]}/>
 
 				)}
 
@@ -36,64 +156,50 @@ const pageTitle = "Photography";
 	
 </BaseLayout>
 
-<style>
+<script>
+
+
+
+</script>
+
+<style define:vars={{numOfRows, numOfColumns}}>
+
+	p {
+
+		font-size: 0.5em;
+
+	}
+
+	.std-content-box {
+
+		padding-bottom: 1em;
+
+	}
 
 	.photo-gallery {
 
 		max-width: 100%;
-		height: auto;
+		height: calc(var(--numOfRows * 20em));
+		background-color: var(--custom-black-t);
+		border-radius: 3em;
+		overflow: hidden;
+		transition: 0.4s;
+
+
+	}
+
+	.photo-gallery:hover {
+
+		box-shadow: 0px 0px 10px var(--custom-black-t);
 
 	}
 
 	.photo-grid {
 
 		display: grid;
-		grid-template-columns: auto auto auto auto auto;
+		grid-template-columns: repeat(var(--numOfColumns), 1fr);
+		grid-auto-rows: 20em;
 		overflow: hidden;
-
-	}
-
-	.image {
-
-		transition: 0.4s var(--standard-transition-timing-no-bounce);
-
-	}
-
-	.image:hover {
-
-		scale: 1.2;
-		z-index: 2;
-		box-shadow: 0px 0px 20px 5px rgba(0, 0, 0, 0.6);
-
-	}
-
-	.photo-grid > :first-child {
-
-		transform-origin: top left;
-
-	}
-
-	.photo-grid > :nth-child(-n + 5):not(:first-child):not(:nth-child(5)) {
-
-		transform-origin: top;
-
-	}
-
-	.photo-grid > :nth-child(5n + 6) {
-
-		transform-origin: left;
-
-	}
-
-	.photo-grid > :nth-child(5) {
-
-		transform-origin: top right;
-
-	}
-
-	.photo-grid > :nth-child(5n + 5):not(:nth-child(5)) {
-
-		transform-origin: right;
 
 	}
 
@@ -101,6 +207,35 @@ const pageTitle = "Photography";
 
 		width: 100%;
 		height: 100%;
+		transition: 0.4s var(--standard-transition-timing-no-bounce);
+		object-fit: cover;
+		grid-column: span attr(data-size);
+		position: relative;
+
+	}
+
+	[data-size="5"]:hover {
+
+		scale: 1.0 !important;
+
+	}
+
+	.image:hover {
+
+		scale: var(--scaling);
+		z-index: 2;
+		box-shadow: 0px 0px 20px 5px rgba(0, 0, 0, 0.6);
+
+	}
+
+	.photo-grid:has(.image:hover) {
+
+		.image:not(.image:hover) {
+
+			filter: blur(1px);
+			opacity: 0.6;
+
+		}
 
 	}
 
