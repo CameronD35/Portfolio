@@ -16,13 +16,13 @@ const { imageNames, imageDirectory = "photography", width = "20%", height = "20%
 
 const images = import.meta.glob<{default: ImageMetadata}>('/src/assets/**/*.{jpeg,jpg,webp,png,gif}');
 
-console.log(images);
+// console.log(images);
 
 imageNames.forEach((name, i) => {
 
     imageNames[i] = `/src/assets/${imageDirectory}/${name}`
 
-    console.log(imageNames[i]);
+    // console.log(imageNames[i]);
 
 });
 
