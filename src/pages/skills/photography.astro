@@ -2,9 +2,8 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Image from 'astro/components/Image.astro';
 import "../../styles/global.css";
-import { transformer } from 'astro:schema';
 
-const images = import.meta.glob<{default: ImageMetadata}>('/src/assets/photography/*.{jpeg,jpg,png,gif}');
+const images = import.meta.glob<{default: ImageMetadata}>('/src/assets/photography/*.{jpeg,jpg,webp,png,gif}');
 
 const imageNames = Object.keys(images);
 
@@ -104,7 +103,7 @@ for (let i = 0; i < grid.length; i++) {
 
 		if (j == 0) {transformArray[elementNum].push("left");}
 
-		if (elementNum == 10 || j == (grid[i].length - 1)) {transformArray[elementNum].push("right");}
+		if (j == (grid[i].length - 1)) {transformArray[elementNum].push("right");}
 
 		elementNum++;
 
@@ -128,6 +127,9 @@ grid[grid.length - 1].forEach((cell, i) => {
 	transformArray[imageNames.length - i - 1].push("bottom");
 		
 });
+
+console.log(grid);
+console.log(transformArray);
 
 ---
 
@@ -155,12 +157,6 @@ grid[grid.length - 1].forEach((cell, i) => {
 	</div>
 	
 </BaseLayout>
-
-<script>
-
-
-
-</script>
 
 <style define:vars={{numOfRows, numOfColumns}}>
 

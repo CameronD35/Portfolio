@@ -3,6 +3,8 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import YearBox from '../../components/YearBox.astro';
 import { Icon } from "astro-icon/components";
 import "../../styles/global.css";
+import { readdirSync, statSync } from 'fs';
+import { join } from 'path';
 
 const allProjects = Object.values(import.meta.glob(['../../content/experiences/*.md', '../../content/experiences/*.mdx'], { eager: true }));
 
@@ -35,7 +37,19 @@ let sortedProjects: [string, any[]][] = sortedYears.map(
 
 );
 
-// console.log(sortedProjects);
+// lets get those pdf files
+const pdfDirectory = join(process.cwd(), 'public/pdfs');
+
+const pdfFiles = readdirSync(pdfDirectory)
+    .filter((file) => { return file.endsWith('.pdf')})
+    .map((file) => ({
+
+        name: file,
+        url: `pdfs/${file}`
+
+    }));
+
+console.log(pdfFiles)
 
 const pageTitle = "Experience";
 ---
@@ -58,21 +72,44 @@ const pageTitle = "Experience";
 
             <div class="details-section">
 
-                <div class="details-description">
+                <div class="title-and-company">
 
-                    {allProjects.map((project: any) => {
-
-                        return <div class="mdx-body" data-title={project.url.split("/")[3].slice(0, -4)} hidden>
-
-                            <project.Content />
-
-                        </div>
-
-                    })}
+                        <div class="details-title"></div>
+                        <div class="details-company"></div>
 
                 </div>
 
-                <div class="back-arrow-container">
+                <div class="description-and-materials">
+
+                    <div class="description">
+
+                        {allProjects.map((project: any) => {
+
+                            return <div class="mdx-body" data-title={project.url.split("/")[3].slice(0, -4)} hidden>
+
+                                <project.Content />
+
+                            </div>
+
+                        })}
+
+                    </div>
+
+                    <div class="supplementary-materials">
+
+                        <div class="pictures-container">
+                            <div class="pictures-title">Pictures</div>
+                        </div>
+
+                        <div class="files-container">
+                            <div class="files-title">Relevant Files</div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="back-arrow-container" id="back-arrow-container">
 
                     <Icon name="Dropdown_Arrow" class="back-arrow"/>
 
@@ -94,7 +131,7 @@ const pageTitle = "Experience";
 
 <script>
 
-    import { debounce } from 'lodash';
+    import { cloneWith, debounce } from 'lodash';
 
     const sectionContainer = document.querySelector(".section-container");
 
@@ -110,7 +147,7 @@ const pageTitle = "Experience";
 
     cards.forEach(addDetailHandlers);
 
-    detailsSection?.addEventListener("mousemove", debounce(checkMousePosition, 25));
+    detailsSection?.addEventListener("mousemove", debounce(checkMousePosition, 10));
 
     backArrowContainer?.addEventListener("click", closeDetails);
 
@@ -120,7 +157,7 @@ const pageTitle = "Experience";
 
         console.log(evt.offsetX);
 
-        if (evt.offsetX <= 100) { backArrowContainer.style.transform = 'translateX(0)'; }
+        if (evt.offsetX <= 0.1 * detailsSection.clientWidth || evt.target.id == "back-arrow-container") { backArrowContainer.style.transform = 'translateX(0)'; }
 
         else { backArrowContainer.style.transform = 'translateX(-100%)'; }
 
@@ -149,9 +186,17 @@ const pageTitle = "Experience";
 
     function addDetailHandlers(card: any) {
 
-        card.addEventListener("click", () => {
+        card.addEventListener("click", async () => {
 
             const targetFileName = card.getAttribute("data-title");
+
+            const projects = import.meta.glob('../../content/experiences/*.mdx');
+            
+            const targetProject: any = await projects[`../../content/experiences/${targetFileName}.mdx`]();
+
+            const targetProjectFrontmatter = targetProject.frontmatter;
+
+            console.log(targetProjectFrontmatter)
 
             document.querySelectorAll(".mdx-body").forEach((elem) => {
 
@@ -159,19 +204,27 @@ const pageTitle = "Experience";
 
             });
 
+            document.querySelector(".details-title")!.textContent = targetProjectFrontmatter.title;
+            document.querySelector(".details-company")!.textContent = targetProjectFrontmatter.company;
+
             msgContainer.classList.add("fade-in");
 
             backArrowContainer.style.transform = 'translateX(-100%)';
 
             console.log(targetFileName);
 
-            document.querySelector(`.mdx-body[data-title=${targetFileName}]`)?.removeAttribute("hidden");
+            const body = document.querySelector(`.mdx-body[data-title=${targetFileName}]`) as HTMLElement;
+            body.removeAttribute("hidden");
+            console.log(body.scrollHeight, body.parentElement!.clientHeight);
+            body.setAttribute("data-overflow", `${body.scrollHeight > body.parentElement!.clientHeight}`);
 
             sectionContainer?.setAttribute("data-details", "true");
 
             document.body.style.overflow = 'hidden';
 
             document.querySelector("footer")!.style.opacity = "0";
+
+            detailsSection.style.setProperty("--bg-color", `${targetProjectFrontmatter.primaryColor}88`);
 
             // prevents the details section from being cut off
             experienceContentBox.style.overflow = 'visible';
@@ -185,6 +238,88 @@ const pageTitle = "Experience";
 </script>
 
 <style>
+
+    .details-section {
+
+        --bg-color: none;
+        --color: white;
+
+        height: calc(100vh - 6em);
+        width: 50%;
+
+        position: fixed;
+        transform: translateX(200%);
+
+        border-radius: 2em;
+        padding: 2em;
+
+        background-color: var(--bg-color);
+        overflow: hidden;
+
+        display: flex;
+        flex-direction: column;
+
+    }
+
+    .pictures-container, .files-container {
+
+        width: 100%;
+        height: 50%;
+
+    }
+
+    .description, .supplementary-materials {
+
+        height: 100%;
+        width: 50%;
+
+        color: var(--color);
+
+        overflow: scroll;
+
+    }
+
+    .description-and-materials {
+
+        height: 85%;
+        display: flex;
+
+    }
+
+    .description {
+
+        padding-right: 1em;
+        position: relative;
+
+    }
+
+    .title-and-company {
+
+        height: 15%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+
+        justify-content: center;
+        align-items: center;
+
+        color: var(--color);
+
+    }
+
+    .details-title {
+        
+        font-weight: 900;
+        font-size: 1.6em;
+
+    }
+
+    .details-company {
+
+        font-weight: 600;
+        font-size: 0.8em;
+
+    }
 
     .msg-container {
 
@@ -201,6 +336,8 @@ const pageTitle = "Experience";
         pointer-events: none;
         scale: 2;
         filter: none;
+
+        text-shadow: 0px 0px 10px var(--custom-black);
 
     }
 
@@ -337,19 +474,11 @@ const pageTitle = "Experience";
 
     }
 
-    .details-section {
+    .mdx-body {
 
-        height: calc(100vh - 6em);
-        width: 50%;
+        --color: white;
 
-        position: fixed;
-        transform: translateX(200%);
-
-        border-radius: 2em;
-        padding: 4em;
-
-        background-color: red;
-        overflow: hidden;
+        color: var(--color);
 
     }
 

@@ -14,7 +14,7 @@ interface Props {
 
 const { imageNames, imageDirectory = "photography", width = "20%", height = "20%"} = Astro.props;
 
-const images = import.meta.glob<{default: ImageMetadata}>('/src/assets/**/*.{jpeg,jpg,png,gif}');
+const images = import.meta.glob<{default: ImageMetadata}>('/src/assets/**/*.{jpeg,jpg,webp,png,gif}');
 
 console.log(images);
 
