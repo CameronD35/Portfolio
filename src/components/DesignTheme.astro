@@ -1,0 +1,255 @@
+---
+import type { ImageMetadata } from "astro";
+import "../styles/global.css";
+import { Image } from 'astro:assets';
+import { Icon } from "astro-icon/components";
+
+interface Props {
+
+    color?: string;
+    title: any;
+    desc: string;
+
+}
+
+const {title, desc, color} = Astro.props;
+
+const assets = import.meta.glob<{default: ImageMetadata}>('/src/assets/themes/**/*.{jpeg,jpg,webp,png,gif}');
+
+// console.log(assets);
+
+const directory = "/src/assets/themes/" + title;
+
+let relevantAssets: Record<string, Function> = {};
+
+Object.keys(assets).forEach((asset) => {
+
+    const assetDirectory = asset.substring(0, directory.length);
+
+
+    if (assetDirectory === directory) {
+
+        relevantAssets[asset] = assets[asset];
+
+    }
+
+});
+
+// console.log(relevantAssets);
+
+// const image = frontmatter?.image.url;
+
+// console.log(image)
+
+// if (!images[image]) throw new Error(`"${image}" does not exist in glob: "src/assets/blogs/*.{jpeg,jpg,png,gif}"`);
+
+---
+
+<li class="theme-card">
+
+        <div class="card">
+
+            <Icon name={`${title}`} class="logo"/>
+
+            <span class="desc">{desc}</span>
+                
+            <Icon name={`${title}`} class="bg-image"/>
+
+            <div class="left-shadow"></div>
+
+            <div class="asset-container">
+
+                {Object.keys(relevantAssets).map((asset) => {
+
+                    return <div class="asset-box"> <Image src={relevantAssets[asset]()} alt={"litty"} class="asset" data-url/> <div class="asset-bg" style={`background-image: url(${asset})`}> </div> </div>;
+
+                })}
+
+            </div>
+
+            <div class="right-shadow"></div>
+
+        </div>
+
+</li>
+
+<script>
+
+
+
+</script>
+
+<style define:vars={{ color }}>
+
+    .left-shadow, .right-shadow {
+
+        height: 100%;
+        top: 0;
+        width: 10%;
+        position: absolute;
+        
+        z-index: 1;
+        pointer-events: none;
+
+    }
+
+    .right-shadow {
+
+        background-image: linear-gradient(to left, var(--custom-black) 25%, transparent 100%);
+        right: -2em;
+        height: 200%;
+
+    }
+
+    .left-shadow {
+
+        background-image: linear-gradient(to right, var(--custom-black) 25%, transparent 100%);
+        left: -2em;
+
+    }
+
+    .asset-container {
+
+        --translatePercent: -10%;
+
+        width: 100%;
+        height: 400px;
+        position: relative;
+        display: flex;
+
+        gap: 2em;
+
+    }
+
+    .asset-container .asset-box {
+
+        transform: translateX(-10%);
+
+    }
+
+    .asset-box {
+        
+        width: fit-content;
+        height: 100%;
+        position: relative;
+
+    }
+
+    .asset-box:hover {
+
+        .asset-bg {
+
+            scale: 1.2;
+            opacity: 0.5;
+            filter: blur(40px);
+
+        }
+
+    }
+
+    .asset {
+
+        width: auto;
+        height: 100%;
+        position: relative;
+        border-radius: 1em;
+
+        z-index: 1;
+
+    }
+
+    .theme-card {
+
+        padding: 1.5rem 0;
+        
+
+    }
+
+    .logo {
+
+        font-size: 2em;
+        color: var(--custom-white);
+        transition: 0.5s var(--standard-transition-timing-no-bounce);
+        transform-origin: left;
+
+        z-index: 2;
+
+    }
+
+    .asset-bg {
+
+        position: absolute;
+        content: '';
+        width: 100%;
+        height: 100%;
+        top: 0%;
+        left: 0%;
+        transform-origin: center;
+        background-size: cover;
+        opacity: 0;
+        transition: 0.5s;
+
+    }
+
+    .desc {
+
+        font-size: 1em;
+        font-weight: normal;
+        color: var(--custom-white);
+        transition: 0.5s var(--standard-transition-timing-no-bounce);
+        transform-origin: left;
+
+        z-index: 2;
+
+    }
+
+    .card {
+
+        background-color: var(--custom-black);
+        padding: 2em;
+        display: flex;
+        flex-direction: column;
+        border-radius: 2em;
+        overflow: hidden;
+        position: relative;
+        background-size: cover;
+
+        gap: 1em;
+
+
+    }
+
+    .card:hover{
+
+        .bg-image {
+
+            scale: 1.2;
+            filter: none;
+            opacity: 0.05;
+
+        }
+
+        /* cursor: pointer; */
+
+    }
+
+    .bg-image {
+
+        font-size: 5em;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        transition: 0.5s var(--standard-transition-timing-no-bounce);
+        transform-origin: 0% 0%;
+        scale: 0;
+        color: var(--custom-white);
+        opacity: 0;
+        filter: blur(30px);
+
+    }
+
+</style>
+

@@ -1,6 +1,32 @@
 ---
+import DesignTheme from '../../components/DesignTheme.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import "../../styles/global.css"
+import fs from 'fs';
+import path from 'path';
+import "../../styles/global.css";
+
+// https://stackoverflow.com/questions/18112204/get-all-directories-within-directory-nodejs
+
+// const directories = (parent: any) => {
+
+// 		fs.readdirSync(parent, { withFileTypes: true }).reduce((a: any[], c: any) => {
+
+// 			c.isDirectory() && a.push(c.name);
+// 			return a;
+
+// 		}, [])
+
+// }
+
+const themes: Record<string, string> = {
+
+	'justin-bieber': 'All of my Justin Bieber related designs.',
+	'atlas': 'All of my RockSat ATLAS related designs.',
+	'marztg': 'All of my designs related to my gaming YouTube channel (formerly Mario Stereo).',
+
+}
+
+const directories = ['justin-bieber', 'atlas'];
 
 const pageTitle = "Graphic Design";
 ---
@@ -11,6 +37,31 @@ const pageTitle = "Graphic Design";
 
 		<h1>Graphic Design</h1>
 
+		<h4>Art has themes. So, instead of seperating all of my designs I associated each one with themes.</h4>
+
+		<ul class="theme-list">
+			{Object.keys(themes).map((theme: any) => {
+
+				return <DesignTheme title={theme} desc={themes[theme]}/>
+
+			})}
+		</ul>
+
 	</div>
 	
 </BaseLayout>
+
+<style>
+
+	.theme-list {
+
+        display: flex;
+        flex-direction: column;
+		list-style-type: none;
+        padding: 0;
+        display: flow-root;
+
+
+    }
+
+</style>
