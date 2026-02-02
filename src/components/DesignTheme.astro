@@ -12,9 +12,9 @@ interface Props {
 
 }
 
-const {title, desc, color} = Astro.props;
+const {title, desc, color = "var(--custom-black)"} = Astro.props;
 
-const assets = import.meta.glob<{default: ImageMetadata}>('/src/assets/themes/**/*.{jpeg,jpg,webp,png,gif}');
+const assets = import.meta.glob<{default: ImageMetadata}>('/src/assets/themes/**/*.{jpeg,jpg,webp,png,gif,svg}');
 
 // console.log(assets);
 
@@ -61,7 +61,7 @@ Object.keys(assets).forEach((asset) => {
 
                 {Object.keys(relevantAssets).map((asset) => {
 
-                    return <div class="asset-box"> <Image src={relevantAssets[asset]()} alt={"litty"} class="asset" data-url/> <div class="asset-bg" style={`background-image: url(${asset})`}> </div> </div>;
+                    return <div class="asset-box"> <Image src={relevantAssets[asset]()} alt={"litty"} class="asset"/> </div>;
 
                 })}
 
@@ -73,44 +73,37 @@ Object.keys(assets).forEach((asset) => {
 
 </li>
 
-<script>
-
-
-
-</script>
-
 <style define:vars={{ color }}>
 
     .left-shadow, .right-shadow {
 
         height: 100%;
         top: 0;
-        width: 10%;
+        width: 15%;
         position: absolute;
+        transition: 0.2s;
         
-        z-index: 1;
-        pointer-events: none;
+        z-index: 2;
 
     }
 
     .right-shadow {
 
-        background-image: linear-gradient(to left, var(--custom-black) 25%, transparent 100%);
-        right: -2em;
-        height: 200%;
+        background-image: linear-gradient(to left, var(--color) 20%, transparent 100%);
+        right: 0;
+        opacity: 1;
 
     }
 
     .left-shadow {
 
-        background-image: linear-gradient(to right, var(--custom-black) 25%, transparent 100%);
-        left: -2em;
+        background-image: linear-gradient(to right, var(--color) 20%, transparent 100%);
+        left: 0;
+        opacity: 0;
 
     }
 
     .asset-container {
-
-        --translatePercent: -10%;
 
         width: 100%;
         height: 400px;
@@ -119,11 +112,14 @@ Object.keys(assets).forEach((asset) => {
 
         gap: 2em;
 
+        overflow-x: scroll;
+        overflow-y: hidden;
+
     }
 
-    .asset-container .asset-box {
+    .asset-container::-webkit-scrollbar {
 
-        transform: translateX(-10%);
+        display: none;
 
     }
 
@@ -132,18 +128,6 @@ Object.keys(assets).forEach((asset) => {
         width: fit-content;
         height: 100%;
         position: relative;
-
-    }
-
-    .asset-box:hover {
-
-        .asset-bg {
-
-            scale: 1.2;
-            opacity: 0.5;
-            filter: blur(40px);
-
-        }
 
     }
 
@@ -172,22 +156,7 @@ Object.keys(assets).forEach((asset) => {
         transition: 0.5s var(--standard-transition-timing-no-bounce);
         transform-origin: left;
 
-        z-index: 2;
-
-    }
-
-    .asset-bg {
-
-        position: absolute;
-        content: '';
-        width: 100%;
-        height: 100%;
-        top: 0%;
-        left: 0%;
-        transform-origin: center;
-        background-size: cover;
-        opacity: 0;
-        transition: 0.5s;
+        z-index: 3;
 
     }
 
@@ -199,13 +168,13 @@ Object.keys(assets).forEach((asset) => {
         transition: 0.5s var(--standard-transition-timing-no-bounce);
         transform-origin: left;
 
-        z-index: 2;
+        z-index: 3;
 
     }
 
     .card {
 
-        background-color: var(--custom-black);
+        background-color: var(--color);
         padding: 2em;
         display: flex;
         flex-direction: column;

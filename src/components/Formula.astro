@@ -1,0 +1,12 @@
+---
+
+interface Props {
+
+    formula?: string;
+
+}
+
+import rehypeKatex from "rehype-katex";
+
+const { formula = '2+2=5' } = Astro.props;
+---
