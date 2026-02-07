@@ -1,0 +1,123 @@
+---
+layout: ../../layouts/MarkdownPostLayout.astro
+title: "Adventures with the IMX708 NoIR Camera"
+pubDate: 2025-02-06
+description: "A small journey as I figure out how to program these cameras."
+author: 'Cameron DeMartini'
+image:
+    url: '/src/assets/blogs/camera-adventures-banner.webp'
+    alt: 'The Astro logo on a dark background with a pink glow.'
+tags: ["computer-science", "coding", "c++", "linux"]
+---
+
+## Prelude
+
+I have recently taken on the task to program two Raspberry Pi cameras two capture and save footage to a Raspberry Pi 5 simultaneously in the C++ language. The goal of this
+was to:
+
+<ul>
+    <li>Spawn two seperate threads</li>
+    <li>Use one camera on each thread</li>
+    <li>Capture the footage from the cameras and save them to seperate directories</li>
+</ul>
+
+It's been about 7-8 months since I've last used C++, so I was quite a bit rusty. Now that we have the goals we can finally get into the coding! If you want to see the repository
+you can check it out [here](https://github.com/CameronD35/rpi-cam-test/tree/master)!
+
+## Update #1 (2/6/2026)
+---
+Alright, so a lot of this work has been done over the last week so I will recall what I can!
+
+One of my teammates suggested the idea of using [OpenCV]() to capture the footage and save the data. The nice thing was that I actually had [some prior experience](https://github.com/CameronD35/CVAlgorithmTest/tree/Function) with OpenCV in Python (maybe I'll write a blog on that one day).
+
+This was going good until the camera just would not want to be recognized by OpenCV while displaying this error:
+
+```bash
+GStreamer warning: embedded video playback halted; module v4l2src0 reported
+```
+To be honest, I have no clue what this actually means. As I began to search up I somehow came to the conclusion to use the [libcamera API](https://libcamera.org) to interface with the
+IMX708 instead.
+
+This turned out to be a very fruitful choice because right on the *Docs* page it had [this tutorial.](https://libcamera.org/guides/application-developer.html) This was precisely what I
+needed to get started on this thing. I wound up following the tutorial and eventually got quite familar with what each piece of code does. My favorite line of code from this tutorial
+was 
+
+```c++
+camera->requestCompleted.connect(requestComplete);
+```
+
+because it reminded me of a JavaScript callback function. As an aside, I know it'll be controverisal when I say that my favorite programming language is JavaScript. However, my biggest
+reason is because it's what got me back into software again (the story of my hatred for software from a few years ago is another blog in itself >:]).
+
+Okay, but the code couldn't stop at this tutorial because all it did was capture frames from the camera, displayed what frame number was captured and how many bytes the frame occupied. (If you happen to be curious, it was 1,920,000 bytes coming from a 800x600 image with the RGB channels).
+
+The really neat part of the libcamera API is that it uses a CameraManager to, well, manage the cameras. But this means that you can easily integrate multiple cameras with one instance of
+the CameraManager. To start the CameraManager (as done in the tutorial) you just had to do this:
+
+```c++
+std::unique_ptr<CameraManager> cm = std::make_unique<CameraManager>();
+cm->start();
+```
+
+Pretty simple, right? Now, here's where the really fun begins. If we want we can just copy and paste the code for the first camera, change a few variable names, and bam, we have two cameras!
+
+Unfortunately, that's bad practice, so it cannot be that easy. But because this is C++ and not C, OOP is calling our name. If you couldn't tell, I am basically trying to say that I created
+a class for the camera without being direct.
+
+Because I don't want to throw 100+ lines of code in your face, I'll just share the header file for the `RPiCam` class. However, all of the code is accessible and you can find the implementation [here](https://github.com/CameronD35/rpi-cam-test/blob/master/src/RPiCam.cpp).
+
+```c++
+#include <libcamera/libcamera.h>
+#include <string>
+#include <iostream>
+#include <iomanip>
+#include <sstream>
+#include <memory>
+#include <thread>
+#include <sys/mman.h>
+#include <opencv2/core.hpp>
+
+using namespace libcamera;
+
+#ifndef RPICAM_H
+#define RPICAM_H
+
+class RPiCam {
+
+    private:
+
+        std::shared_ptr<Camera> camera;
+        std::unique_ptr<CameraConfiguration> config;
+        std::unique_ptr<FrameBufferAllocator> allocator;
+        std::vector<std::unique_ptr<Request>> requests;
+        Stream* stream = nullptr;
+
+        void requestComplete(Request *request);
+        int allocateBuffers();
+        uint8_t* mmapPlane(const FrameBuffer::Plane &plane);
+
+    public:
+
+        std::string id;
+        std::string format;
+
+        // stops camera, frees allocator and memory, and releases camera 
+        void reset();
+
+        // sets up camera with all the configurations needed
+        int setup();
+
+        // constructor
+        RPiCam(CameraManager &manager, std::string id);
+
+};
+
+#endif
+```
+
+This class grabs the camera from the OS, sets it up with all of the configurations, captures the footage, and `mmap()`s the buffers that libcamera returns. I still don't fully understand
+`mmap()`, but maybe in a future update to this post I will. For now, it has allowed me to access the raw data from the camera. The next step is to throw this data into a `cv::Mat` object from OpenCV. So, we've come full circle: We went from running away from OpenCV to succombing to its powers. However, now we have the camera sending data and we'll use OpenCV to save the data to a file.
+
+I don't have any of the OpenCV functionality going now, but I will be committing myself to update this post once I begin working with it!!
+
+I really hope this has been an enjoyable read. Documenting my code in a more sophisticated format (meaning, not just having little comments everywhere in the code) is certainly not my specialty. This little camera adventure has been quite the journey because there's a whole lot of math stuff I had the opportunity to do for these little cameras that I would love to share as well. I'm very excited to share that with all of you readers and I even have a PDF explanation ready for you as well. Be on the lookout!

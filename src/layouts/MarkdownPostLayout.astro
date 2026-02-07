@@ -8,13 +8,13 @@ import { Image } from 'astro:assets';
 
 const { frontmatter } = Astro.props;
 
-const images = import.meta.glob<{default: ImageMetadata}>('/src/assets/blogs/*.{jpeg,jpg,png,gif}');
+const images = import.meta.glob<{default: ImageMetadata}>('/src/assets/blogs/*.{webp,jpeg,jpg,png,gif}');
 
 const image = frontmatter?.image.url;
 
 console.log(image)
 
-if (!images[image]) throw new Error(`"${image}" does not exist in glob: "src/assets/blogs/*.{jpeg,jpg,png,gif}"`);
+if (!images[image]) throw new Error(`"${image}" does not exist in glob: "src/assets/blogs/*.{webp,jpeg,jpg,png,gif}"`);
 
 const postDate = new Date(frontmatter.pubDate);
 
@@ -67,6 +67,54 @@ const dateStr = `${months[postDate.getMonth()]} ${postDate.getDate() + 1}, ${pos
 </BaseLayout>
 
 <style is:global>
+
+    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Oi&display=swap');
+
+    figure {
+
+        margin-left: 0.25em;
+        margin-right: 0.25em;
+
+    }
+
+
+
+    pre {
+
+        padding: 2em;
+        border-radius: 2em;
+        position: relative;
+
+
+    }
+
+    code {
+
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.9em;
+
+    }
+
+    pre::after {
+
+        content: attr(data-language);
+        text-transform: uppercase;
+        position: absolute;
+        top: 1.5em;
+        right: 1.5em;
+        color: var(--custom-white-st);
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.9em;
+        z-index: 2;
+
+    }
+
+    pre code span {
+
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.9em;
+
+    }
 
     a {
 
