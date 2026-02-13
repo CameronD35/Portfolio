@@ -9,37 +9,37 @@ import icon from 'astro-icon';
 
 import react from '@astrojs/react';
 
+import prefetch from '@astrojs/prefetch';
+
 // https://astro.build/config
 export default defineConfig({
-  integrations: [
-    icon({
+  integrations: [icon({
 
-      svgoOptions: {
+    svgoOptions: {
 
-        plugins: [
+      plugins: [
 
-          {
+        {
 
-            name: "prefixIds",
-            params: {
+          name: "prefixIds",
+          params: {
 
-              prefix: "icon-",
-
-            }
+            prefix: "icon-",
 
           }
 
-        ]
+        }
 
-      }
+      ]
 
-    }), 
-    mdx({
-    syntaxHighlight: false,
-    remarkPlugins: [remarkMath],
-    rehypePlugins: [rehypeKatex, [rehypePrettyCode, { theme: 'github-dark' }]]
+    }
 
-  }), react()],
+  }), mdx({
+  syntaxHighlight: false,
+  remarkPlugins: [remarkMath],
+  rehypePlugins: [rehypeKatex, [rehypePrettyCode, { theme: 'github-dark' }]]
+
+}), react(), prefetch()],
   markdown: {
     syntaxHighlight: false,
     remarkPlugins: [remarkMath],
