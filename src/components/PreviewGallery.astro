@@ -22,7 +22,7 @@ imageNames.forEach((name, i) => {
 
     imageNames[i] = `/src/assets/${imageDirectory}/${name}`
 
-    // console.log(imageNames[i]);
+    console.log(imageNames[i]);
 
 });
 
@@ -100,6 +100,8 @@ imageNames.forEach((name, i) => {
         aspect-ratio: 16 / 9;
         width: calc(var(--width) * 0.5);
         height: calc(var(--height) * 0.5);
+
+        object-fit: cover;
 
     }
     

@@ -12,10 +12,12 @@ interface Props {
     color?: string;
     buttonmsg?: string;
     href?: string;
+    imageNames?: string[];
+    imageDirectory?: string;
 
 }
 
-const { title, link, isLeft = "false", color = "var(--custom-black)", buttonmsg = title, href = "/" } = Astro.props;
+const { title, link, isLeft = "false", color = "var(--custom-black)", buttonmsg = title, href = "/", imageDirectory = href.split("/")[2], imageNames = ["MDOSC.webp", "StellersJay9-16.webp", "VibinLizard.webp"]} = Astro.props;
 
 ---
 
@@ -25,7 +27,7 @@ const { title, link, isLeft = "false", color = "var(--custom-black)", buttonmsg 
 
         <div class="galleryBox">
 
-            <PreviewGallery imageNames={["MDOSC.webp", "StellersJay9-16.webp", "VibinLizard.webp"]} imageDirectory="photography" width="400px" height="600px"/>
+            <PreviewGallery imageNames={imageNames} imageDirectory={imageDirectory} width="400px" height="600px"/>
 
         </div>
 

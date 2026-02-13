@@ -11,7 +11,30 @@ import react from '@astrojs/react';
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [icon(), mdx({
+  integrations: [
+    icon({
+
+      svgoOptions: {
+
+        plugins: [
+
+          {
+
+            name: "prefixIds",
+            params: {
+
+              prefix: "icon-",
+
+            }
+
+          }
+
+        ]
+
+      }
+
+    }), 
+    mdx({
     syntaxHighlight: false,
     remarkPlugins: [remarkMath],
     rehypePlugins: [rehypeKatex, [rehypePrettyCode, { theme: 'github-dark' }]]
