@@ -29,7 +29,7 @@ const pageTitle = "Tutoring";
 		<div class="stats-container">
 
 			<div class="mesa-hours">
-				<span class="big-number">272</span>
+				<span class="big-number">306</span>
 				<span class="stat-desc"> hours spent tutoring at the College of the Canyons MESA center.</span>
 			</div>
 			<div class="private-hours">
@@ -73,12 +73,26 @@ const pageTitle = "Tutoring";
 
 <script>
 
+	import { setFooterFixing } from "../../scripts/footerManage";
+
+
 	document.documentElement.style.setProperty("--nav-color", "var(--custom-white-st)");
 	document.documentElement.style.setProperty("--nav-bg-color", "#000000");
 	document.documentElement.style.setProperty("--footer-color", "#00000000");
 	document.documentElement.style.setProperty("--footer-accent", "#5c5c5c");
 	document.documentElement.style.setProperty("--footer-accent-hover", "#888888");
 
+	(document.querySelector(".footer") as HTMLElement)?.style.setProperty("display", "none");
+	
+	setTimeout(() => {
+
+		setFooterFixing();
+		console.log('hi');
+		(document.querySelector(".footer") as HTMLElement)?.style.setProperty("display", "flex");
+
+	}, 1000)
+
+	
 
 </script>
 

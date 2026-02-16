@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import * as pdfjs from 'pdfjs-dist';
+import { setFooterFixing } from '../scripts/footerManage';
 pdfjs.GlobalWorkerOptions.workerSrc = window.location.origin + '/pdf.worker.min.mjs';
 
 const PDFViewer = ({url}) => {
@@ -20,7 +21,6 @@ const PDFViewer = ({url}) => {
             const viewport = page.getViewport({scale: 2});
             const canvas = canvasRef.current;
             const context = canvas.getContext('2d');
-            console.log(viewport);
             setHeight(viewport.height);
             setWidth(viewport.width);
             canvas.height = viewport.height;
