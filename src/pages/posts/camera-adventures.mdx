@@ -24,8 +24,8 @@ was to:
 It's been about 7-8 months since I've last used C++, so I was quite a bit rusty. Now that we have the goals we can finally get into the coding! If you want to see the repository
 you can check it out [here](https://github.com/CameronD35/rpi-cam-test/tree/master)!
 
-## Update #1 (2/6/2026)
 ---
+## Update #1 (2/6/2026)
 Alright, so a lot of this work has been done over the last week so I will recall what I can!
 
 One of my teammates suggested the idea of using [OpenCV]() to capture the footage and save the data. The nice thing was that I actually had [some prior experience](https://github.com/CameronD35/CVAlgorithmTest/tree/Function) with OpenCV in Python (maybe I'll write a blog on that one day).
@@ -49,7 +49,7 @@ camera->requestCompleted.connect(requestComplete);
 because it reminded me of a JavaScript callback function. As an aside, I know it'll be controverisal when I say that my favorite programming language is JavaScript. However, my biggest
 reason is because it's what got me back into software again (the story of my hatred for software from a few years ago is another blog in itself >:]).
 
-Okay, but the code couldn't stop at this tutorial because all it did was capture frames from the camera, displayed what frame number was captured and how many bytes the frame occupied. (If you happen to be curious, it was 1,920,000 bytes coming from a 800x600 image with the RGB channels).
+Okay, but the code couldn't stop at this tutorial because all it did was capture frames from the camera, displayed what frame number was captured and how many bytes the frame occupied. (If you happen to be curious, it was 1,920,000 bytes coming from an 800x600 image with the RGB channels).
 
 The really neat part of the libcamera API is that it uses a CameraManager to, well, manage the cameras. But this means that you can easily integrate multiple cameras with one instance of
 the CameraManager. To start the CameraManager (as done in the tutorial) you just had to do this:
@@ -121,3 +121,105 @@ This class grabs the camera from the OS, sets it up with all of the configuratio
 I don't have any of the OpenCV functionality going now, but I will be committing myself to update this post once I begin working with it!!
 
 I really hope this has been an enjoyable read. Documenting my code in a more sophisticated format (meaning, not just having little comments everywhere in the code) is certainly not my specialty. This little camera adventure has been quite the journey because there's a whole lot of math stuff I had the opportunity to do for these little cameras that I would love to share as well. I'm very excited to share that with all of you readers and I even have a PDF explanation ready for you as well. Be on the lookout!
+
+> \- Cameron
+
+---
+## Update #2 (2/16/2026)
+
+With the Spring 2026 semester having started last week I haven't been able to work these cameras all too much, but today I finally got the chance to!
+
+However, I acheieved something quite exciting just about a week ago. Both cameras are now running in sync, at the same time! Below is an image of them
+
+**[Insert Image Here]**
+
+The way I achieved this was a series of relatively simple steps:
+
+<ul>
+    <li>Create two `RPiCam` instances</li>
+    <li>Create two threads, each with one camera instance</li>
+    <li>To each thread, attach a function to run when the thread is detached</li>
+    <li>Detach each thread</li>
+    <li>On each thread call the `RPiCam::setup()` and `RPiCam::record()` functions.</li>
+    <li>After 10 seconds reset the cameras with `RPiCam::reset()`</li>
+    <li>Clean up the program</li>
+</ul>
+
+Here is a snippet of the algorithm described above:
+
+```c++
+int main(int argc, char** argv) {
+
+    // create a camera manager
+    std::unique_ptr<CameraManager> cm = std::make_unique<CameraManager>();
+    cm->start();
+
+    // grabs all the cameras available and prints their names
+    std::vector<std::string> cameraIDs;
+    cameraIDs = getCameras(*cm);
+
+    // ensures we actually got cameras fr
+    if (cameraIDs.size() == 0) { std::cout << "No cameras found." << std::endl; cm->stop(); return -1; }
+
+    // grabs the first camera available
+    std::string cameraId_1 = cameraIDs[0];
+    std::string cameraId_2 = cameraIDs[1];
+
+    RPiCam* cam1 = new RPiCam(*cm, cameraId_1, 30);
+    RPiCam* cam2 = new RPiCam(*cm, cameraId_2);
+
+    std::thread cam1_thread{runCam, cam1};
+    cam1_thread.detach();
+
+    std::thread cam2_thread{runCam, cam2};
+    cam2_thread.detach();
+
+    std::this_thread::sleep_for(12000ms);
+
+    return 0;
+
+}
+
+int runCam(RPiCam* cam) {
+
+    std::cout << "hello" << std::endl;
+
+    cam->setup();
+
+    cam->record();
+
+    std::this_thread::sleep_for(10000ms);
+
+    cam->reset();
+
+    return 0;
+
+}
+```
+If you take a look at the code, towards the middle you'll notice:
+```c++
+RPiCam* cam1 = new RPiCam(*cm, cameraId_1, 30);
+```
+Which, you may be wondering what that `30` is doing there. That indicates the frames per second (or FPS) that the camera is set to run at. Without doing any configuration, the camera
+ran at 15fps (which isn't ideal!). Getting 30fps wasn't too difficult thanks to [a response by a kind StackOverflow user, TOM SMEETS](https://stackoverflow.com/a/78632543). Instead of
+attaching my controls to the `libcamera::Camera::start()` function, I was able to attach the controls to each `libcamera::Request`.
+```c++
+ControlList& controls = request->controls();
+
+// sets autofocus to continuous
+controls.set(controls::AfMode, controls::AfModeContinuous);
+// sets time between frames in microseconds 
+controls.set(controls::FrameDurationLimits, Span<const std::int64_t, 2>({1000000/fps, 1000000/fps}));
+```
+
+The second line of code (not including the comments) sets the autofocus mode to continuous, much like your phone camera does. This control is not set by default and resulted in some
+blurry images when our team was testing the [stereovision](https://en.wikipedia.org/wiki/Computer_stereo_vision) system.
+
+The last line of code sets the fps but in an interesting way. Instead of specifying `30` for the fps, you have specify the time between frames in microseconds. A bit more low level
+than typically! Because I like to write $\LaTeX$ equations in these blogs, to get a certain fps all you have to do is 
+$$
+t_{\text{btwn frames}} = \frac{1,000,000}{\text{framerate}}.
+$$
+
+There are definitely still some other details I'd like to discuss regarding the adventures with the cameras, but those will have to come later! Thank you again for reading!
+> \- Cameron

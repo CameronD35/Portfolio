@@ -22,7 +22,7 @@ function setHeaderColor() {
 
     if (currentPath !== "/") {
 
-        document.documentElement.style.setProperty("--nav-color", "var(--custom-dark-brown)");
+        document.documentElement.style.setProperty("--nav-color", "var(--custom-black)");
         document.querySelector("nav").style.setProperty("background-image", "linear-gradient(to bottom, var(--nav-bg-color), rgba(255,255,255,0) 80%)");
 
     } else {
