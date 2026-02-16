@@ -3,9 +3,15 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import "../../styles/global.css"
 
 import bgImage from "../../images/tutoring-bg.webp";
-import { Image } from 'astro:assets';
+import PDFViewer from '../../components/PDFViewer.jsx';
 
-// import BarChart from "../../components/BarChart"
+const worksheets = Object.keys(import.meta.glob('/public/pdfs/tutoring/*.pdf'));
+
+worksheets.forEach((i) => {
+
+	console.log(i.substring(i.indexOf('/', 2)));
+
+})
 
 const pageTitle = "Tutoring";
 ---
@@ -37,7 +43,7 @@ const pageTitle = "Tutoring";
 
 					<li class="exp">Linear Algebra</li>
 					<li class="exp">Differential Equations</li>
-					<li class="exp">Single- & Multi-Variable Calculus</li>
+					<li class="exp">Calculus</li>
 					<li class="exp">Pre-Calculus</li>
 					<li class="exp">Trigonometry</li>
 					<li class="exp">Mechanics of Solids & Fluids</li>
@@ -51,7 +57,11 @@ const pageTitle = "Tutoring";
 
 			<div class="files">
 
-				files
+				<span class="stat-desc">Worksheets</span>
+
+				<div class="file-container">
+					{worksheets.map((worksheet: string) => {return <PDFViewer url={worksheet.substring(worksheet.indexOf('/', 2))} client:only="react"></PDFViewer>})}
+				</div>
 
 			</div>
 
@@ -82,7 +92,7 @@ const pageTitle = "Tutoring";
 		
 		background-size: cover;
 		
-		z-index: 0;
+		z-index: -1;
 
 		pointer-events: none;
 
@@ -100,28 +110,26 @@ const pageTitle = "Tutoring";
 
 	.stats-container {
 
-		height: 67vh;
 		display: grid;
 
 		grid-template-columns: 1fr 1fr 1fr 1fr;
-		grid-template-rows: 1fr 1fr 1fr 1fr;
+		grid-template-rows: auto auto auto auto;
 		gap: 1em;
 
 	}
 
-	.stats-container div {
+	.stats-container > div {
 
 		padding: 1em;
 		position: relative;
-
-		display: flex;
-		flex-direction: column;
-		gap: 2em;
+		/* gap: 2em; */
 		align-items: center;
 		justify-content: center;
 		border-radius: 2em;
 		border-style: dashed;
 		border-color: var(--custom-white-st);
+		overflow: hidden;
+		/* overflow-wrap: anywhere; */
 
 		transition: 0.4s;
 
@@ -137,6 +145,8 @@ const pageTitle = "Tutoring";
 
 		grid-row: 1 / 3;
 		grid-column: 1 / 3;
+		display: flex;
+		flex-direction: column;
 
 	}
 
@@ -144,12 +154,34 @@ const pageTitle = "Tutoring";
 
 		grid-row: 1 / 3;
 		grid-column: 3 / 5;
+		display: flex;
+		flex-direction: column;
 
 	}
 
-	.subjects, .files {
+	.subjects {
 
 		grid-column: 1 / 5;
+		display: flex;
+		flex-direction: column;
+		flex-wrap: wrap;
+
+	}
+
+	.files {
+
+		grid-column: 1 / 5;
+		display: flex;
+		flex-direction: column;
+
+	}
+
+	.file-container {
+
+		display: flex;
+		border-style:hidden;
+		gap: 2em;
+		padding: 2em 0;
 
 	}
 
@@ -163,17 +195,19 @@ const pageTitle = "Tutoring";
 	.stat-desc {
 
 		font-size: 1.5em;
+		text-align: center;
 
 	}
 
 	.tutor-class-experience {
 
-		display: flex;
+		display: grid;
 		list-style-type: none;
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 		max-width: 100%;
 
-		align-items: center;
-		justify-content: center;
+		place-items: center;
+		place-content: center;
 		padding-inline-start: 0;
 
 		gap: 2em;

@@ -5,51 +5,51 @@ html {
 
 :root{
 
---custom-black: rgba(10, 10, 10, 1);
---custom-dark-brown: rgba(31, 23, 6, 1);
---custom-brown: rgba(83, 57, 42, 1);
---custom-tan: rgba(172, 132, 90, 1);
---custom-light-brown: rgba(88, 80, 71, 1);
---custom-green: rgba(69, 107, 90, 1);
---custom-white: rgba(226, 226, 226, 1);
+  --custom-black: rgba(10, 10, 10, 1);
+  --custom-dark-brown: rgba(31, 23, 6, 1);
+  --custom-brown: rgba(83, 57, 42, 1);
+  --custom-tan: rgba(172, 132, 90, 1);
+  --custom-light-brown: rgba(88, 80, 71, 1);
+  --custom-green: rgba(69, 107, 90, 1);
+  --custom-white: rgba(226, 226, 226, 1);
 
---custom-black-st: rgba(10, 10, 10, 0.7);
---custom-dark-brown-st: rgba(31, 23, 6, 0.7);
---custom-brown-st: rgba(83, 57, 42, 0.7);
---custom-tan-st: rgba(172, 132, 90, 0.7);
---custom-light-brown-st: rgba(88, 80, 71, 0.7);
---custom-green-st: rgba(69, 107, 90, 0.7);
---custom-white-st: rgba(226, 226, 226, 0.7);
+  --custom-black-st: rgba(10, 10, 10, 0.7);
+  --custom-dark-brown-st: rgba(31, 23, 6, 0.7);
+  --custom-brown-st: rgba(83, 57, 42, 0.7);
+  --custom-tan-st: rgba(172, 132, 90, 0.7);
+  --custom-light-brown-st: rgba(88, 80, 71, 0.7);
+  --custom-green-st: rgba(69, 107, 90, 0.7);
+  --custom-white-st: rgba(226, 226, 226, 0.7);
 
---custom-black-t: rgba(10, 10, 10, 0.4);
---custom-dark-brown-t: rgba(31, 23, 6, 0.4);
---custom-brown-t: rgba(83, 57, 42, 0.4);
---custom-tan-t: rgba(172, 132, 90, 0.4);
---custom-light-brown-t: rgba(88, 80, 71, 0.4);
---custom-green-t: rgba(69, 107, 90, 0.4);
---custom-white-t: rgba(226, 226, 226, 0.4);
+  --custom-black-t: rgba(10, 10, 10, 0.4);
+  --custom-dark-brown-t: rgba(31, 23, 6, 0.4);
+  --custom-brown-t: rgba(83, 57, 42, 0.4);
+  --custom-tan-t: rgba(172, 132, 90, 0.4);
+  --custom-light-brown-t: rgba(88, 80, 71, 0.4);
+  --custom-green-t: rgba(69, 107, 90, 0.4);
+  --custom-white-t: rgba(226, 226, 226, 0.4);
 
---custom-black-0: rgba(10, 10, 10, 0);
---custom-dark-brown-0: rgba(31, 23, 6, 0);
---custom-brown-0: rgba(83, 57, 42, 0);
---custom-tan-0: rgba(172, 132, 90, 0);
---custom-light-brown-0: rgba(88, 80, 71, 0);
---custom-green-0: rgba(69, 107, 90, 0);
---custom-white-0: rgba(226, 226, 226, 0);
+  --custom-black-0: rgba(10, 10, 10, 0);
+  --custom-dark-brown-0: rgba(31, 23, 6, 0);
+  --custom-brown-0: rgba(83, 57, 42, 0);
+  --custom-tan-0: rgba(172, 132, 90, 0);
+  --custom-light-brown-0: rgba(88, 80, 71, 0);
+  --custom-green-0: rgba(69, 107, 90, 0);
+  --custom-white-0: rgba(226, 226, 226, 0);
 
---minor-blur: blur(3px);
---standard-blur: blur(6px);
---BIG-blur: blur(9px);
+  --minor-blur: blur(3px);
+  --standard-blur: blur(6px);
+  --BIG-blur: blur(9px);
 
---standard-transition-timing: cubic-bezier(0.175, 0.885, 0.32, 1.275);
---standard-transition-timing-no-bounce: cubic-bezier(0.175, 0.885, 0.32, 1.0);
+  --standard-transition-timing: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  --standard-transition-timing-no-bounce: cubic-bezier(0.175, 0.885, 0.32, 1.0);
 
---nav-color: rgba(226, 226, 226, 1);
---nav-bg-color: rgba(226, 226, 226, 0.4);
+  --nav-color: rgba(226, 226, 226, 1);
+  --nav-bg-color: rgba(226, 226, 226, 0.4);
 
---footer-color: rgba(31, 23, 6, 1);
---footer-accent: rgba(88, 80, 71, 1);
---footer-accent-hover: rgba(226, 226, 226, 1);
+  --footer-color: rgba(31, 23, 6, 1);
+  --footer-accent: rgba(88, 80, 71, 1);
+  --footer-accent-hover: rgba(226, 226, 226, 1);
 
 }
 
@@ -195,5 +195,70 @@ h1 {
 .std-content-box{
 
   padding: 4em 2em 0em 2em;
+
+}
+
+.pdf-viewer {
+
+  position: relative;
+  overflow: hidden;
+  transition: 0.4s var(--standard-transition-timing-no-bounce);
+  overflow-wrap: break-word;
+  height: fit-content;
+
+}
+
+/* .pdf-viewer > .download {
+
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: red;
+  bottom: 10px;
+  left: calc(50% - 10px);
+
+} */
+
+.pdf-viewer canvas {
+  border-radius: 1em;
+}
+
+.pdf-viewer span {
+
+  display: flex;
+  word-break: break-all;
+
+  justify-content: center;
+  align-items: center;
+
+  font-size: 1.5em;
+
+  position: absolute;
+  color: var(--custom-white);
+  background-color: var(--custom-black-st);
+
+  padding: 20px;
+
+  width: 100%;
+  height: 100%;
+  inset: 0;
+
+  filter: blur(10px);
+
+  opacity: 0;
+  z-index: 2;
+
+  transition: 0.4s;
+
+}
+
+.pdf-viewer:hover {
+
+  span {
+
+    opacity: 1;
+    filter: none;
+
+  }
 
 }
