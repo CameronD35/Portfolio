@@ -1,0 +1,35 @@
+---
+layout: ../../layouts/MarkdownPostLayout.astro
+title: "Creating a Physics Problem"
+pubDate: 2025-02-22
+description: "A writing on my favorite physics problem I've created so far."
+author: 'Cameron DeMartini'
+image:
+    url: '/src/assets/blogs/camera-adventures-banner.webp'
+    alt: 'The Astro logo on a dark background with a pink glow.'
+tags: ["physics", "college", "worksheet", "problem", "tutoring"]
+---
+
+## Introduction
+
+As part of my job working as a tutor in the MESA center I have been assigned a couple of Academic Excellence Workshops (AEWs) to facilitate this Spring 2026 semester. I am currently
+hosting the Linear Algebra and Physics: Electricity & Magnetism workshops and let me just say, I've absolutely enjoyed engaging with students and teaching them. But one aspect I've
+truly enjoyed is having the space to make my own problems (it definitely isn't easy!). This little blog will go over making my own challenge physics problem which is featured at the end of
+<a href="/pdfs/tutoring/221-worksheet2.pdf" target="_blank">this worksheet</a>.
+
+This week students covered one of my favorite topics in electricity & magnetism, Gauss's Law (probably because of how many times I saw my good friend $\int$ <span class="tiny">but more accurately $\oint$</span>). The other problems were pretty standard given the subject: calculating electric flux, identifying symmetries, and the classic "Find the electric field a distance $R$ from a charged ball of radius $r$" problem. For the last one though, I wanted to go all out since we get to work on these problems together. It's basically a Gauss's Law
+problem on steroids.
+
+## The Problem
+
+The problem reads:
+
+<i>You work for CERN, the operator of world’s largest particle accelerator. Scientists have asked you to propel an electron into a charged surface in hopes of learning something highly classified. While you may never know what it is they want to find out, you are given 100 grams of Aluminum to collide the electron into.</i>
+
+The first part of the question asks: Assume that for each gram of Aluminum, a charge of $−5\mu C$ can be produced. What is the charge density $\rho$ for the Aluminum (in $\frac{\mu C}{{cm}^3}$)? The density of Aluminum is 2.7 $\frac{g}{{cm}^3}$.
+
+This one we can solve with a little bit of dimensional analysis:
+
+$$
+\rho = \frac{2.7\cancel{g \text{ Al}}}{1{cm}^3 \text{ Al}} \times \frac{−5\mu C}{1\cancel{g \text{ Al}}} = -13.5\, \frac{\mu C}{{cm}^3}
+$$

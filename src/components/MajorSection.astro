@@ -7,6 +7,7 @@ import '../styles/global.css';
 interface Props {
 
     title: string;
+    desc?: string;
     link?: string;
     isLeft?: string;
     color?: string;
@@ -17,7 +18,7 @@ interface Props {
 
 }
 
-const { title, link, isLeft = "false", color = "var(--custom-black)", buttonmsg = title, href = "/", imageDirectory = href.split("/")[2], imageNames = ["MDOSC.webp", "StellersJay9-16.webp", "VibinLizard.webp"]} = Astro.props;
+const { title, desc = "This is a fire description.", link, isLeft = "false", color = "var(--custom-black)", buttonmsg = title, href = "/", imageDirectory = href.split("/")[2], imageNames = ["MDOSC.webp", "StellersJay9-16.webp", "VibinLizard.webp"]} = Astro.props;
 
 ---
 
@@ -36,7 +37,7 @@ const { title, link, isLeft = "false", color = "var(--custom-black)", buttonmsg 
             <div class="title-subtitle">
 
                 <span class="title">{title.toUpperCase()}</span>
-                <span>This is a fire description.</span>
+                <span>{desc}</span>
 
             </div>
 
@@ -83,6 +84,16 @@ const { title, link, isLeft = "false", color = "var(--custom-black)", buttonmsg 
         .title-subtitle {
 
             align-items: start !important;
+
+        }
+
+    }
+
+    [data-isLeft="false"] {
+        
+        .title-subtitle {
+
+            text-align: right !important;
 
         }
 

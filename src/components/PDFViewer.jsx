@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
 import * as pdfjs from 'pdfjs-dist';
-import { setFooterFixing } from '../scripts/footerManage';
 pdfjs.GlobalWorkerOptions.workerSrc = window.location.origin + '/pdf.worker.min.mjs';
 
 const PDFViewer = ({url}) => {
@@ -41,10 +40,12 @@ const PDFViewer = ({url}) => {
 
     }, [url]);
 
-    return <div className="pdf-viewer" style={{height: height / 5}}>
-                <div className="download"></div>
-                <span className="fileName">{fileName}</span><canvas style={{width: width / 5, height: height / 5}}data-name={fileName} ref={canvasRef}/>
-           </div>;
+    return  <a href={url} target="_blank">
+                <div className="pdf-viewer" style={{height: height / 5}}>
+                    <div className="download"></div>
+                    <span className="file-name">{fileName}</span><canvas style={{width: width / 5, height: height / 5}}data-name={fileName} ref={canvasRef}/>
+                </div>
+            </a>;
 
 };
 

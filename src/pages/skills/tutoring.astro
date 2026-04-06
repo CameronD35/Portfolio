@@ -29,11 +29,11 @@ const pageTitle = "Tutoring";
 		<div class="stats-container">
 
 			<div class="mesa-hours">
-				<span class="big-number">306</span>
+				<span class="big-number">328</span>
 				<span class="stat-desc"> hours spent tutoring at the College of the Canyons MESA center.</span>
 			</div>
 			<div class="private-hours">
-				<span class="big-number">17</span>
+				<span class="big-number">21</span>
 				<span class="stat-desc"> hours spent tutoring on my own time.</span>
 			</div>
 			<div class="subjects">
@@ -49,7 +49,7 @@ const pageTitle = "Tutoring";
 					<li class="exp">Mechanics of Solids & Fluids</li>
 					<li class="exp">Electricity & Magnetism</li>
 					<li class="exp">Engineering Statics</li>
-					
+					<li class="exp">Data Structures & Algorithms (Java)</li>
 
 				</ul>
 
@@ -57,7 +57,7 @@ const pageTitle = "Tutoring";
 
 			<div class="files">
 
-				<span class="stat-desc">Worksheets</span>
+				<span class="stat-desc">Worksheets (Click to view/download!)</span>
 
 				<div class="file-container">
 					{worksheets.map((worksheet: string) => {return <PDFViewer url={worksheet.substring(worksheet.indexOf('/', 2))} client:only="react"></PDFViewer>})}
