@@ -29,7 +29,7 @@ const pageTitle = "Tutoring";
 		<div class="stats-container">
 
 			<div class="mesa-hours">
-				<span class="big-number">328</span>
+				<span class="big-number">506</span>
 				<span class="stat-desc"> hours spent tutoring at the College of the Canyons MESA center.</span>
 			</div>
 			<div class="private-hours">
@@ -50,6 +50,7 @@ const pageTitle = "Tutoring";
 					<li class="exp">Electricity & Magnetism</li>
 					<li class="exp">Engineering Statics</li>
 					<li class="exp">Data Structures & Algorithms (Java)</li>
+					<li class="exp">General Chemistry</li>
 
 				</ul>
 
@@ -192,10 +193,18 @@ const pageTitle = "Tutoring";
 
 	.file-container {
 
-		display: flex;
-		border-style:hidden;
-		gap: 2em;
+
 		padding: 2em 0;
+
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+		max-width: 100%;
+
+		place-items: center;
+		place-content: center;
+		padding-inline-start: 0;
+
+		gap: 2em;
 
 	}
 

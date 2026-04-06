@@ -1,11 +1,11 @@
 ---
 layout: ../../layouts/MarkdownPostLayout.astro
 title: "Creating a Physics Problem"
-pubDate: 2025-02-22
+pubDate: 2025-04-05
 description: "A writing on my favorite physics problem I've created so far."
 author: 'Cameron DeMartini'
 image:
-    url: '/src/assets/blogs/camera-adventures-banner.webp'
+    url: '/src/assets/blogs/physics-problem.webp'
     alt: 'The Astro logo on a dark background with a pink glow.'
 tags: ["physics", "college", "worksheet", "problem", "tutoring"]
 ---
@@ -14,8 +14,8 @@ tags: ["physics", "college", "worksheet", "problem", "tutoring"]
 
 As part of my job working as a tutor in the MESA center I have been assigned a couple of Academic Excellence Workshops (AEWs) to facilitate this Spring 2026 semester. I am currently
 hosting the Linear Algebra and Physics: Electricity & Magnetism workshops and let me just say, I've absolutely enjoyed engaging with students and teaching them. But one aspect I've
-truly enjoyed is having the space to make my own problems (it definitely isn't easy!). This little blog will go over making my own challenge physics problem which is featured at the end of
-<a href="/pdfs/tutoring/221-worksheet2.pdf" target="_blank">this worksheet</a>.
+truly enjoyed is having the space to make my own problems (it definitely isn't easy!). This little blog will go over making my own physics problem which is featured at the end of
+<a href="/pdfs/tutoring/221-worksheet2.pdf" target="_blank">this worksheet</a>. If you want to give it a shot before reading, go on ahead!
 
 This week students covered one of my favorite topics in electricity & magnetism, Gauss's Law (probably because of how many times I saw my good friend $\int$ <span class="tiny">but more accurately $\oint$</span>). The other problems were pretty standard given the subject: calculating electric flux, identifying symmetries, and the classic "Find the electric field a distance $R$ from a charged ball of radius $r$" problem. For the last one though, I wanted to go all out since we get to work on these problems together. It's basically a Gauss's Law
 problem on steroids.
@@ -26,10 +26,103 @@ The problem reads:
 
 <i>You work for CERN, the operator of world’s largest particle accelerator. Scientists have asked you to propel an electron into a charged surface in hopes of learning something highly classified. While you may never know what it is they want to find out, you are given 100 grams of Aluminum to collide the electron into.</i>
 
-The first part of the question asks: Assume that for each gram of Aluminum, a charge of $−5\mu C$ can be produced. What is the charge density $\rho$ for the Aluminum (in $\frac{\mu C}{{cm}^3}$)? The density of Aluminum is 2.7 $\frac{g}{{cm}^3}$.
+The first part of the question asks: 
+
+*Assume that for each gram of Aluminum, a charge of $−5\mu C$ can be produced. What is the charge density $\rho$ for the Aluminum (in $\frac{\mu C}{{cm}^3}$)? The density of Aluminum is 2.7 $\frac{g}{{cm}^3}$.*
 
 This one we can solve with a little bit of dimensional analysis:
 
 $$
 \rho = \frac{2.7\cancel{g \text{ Al}}}{1{cm}^3 \text{ Al}} \times \frac{−5\mu C}{1\cancel{g \text{ Al}}} = -13.5\, \frac{\mu C}{{cm}^3}
 $$
+
+Admittedly, that is sort of a random question. However, the goal was to get students comfortable with working with charge densities and the volume of charged surfaces. The next part of the question will feel quite familiar to anyone who has taken an introductory electricity & magnetism course. It reads:
+
+*You decide to create a ball of aluminum because it has some nice symmetry. You wish to create an electric field strength of 27000 $\frac{\text{N}}{\text{C}}$ at the surface of the ball of Aluminum. What would the radius $r$ of this ball of charge have to be? (Hint: Use a relationship between the charge density $\rho$ and the charge $Q$)*
+
+For this part, it would be important to note that we are looking for the electric field strength at the surface, making our lives much easier! This is a classic Gauss's Law problem:
+
+$$
+{\int}E\, dA = \frac{Q}{\epsilon_0},\; \rho = \frac{Q}{V} \implies EA = \frac{\rho V}{\epsilon_0}
+$$
+
+Plugging in $4\pi r^2$ for $A$, the surface area of the gaussian surface, and $\frac{4}{3}\pi r^3$ for $V$, the volume of the aluminum ball, we get some really nice cancellations. Notice that we use $r$ for both geometries because we are evaluating the surface of the physical ball:
+
+$$
+E(\cancel{4\pi r^2}) = \frac{\rho (\cancel{4\pi} r^{\cancel{3}})}{\epsilon_0} \rightarrow E = \frac{\rho r}{3\epsilon_0} \rightarrow r = \frac{3E\epsilon_0}{\rho} = 53.1 \text{nm},
+$$
+
+where we converted $\rho$ from $\frac{\mu\text{C}}{\text{cm}^3}$ to $\frac{\text{C}}{\text{m}^3}$.
+
+The third part drifts away from Gauss's Law and towards the classic definition of the electric field:
+
+*Find an expression for the electric field at a distance $x$ from the surface of the Aluminum ball.*
+
+All we have to do is plug some variables into the equation for the electric field generated by a point charge. For us, since we are looking for a distance x away from the edge of the ball, our distance will be $r+x$:
+
+$$
+E = \frac{1}{4\pi\epsilon_0}\frac{Q}{{(r+x)}^2} = \frac{1}{4\pi\epsilon_0}\frac{\rho V}{{(r+x)}^2} = \frac{1}{4\pi\epsilon_0}\frac{\rho(\frac{4}{3}\pi r^3)}{{(r+x)}^2}
+$$
+
+After some cancellations (and some rearrangements) we get:
+
+$$
+E = \frac{\rho}{3\epsilon_0}\frac{r^3}{{(r+x)}^2}
+$$
+
+The fourth part is typically the second hardest part, not because the physics is challenging, but because it's kinematics. Most students forget kinematics after staring at the integrals in electricity & magnetism for hours on end! Nonetheless, it reads:
+
+*Find the acceleration $a_e(x)$ of an electron (due to the influence of an electric field) at any point $x$ from the surface of the Aluminum ball.*
+
+For this question we just need one equation: $F = ma = qE \implies a = \frac{qE}{m}$. Now, all we need to do is plug in our expression from the last problem, set $q = -e$ (with $e$ being the unit of charge for a proton/electron), and $m = m_e$ (where $m_e$ is the mass of a single electron) and we're good!
+
+$$
+a_e(x) = \frac{-e\rho}{3\epsilon_0 m_e}\frac{r^3}{{(r+x)}^2}
+$$
+
+Now, the fifth part is the final boss. Most students did not cover the concept necessary to answer this part (or if they did, there is *very* little emphasis on it). It states:
+
+*Using your answer in part (d), find an expression for the velocity $v_e(x)$ of the electron.*
+
+If part (d) had you write the acceleration as a function of time, this problem is very straight forward (since we know $a = \frac{dv}{dt}$ and it becomes a simple integration problem). The challenging part comes from the fact that it isn't. This is where being deeply familiar with calculus will give you a leg up on a problem like this.
+
+We start off by taking the position derivative of the acceleration relation stated above:
+
+$$
+\frac{d}{dx}(a = \frac{dv}{dt}) \rightarrow \frac{da}{dx} = \frac{d}{dx}(\frac{dv}{dt}) \xrightarrow{\text{Chain Rule}} \frac{da}{dx} = \frac{dv}{dx}(\frac{dx}{dt}).
+$$
+
+Well, how can we work with this? It seems more complicated! There are a couple things we can observe, however:
+
+<ol>
+<li>We can just take the position derivative of our $a_e(x)$ function found in part (d) to get $\frac{da}{dx} = \frac{2e\rho r^3}{3\epsilon_0 m_e}\frac{1}{{(r + x)}^3}$.</li>
+<li>Velocity $v$ is just the time derivative of the position $x$, or $v = \frac{dx}{dt}$</li>
+</ol>
+
+So now we have:
+
+$$
+\frac{2e\rho r^3}{3\epsilon_0 m_e}\frac{1}{{(r + x)}^3} = \frac{dv}{dx}v \implies \frac{2e\rho r^3}{3\epsilon_0 m_e}\frac{dx}{{(r + x)}^3} = vdv
+$$
+
+Integrating both sides (which I'll omit here because it's relatively simple but just messy to write!):
+
+$$
+-\frac{e\rho r^3}{3\epsilon_0 m_e}\frac{1}{{(r + x)}^2} = v^2 - {v_0}^2
+$$
+
+Ultimately, we are left with:
+
+$$
+v_e(x) = \sqrt{{v_0}^2 -\frac{e\rho r^3}{3\epsilon_0 m_e}\frac{1}{{(r + x)}^2}}
+$$
+
+The negative sign in the square root is a little concerning since we know that the electron will accelerate, but if we remember that the charge density $\rho$ is negative, the negative sign will go away for good and we're in the clear.
+
+As a side note, there is another approach you could take that would completely remove the need for taking the position derivative of acceleration. That approach returns the same result but some time. See if you can spot it!
+
+Alright, so that is a singular physics problem from the worksheets I've created thus far. Making these problems has challenged me in very unique ways and has kept my knowledge in check. I hope that this mini adventure through this problem was fun for you. If you ever want to see some more problems, you are welcome to check out the <a href="/skills/tutoring">tutoring</a> section of my website!
+
+I hope to see you all in the next post!
+
+> \- Cameron
