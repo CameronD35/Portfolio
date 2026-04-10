@@ -2,7 +2,9 @@
 const { platform, username, color, hoverColor } = Astro.props;
 ---
 
-<a href={`https://www.${platform.toLowerCase()}.com/${username}`}>{platform}</a>
+<a href={`https://www.${platform.toLowerCase()}.com/${username}`} target="_blank">
+<slot/>
+</a>
 
 <style define:vars={{color, hoverColor}}>
     a {
@@ -10,6 +12,10 @@ const { platform, username, color, hoverColor } = Astro.props;
         padding: 0.5rem 1rem;
         color: var(--color);
         text-decoration: none;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
 
         transition-duration: 0.2s;
 

@@ -27,10 +27,12 @@
     "rehype-katex": "^7.0.1",
     "rehype-pretty-code": "^0.14.1",
     "remark-math": "^6.0.0",
-    "shiki": "^3.22.0"
+    "shiki": "^3.22.0",
+    "simple-icons-astro": "^16.1.0"
   },
   "devDependencies": {
     "@faker-js/faker": "^10.3.0",
+    "@iconify-json/mdi": "^1.2.3",
     "@types/d3": "^7.4.3",
     "@types/lodash": "^4.17.23",
     "eslint-plugin-astro": "^1.5.0",

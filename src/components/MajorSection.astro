@@ -140,6 +140,77 @@ const { title, desc = "This is a fire description.", link, isLeft = "false", col
         justify-content: center;
 
     }
+
+    @media screen and (max-width: 850px) {
+
+        .majorContentBox {
+
+            flex-direction: column;
+
+        }
+
+        [data-isLeft="true"] {
+
+            .infoBox {
+
+                align-items: center !important;
+
+            }
+            
+            .title {
+
+                text-align: center !important;
+
+            }
+
+            span {
+
+                text-align: center !important;
+
+            }
+
+            .title-subtitle {
+
+                align-items: center !important;
+
+            }
+
+        }
+        
+
+        .infoBox {
+
+            align-items: center !important;
+            width: 80%;
+
+        }
+
+        [data-isLeft="false"] {
+        
+            .title-subtitle {
+
+                text-align: center !important;
+                align-items: center;
+
+            }
+
+        }
+        
+        .title {
+
+            text-align: center !important;
+
+        }
+
+        .galleryBox {
+
+            width: 100%;
+            margin-bottom: -20%;
+
+        }
+
+
+    }
     
 
 </style>

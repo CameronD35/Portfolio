@@ -4,6 +4,8 @@ import Signature from './Signature.astro';
 import '../styles/global.css';
 import Seperator from './Seperator.astro';
 
+import { Icon } from 'astro-icon/components';
+
 // force footer to bottom of page if content height smaller than screen height
 ---
 
@@ -11,13 +13,21 @@ import Seperator from './Seperator.astro';
     
     <div class="socialContainer">
 
-        <Social platform="Twitter" username="camdemartini" color="var(--footer-accent)" hoverColor="var(--footer-accent-hover)"/>
+        <Social platform="X" username="camdemartini" color="var(--footer-accent)" hoverColor="var(--footer-accent-hover)">
+            <Icon name="mdi:twitter" size="1.25em"/>
+        </Social>
         <Seperator height="20px" width="2px" color="var(--footer-accent)"/>
-        <Social platform="GitHub" username="CameronD35" color="var(--footer-accent)" hoverColor="var(--footer-accent-hover)"/>
+        <Social platform="GitHub" username="CameronD35" color="var(--footer-accent)" hoverColor="var(--footer-accent-hover)">
+            <Icon name="mdi:github" size="1.25em"/>
+        </Social>
         <Seperator height="20px" width="2px" color="var(--footer-accent)"/>
-        <Social platform="YouTube" username="@CameronDeMartini" color="var(--footer-accent)" hoverColor="var(--footer-accent-hover)"/>
+        <Social platform="YouTube" username="@CameronDeMartini" color="var(--footer-accent)" hoverColor="var(--footer-accent-hover)">
+            <Icon name="mdi:youtube" size="1.25em"/>
+        </Social>
         <Seperator height="20px" width="2px" color="var(--footer-accent)"/>
-        <Social platform="LinkedIn" username="in/cameron-demartini" color="var(--footer-accent)" hoverColor="var(--footer-accent-hover)"/>
+        <Social platform="LinkedIn" username="in/cameron-demartini" color="var(--footer-accent)" hoverColor="var(--footer-accent-hover)">
+            <Icon name="mdi:linkedin" size="1.25em"/>
+        </Social>
 
     </div>
 
@@ -43,23 +53,6 @@ import Seperator from './Seperator.astro';
         /* clip-path: url(#cool-curve); */
 
     }
-
-    /* footer::before {
-
-        content: '';
-
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 150%;
-        z-index: -2;
-        background: linear-gradient(0deg, var(--custom-dark-brown) 60%, var(--custom-dark-brown-0));
-                    /* url(#noiseFilter);
-
-    } */
 
     #svg_filter {
 

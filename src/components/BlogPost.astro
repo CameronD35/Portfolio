@@ -131,5 +131,41 @@ if (!images[image]) throw new Error(`"${image}" does not exist in glob: "src/ass
 
     }
 
+    .img {
+
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        
+    }
+
+    @media screen and (max-width: 850px) {
+        
+        .card {
+
+            padding-right: 2em;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+
+        }
+
+        .title, .desc {
+
+            transform-origin: center;
+
+        }
+
+        .blog-post-card:hover{
+
+            .title, .desc {
+
+                scale: 1.10;
+
+            }
+        }
+
+    }
+
 </style>
 

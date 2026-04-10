@@ -35,5 +35,37 @@ const { year } = Astro.props;
 
     }
 
+    @media screen and (max-width: 850px) {
+        
+        .text {
+            font-size: 5em;
+        }
+
+        .year {
+
+            text-align: center;
+            mask: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 90%);
+            margin-bottom: -3.5em;
+
+        }
+
+    }
+
+    @media screen and (max-width: 500px) {
+        
+        .text {
+            font-size: 4em;
+        }
+
+        .year {
+
+            text-align: center;
+            mask: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 90%);
+            margin-bottom: -3.5em;
+
+        }
+
+    }
+
 
 </style>

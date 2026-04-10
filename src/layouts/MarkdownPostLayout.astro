@@ -160,7 +160,8 @@ const dateStr = `${months[postDate.getMonth()]} ${postDate.getDate() + 1}, ${pos
     .img {
 
         width: 100%;
-        height: auto;
+        height: 100%;
+        object-fit: cover;
 
     }
 
@@ -278,7 +279,7 @@ const dateStr = `${months[postDate.getMonth()]} ${postDate.getDate() + 1}, ${pos
 
     .script {
 
-        padding: 1em 8em;
+        padding: 1em 15%;
 
     }
 
@@ -305,6 +306,45 @@ const dateStr = `${months[postDate.getMonth()]} ${postDate.getDate() + 1}, ${pos
 
         max-width: 100%;
         white-space: wrap;
+
+    }
+
+    @media screen and (max-width: 900px) {
+        
+        .script {
+
+            padding: 1em 5%;
+
+        }
+
+        .post-content-container {
+
+            padding: 4em 1em 0em 1em;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+        }
+
+        .banner {
+
+            width: calc(100vw - 10%);
+            height: 15em;
+
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+        }
+
+        .info, .date-tags-container {
+
+            max-width: 100%;
+            align-items: center;
+            text-align: center;
+
+        }
 
     }
 

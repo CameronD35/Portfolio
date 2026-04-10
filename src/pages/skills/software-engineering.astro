@@ -40,7 +40,7 @@ const repositories = await res.json();
 	<div class="std-content-box">
 
 		<h1>Software Engineering</h1>
-		<h3>Click on any of the repos to view them on GitHub!</h3>
+		<h4>Click on any of the repos to view them on GitHub!</h4>
 
 		<ul class="repo-list">
 
@@ -101,7 +101,7 @@ const repositories = await res.json();
 
 	}
 
-	h1, h3, p {
+	h1, h4, p {
 
 		color: var(--custom-white);
 
@@ -114,6 +114,16 @@ const repositories = await res.json();
 		list-style-type: none;
         padding: 0;
         display: flow-root;
+
+    }
+
+	@media screen and (max-width: 850px) {
+        
+        h1, h4 {
+
+            text-align: center;
+
+        }
 
     }
 
