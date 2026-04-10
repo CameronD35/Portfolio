@@ -100,14 +100,18 @@ const dateStr = `${months[postDate.getMonth()]} ${postDate.getDate() + 1}, ${pos
         margin-left: 0.25em;
         margin-right: 0.25em;
 
+        background-color: #24292e;
+        border-radius: 1.5em;
+
     }
 
     pre {
 
-        padding: 2em;
+        padding: 3em;
         border-radius: 1.5em;
         position: relative;
 
+        background-color: var(--custom-black);
 
     }
 
@@ -116,6 +120,8 @@ const dateStr = `${months[postDate.getMonth()]} ${postDate.getDate() + 1}, ${pos
         font-family: "JetBrains Mono", monospace;
         font-size: 0.9em;
 
+        white-space: pre-wrap;
+
     }
 
     pre::after {
@@ -123,8 +129,8 @@ const dateStr = `${months[postDate.getMonth()]} ${postDate.getDate() + 1}, ${pos
         content: attr(data-language);
         text-transform: uppercase;
         position: absolute;
-        top: 1.5em;
-        right: 1.5em;
+        top: 1em;
+        right: 1em;
         color: var(--custom-white-st);
         font-family: "JetBrains Mono", monospace;
         font-size: 0.9em;
