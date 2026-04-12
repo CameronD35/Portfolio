@@ -61,7 +61,8 @@ body {
 .content {
 
   line-height: 1.5;
-  color: var(--custom-dark-brown)
+  color: var(--custom-dark-brown);
+  transition-duration: 0.4s;
 
 }
 
@@ -258,6 +259,28 @@ h1 {
 
     opacity: 1;
     filter: none;
+
+  }
+
+}
+
+.large-image {
+
+  z-index: 3;
+
+  transition-timing-function: var(--standard-transition-timing);
+
+  transform-origin: center;
+
+  background-size: cover;
+
+}
+
+@keyframes move-large-image {
+
+  0% {
+
+
 
   }
 

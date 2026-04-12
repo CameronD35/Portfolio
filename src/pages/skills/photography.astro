@@ -135,7 +135,7 @@ grid[grid.length - 1].forEach((cell, i) => {
 	<div class="std-content-box">
 
 		<h1>Photography</h1>
-		<p>I hope you love how dynamic this gallery is when hovering over images because the debugging took <b>HOURS</b></p>
+		<h4>I hope you love how dynamic this gallery is when hovering over (and now clicking on) images because the debugging took <b>HOURS</b>! Also, this is a WIP so clicking on images is not quite where I want it to be yet!</h4>
 
 		<div class="photo-gallery">
 
@@ -143,7 +143,7 @@ grid[grid.length - 1].forEach((cell, i) => {
 
 				{imageNames.map((image: string, i) =>
 
-					<Image src={images[image]()} alt={"litty"} class={`image`} style={`--scaling: ${1.2 - (0.02 * flatGrid[i])} ;grid-column: span ${flatGrid[i]}; ${transformArray[i].length > 0 ? `transform-origin: ${transformArray[i].join(" ")}` : ""}`} data-size={flatGrid[i]}/>
+					<Image src={images[image]()} data-aspect-ratio={50} quality="low" alt={"litty"} class={`image clickable-img`} style={`--scaling: ${1.2 - (0.02 * flatGrid[i])} ;grid-column: span ${flatGrid[i]}; ${transformArray[i].length > 0 ? `transform-origin: ${transformArray[i].join(" ")}` : ""}`} data-size={flatGrid[i]}/>
 
 				)}
 
@@ -154,6 +154,13 @@ grid[grid.length - 1].forEach((cell, i) => {
 	</div>
 	
 </BaseLayout>
+
+<script>
+
+	import { setUpInteractivePhotos } from '../../scripts/photoInteractives.js';
+
+	setUpInteractivePhotos();
+</script>
 
 <style define:vars={{numOfRows, numOfColumns}}>
 
@@ -231,5 +238,15 @@ grid[grid.length - 1].forEach((cell, i) => {
 		}
 
 	}
+
+	@media screen and (max-width: 850px) {
+        
+        h1, h4 {
+
+            text-align: center;
+
+        }
+
+    }
 
 </style>

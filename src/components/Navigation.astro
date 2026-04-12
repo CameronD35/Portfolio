@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
 import NavComponent from "./NavComponent.astro";
+import { Icon } from 'astro-icon/components';
 ---
 
 <div id="main-menu" class="nav-links">
@@ -16,6 +17,12 @@ import NavComponent from "./NavComponent.astro";
         <NavComponent title="Skills" isDropdown="true" containerName="skills" dropdownComponents={["Tutoring", "Software Engineering", "Graphic Design", "Photography"]}/>
         <NavComponent href="/experience" title="Experience"/>
         <NavComponent href="/blog" title="Blog"/>
+
+        <div class="compressed-nav nav-title">
+
+            <Icon name="Nav_Icon"></Icon>
+
+        </div>
 
     </div>
 
@@ -44,5 +51,35 @@ import NavComponent from "./NavComponent.astro";
         color: var(--custom-white);
 
     }
+
+    .compressed-nav {
+
+        display: none;
+
+    }
+
+    @media screen and (max-width: 650px) {
+        
+        .compressed-nav {
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+        }
+
+    }
+
+    @keyframes hide-nav-titles {
+        
+        0% {
+
+            
+
+        }
+
+    }
+
+
 
 </style>
