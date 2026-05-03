@@ -2,6 +2,8 @@
 import PreviewGallery from '../components/PreviewGallery.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import '../styles/global.css';
+import Signature from '../components/Signature.astro';
+import EducationCard from '../components/EducationCard.astro';
 
 const pageTitle = "About Me";
 
@@ -37,52 +39,85 @@ for (let i = 0; i < 1000; i++) {
         <div class="name-section">
             <span class="pre-name">My name is</span>
 
-            <span class="name">
-                {identity.name}
-            </span>
+            <Signature width="600px" color="var(--custom-black)"/>
         </div>
 
         <div class="info">
 
-            <div class="desc">
-                Hello!! I'm an Aerospace Engineering/Applied Physics major (depending where I get into) currently attending College of the Canyons in Santa Clarita, CA. 
-                Before I get too excited talking about what I do, I'd like to introduce my story (at least my more "professional" one for now).
+            <div class="story-section">
 
-                You may be wondering "What is an Aerospace Engineering dude doing with web design and development?" That's a perfectly valid question and one I get all the time.
+                <div class="detail-title">My Story</div>
+
+                <p>
+
+                    Hello!! I'm an Aerospace Engineering major currently attending College of the Canyons in Santa Clarita, CA and ready to transfer to Cal Poly San Luis Obispo! 
+                    Before I get too excited talking about what I do, I'd like to introduce my story (at least my more "professional" one for now).
                 
-                It all really began with my time at the Astronomy & Physics Club (a club where we get to send stuff into space!!). I happened to be learning some JavaScript towards
-                the end of the RockSatX 2023 project when the project manager at the time proposed an idea: <i>a data dashboard</i>.
-                <br><br>
-                The goals of the data dashboard were to receive data from a remote mesh radio system, display the data it sends and monitor its current connections to other radios in the network. 
-                There were about 5 weeks to go from never having developed a web application to building a data dashboard capable of establishing a <a href="https://nodejs.org/en" target="_blank">Node.JS server</a>, using WebSockets to communicate with the server, 
-                and utilizing <a href="https://d3js.org" target="_blank">d3.js</a> to make some cool graphs so that the data isn’t just a bunch of random numbers scattered on the screen. As you can imagine, this was not an easy task (and the biggest lie would be to say that it ever was!). 
-                The difficulty certainly showed in the final product (which had all sorts of issues), but I learned so so much! My favorite issue that I had was just this slight bug where <b>the entire site would refresh and re-render when just one 
-                element on the page changed</b>. So, every time a single data point changed, the entire website reloaded (imagine if a website like YouTube did that!). That was probably the most inefficient program I ever made to date (and I’ve 
-                done some crazy inefficient things before). The design itself was very simple with a black and white design, with small bits of color to represent data. Overall, the project was a mess, but this wouldn’t be the end of my dashboarding adventures.
-                <br><br>
-                Moving forward, I knew that I could make a really beautiful dashboard for the RockSatX 2024 project. All I needed to do was spend long days in Photoshop to get a layout that I could reference later on. Going into it, I planned how the 
-                dashboard would work: it would have an interactive multi-page, cleanly animated, and striking design. The goal was to surprise people when they saw the dashboard. It was a design project as much as it was a programming project. Needless to say, 
-                I cannot recall the exact amount of hours I spent working on the dashboard, but if I HAD to give a number, I’d say a <i>small</i> 300+ hours. You may wonder why it took so long, but it’s worth noting that this project was built with vanilla JS/CSS/HTML 
-                and came out to at least 3000 lines of code. Some of the most difficult issues included animating the graphs, building a tolerable amount of responsivity, and syncing all of the site's components to a global timer (even the ones that were not 
-                rendered on the screen at a certain moment). I could talk for hours about the time I spent creating this dashboard, but to get a full grasp <a href="https://rsxdashboard24.pages.dev" target="_blank">I suggest checking out the project yourself</a>! This counts as my very first 
-                published website (though it was never quite intended to run as a website, more of a local web app).
-                <br><br>
-                My most recent dashboarding adventure took a bit of a different turn for the RockSatX 2025 project. I was not able to dedicate all of my efforts to a dashboard as a lot of my time was dedicated to being the Software Engineering lead for the project. 
-                However, I did want some sort of data analysis tool, but it had to be something a little more “realtime.” Keeping this in mind, I went ahead with my well-established dashboarding workflow: design the dashboard in photoshop, build the outline using HTML, 
-                convert it all into a dynamic JavaScript program, and then add support for a Node.JS server. Everything was standard until that last part because the 2025 project utilized a Jetson Orin Nano, a mini computer capable of running Linux. Most relevant to the 
-                dashboard, this meant that the computer could establish an ethernet connection and run a daemon on boot. The goal was to build a C program that would check for an ethernet connection on a static IP address (the one associated with the ethernet port on the 
-                Nano). By creating a service file and attaching it systemd Linux service, this meant that the Nano could automatically detect when a computer is connected to the ethernet port and run a forked process that could then send data over the connection. Ultimately, 
-                this process worked and as long as one had the daemon set up on a Linux device and the computer was running the dashboard, you could snag some data (such as CPU usage) from the Nano without even needing to be in headless mode (only power was needed!). By far, 
-                that was the most challenging project I ever worked on. I had to learn the C programming language, how to make a daemon, how to fork a process, and many, many, many, many (and if i didn’t indicate it already, many) Linux system calls. Of course, since this 
-                program required a Nano, I did not decide to publish the project as a website, but you can check out the repository <a href="https://github.com/CameronD35/COC-ATLAS_WebInterface" target="_blank">here</a>!
-                <br><br>
-                OKAY, so the reason I shared all of that is because that journey really is the reason I love what I do so much. Throughout that entire process, I learned how to use the Internet effectively and read programming documentation as though it were a novel (not to 
-                say that it still doesn't still confuse me 75% of the time!). I was also able to teach others about my process and approach, something that always reminded me how much I just love teaching people. But, that’s a topic for another day (otherwise we’ll be here 
-                forever).
-                <br><br>
-                Thank you so much for reading this! If you ever wish to connect or believe I might be able to help with anything, you can always reach out to me via email as displayed below! (Also, take a peek at my resume if you have the time!)
-                <br><br>
-                But let's not be all boring and professional here, so here are some other things about me:
+                </p>
+
+                <p>
+
+                    You may be wondering "What is an Aerospace Engineering dude doing with web design and development?" That's a perfectly valid question and one I get all the time.
+                    It all really began with my time at the Astronomy & Physics Club (a club where we get to send stuff into space!!). I happened to be learning some JavaScript towards
+                    the end of the RockSatX 2023 project when the project manager at the time proposed an idea: <i>a data dashboard</i>.
+                
+                </p>
+
+                <p>
+
+                    The goals of the data dashboard were to receive data from a remote mesh radio system, display the data it sends and monitor its current connections to other radios in the network. 
+                    There were about 5 weeks to go from never having developed a web application to building a data dashboard capable of establishing a <a href="https://nodejs.org/en" target="_blank">Node.JS server</a>, using WebSockets to communicate with the server, 
+                    and utilizing <a href="https://d3js.org" target="_blank">d3.js</a> to make some cool graphs so that the data isn’t just a bunch of random numbers scattered on the screen. As you can imagine, this was not an easy task (and the biggest lie would be to say that it ever was!). 
+                    The difficulty certainly showed in the final product (which had all sorts of issues), but I learned so so much! My favorite issue that I had was just this slight bug where <b>the entire site would refresh and re-render when just one 
+                    element on the page changed</b>. So, every time a single data point changed, the entire website reloaded (imagine if a website like YouTube did that!). That was probably the most inefficient program I ever made to date (and I’ve 
+                    done some crazy inefficient things before). The design itself was very simple with a black and white design, with small bits of color to represent data. Overall, the project was a mess, but this wouldn’t be the end of my dashboarding adventures.
+                
+                </p>
+
+                <p>
+
+                    Moving forward, I knew that I could make a really beautiful dashboard for the RockSatX 2024 project. All I needed to do was spend long days in Photoshop to get a layout that I could reference later on. Going into it, I planned how the 
+                    dashboard would work: it would have an interactive multi-page, cleanly animated, and striking design. The goal was to surprise people when they saw the dashboard. It was a design project as much as it was a programming project. Needless to say, 
+                    I cannot recall the exact amount of hours I spent working on the dashboard, but if I HAD to give a number, I’d say a <i>small</i> 300+ hours. You may wonder why it took so long, but it’s worth noting that this project was built with vanilla JS/CSS/HTML 
+                    and came out to at least 3000 lines of code. Some of the most difficult issues included animating the graphs, building a tolerable amount of responsivity, and syncing all of the site's components to a global timer (even the ones that were not 
+                    rendered on the screen at a certain moment). I could talk for hours about the time I spent creating this dashboard, but to get a full grasp <a href="https://rsxdashboard24.pages.dev" target="_blank">I suggest checking out the project yourself</a>! This counts as my very first 
+                    published website (though it was never quite intended to run as a website, more of a local web app).
+                
+                </p>
+
+                <p>
+
+                    My most recent dashboarding adventure took a bit of a different turn for the RockSatX 2025 project. I was not able to dedicate all of my efforts to a dashboard as a lot of my time was dedicated to being the Software Engineering lead for the project. 
+                    However, I did want some sort of data analysis tool, but it had to be something a little more “realtime.” Keeping this in mind, I went ahead with my well-established dashboarding workflow: design the dashboard in photoshop, build the outline using HTML, 
+                    convert it all into a dynamic JavaScript program, and then add support for a Node.JS server. Everything was standard until that last part because the 2025 project utilized a Jetson Orin Nano, a mini computer capable of running Linux. Most relevant to the 
+                    dashboard, this meant that the computer could establish an ethernet connection and run a daemon on boot. The goal was to build a C program that would check for an ethernet connection on a static IP address (the one associated with the ethernet port on the 
+                    Nano). By creating a service file and attaching it systemd Linux service, this meant that the Nano could automatically detect when a computer is connected to the ethernet port and run a forked process that could then send data over the connection. Ultimately, 
+                    this process worked and as long as one had the daemon set up on a Linux device and the computer was running the dashboard, you could snag some data (such as CPU usage) from the Nano without even needing to be in headless mode (only power was needed!). By far, 
+                    that was the most challenging project I ever worked on. I had to learn the C programming language, how to make a daemon, how to fork a process, and many, many, many, many (and if i didn’t indicate it already, many) Linux system calls. Of course, since this 
+                    program required a Nano, I did not decide to publish the project as a website, but you can check out the repository <a href="https://github.com/CameronD35/COC-ATLAS_WebInterface" target="_blank">here</a>!
+                
+                </p>
+
+                <p>
+
+                    OKAY, so the reason I shared all of that is because that journey really is the reason I love what I do so much. Throughout that entire process, I learned how to use the Internet effectively and read programming documentation as though it were a novel (not to 
+                    say that it still doesn't still confuse me 75% of the time!). I was also able to teach others about my process and approach, something that always reminded me how much I just love teaching people. But, that’s a topic for another day (otherwise we’ll be here 
+                    forever).
+                
+                </p>
+
+                <p>
+
+                    Thank you so much for reading this! If you ever wish to connect or believe I might be able to help with anything, you can always reach out to me via email as displayed below! (Also, take a peek at my resume if you have the time!)
+                
+                
+                </p>
+
+                <p>
+
+                    But let's not be all boring and professional here, so here are some facts about me:
+                
+                </p>
 
                 <ul>
 
@@ -100,13 +135,40 @@ for (let i = 0; i < 1000; i++) {
                     </li>
                     
                 </ul>
+        </div>
+
+        <div class="split-line"></div>
+
+        <div class="formal-details">
+
+            <div class="detail">
+                
+                <div class="detail-title">Education</div>
+
+                <EducationCard imgName="mustangs" schoolTitle="Cal Poly San Luis Obispo" major="Aerospace Engineering" startDate='2026-08-24' endDate="2028-06-02" primaryColor="blue"/>
+                <EducationCard imgName="cougars" schoolTitle="College of the Canyons" major="Engineering" startDate='2023-08-24' endDate="2026-06-04" primaryColor="red"/>
+
             </div>
 
-            <div class="right-side">
+            <div class="detail">
+
+                <div class="detail-title">Experience</div>
+
+            </div>
+
+            <div class="detail">
+
+                <div class="detail-title">Resume</div>
+
+            </div>
+
+        </div>
+
+            <!-- <div class="right-side">
 
                 <PreviewGallery imageNames={["me1.webp", "me2.webp", "me3.webp"]} imageDirectory='me' width="600px" height="800px"/>
 
-            </div>
+            </div> -->
 
         </div>
 
@@ -123,6 +185,13 @@ for (let i = 0; i < 1000; i++) {
 
 <style define:vars={{}}>
 
+    a {
+
+        color: dimgray;
+
+    }
+
+
     .color-box{
         display: inline-block;
         width: 1em;
@@ -134,19 +203,48 @@ for (let i = 0; i < 1000; i++) {
         margin: 0 10px;
     }
 
-    .info {
+    .split-line {
 
-        display: flex;
-        width: 100%;
-        flex-grow: 1;
+        width: 5px;
+        height: auto;
+        opacity: 0.2;
+        background-image: linear-gradient(to bottom, rgba(0,0,0,0) 0%, var(--custom-black-t) 10%, var(--custom-black-t) 90%, rgba(0,0,0,0) 100%);
 
     }
 
-    .desc {
+    .info {
+
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        height: auto;
+        flex-grow: 1;
+        position: relative;
+
+    }
+
+    .story-section {
 
         width: 60%;
         height: 100%;
-        padding-right: 5em;
+        padding-right: 2em;
+
+    }
+
+    .formal-details {
+
+        width: calc(40% - 5px);
+        padding-left: 2em;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+
+    }
+
+    .detail-title {
+
+        font-size: 2em;
+        font-weight: 900;
 
     }
 
@@ -199,11 +297,18 @@ for (let i = 0; i < 1000; i++) {
         display: flex;
         flex-direction: column;
 
+        justify-content: center;
+        align-items: center;
+
+        padding-top: 2em;
+        padding-bottom: 2em;
+
     }
 
     .pre-name{
 
         font-size: 1.5em;
+        padding-bottom: 1em;
 
     }
 

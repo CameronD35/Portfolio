@@ -1,0 +1,122 @@
+---
+import '../styles/global.css';
+
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+    imgName: string;
+    schoolTitle: string;
+    startDate?: string;
+    endDate?: string;
+    major?: string;
+    primaryColor?: string;
+    secondaryColor?: string;
+
+}
+
+const {imgName, schoolTitle, major = "None", startDate = "N/A", endDate = "N/A", primaryColor = "black", secondaryColor = "black"} = Astro.props;
+
+let today = new Date();
+
+let start = new Date(startDate);
+
+let end = new Date(endDate);
+
+let processedStart;
+
+let processedEnd;
+
+
+
+if (today < end && today < start) {
+
+    processedStart = `Starting ${(start.getMonth() + 1).toString().padStart(2, "0")}/${start.getFullYear()}`
+
+    processedEnd = `${(end.getMonth() + 1).toString().padStart(2, "0")}/${end.getFullYear()}`;
+
+} else if (today < end){
+
+    processedStart = `${(start.getMonth() + 1).toString().padStart(2, "0")}/${start.getFullYear()}`;
+
+    processedEnd = `Present`;
+
+} else {
+
+    processedStart = `${(start.getMonth() + 1).toString().padStart(2, "0")}/${start.getFullYear()}`;
+
+    processedEnd = `${(end.getMonth() + 1).toString().padStart(2, "0")}/${end.getFullYear()}`;
+
+}
+
+---
+
+<div class="card">
+
+    <div class="logo-container">
+        <Icon name={imgName} class="logo"/>
+        <span class="title">{schoolTitle}</span>
+        <div class="major">{major}</div>
+    </div>
+    
+
+    <div class="attendanceDate">
+
+        <span class="startDate">{processedStart}</span>
+
+        <span>to</span>
+
+        <span class="endDate">{processedEnd}</span>
+
+    </div>
+
+</div>
+
+
+<style define:vars={{primaryColor, secondaryColor}}>
+
+    .card {
+
+        margin-top: 1em;
+        margin-bottom: 1em;
+
+    }
+
+    .logo-container {
+
+        height: 4em;
+        display: flex;
+        align-items: left;
+        justify-content: center;
+        flex-direction: column;
+
+    }
+
+    .logo {
+
+        position: absolute;
+        z-index: -1;
+        font-size: 4em;
+        opacity: 0.3;
+
+        /* mask: linear-gradient(to right, black 0%, black 80%, transparent 100%); */
+
+    }
+
+    .title {
+
+        font-weight: 700;
+        font-size: 1.5em;
+
+        padding-left: calc(3.25 * 1em);
+
+    }
+
+    .major {
+
+        font-weight: 500;
+
+        padding-left: calc(3.25 * 1.5em);
+
+    }
+
+</style>

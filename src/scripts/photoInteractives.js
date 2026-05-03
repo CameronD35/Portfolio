@@ -62,16 +62,24 @@ function createLargeImage(dimensions, target) {
 
     // animation bruh
     imgSpace.animate([
-        {left: `${x}px`, top: `${y}px`, width: `${width}px`, height: `${height}px`}, 
-        {left: `calc(50vw - (${xSize} / 2))`, top: `calc(50vh - (${ySize} / 2))`, width: `calc(${xSize})`, height: `calc(${ySize})`}
+        {left: `${x}px`, top: `${y}px`, width: `${width}px`, height: `${height}px`, borderRadius: `0px`},
+        {left: `calc(50vw - (${xSize} / 2))`, top: `calc(50vh - (${ySize} / 2))`, width: `calc(${xSize})`, height: `calc(${ySize})`, borderRadius: `15px`}
     ], {duration: 400, fill: "forwards", easing: "cubic-bezier(0.175, 0.885, 0.32, 1.0)"});
 
     document.body.appendChild(imgSpace);
 
-    document.querySelector('.content').style.filter = 'blur(5px)'
+    document.querySelector('.content').style.filter = 'blur(5px)';
 
-    console.log(imgSpace)
+    console.log(imgSpace);
+
+    window.addEventListener('click', checkForClick);
 
 }
+
+// function checkForClick(evt) {
+
+//     evt.target
+
+// }
 
 export {setUpInteractivePhotos};
