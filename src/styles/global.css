@@ -6,35 +6,39 @@ html {
 :root{
 
   --custom-black: rgba(10, 10, 10, 1);
-  --custom-dark-brown: rgba(31, 23, 6, 1);
-  --custom-brown: rgba(83, 57, 42, 1);
-  --custom-tan: rgba(172, 132, 90, 1);
-  --custom-light-brown: rgba(88, 80, 71, 1);
-  --custom-green: rgba(69, 107, 90, 1);
+  --custom-dark-purple: rgba(46, 15, 56, 1);
+  --custom-purple: rgba(131, 81, 168, 1);
+  --custom-bright-purple: rgba(180, 93, 187, 1);
+  --custom-light-blue: rgba(77, 123, 147, 1);
+  --custom-blue: rgba(43, 82, 164, 1);
+  --custom-dark-blue: rgba(26, 44, 84, 1);
   --custom-white: rgba(226, 226, 226, 1);
 
   --custom-black-st: rgba(10, 10, 10, 0.7);
-  --custom-dark-brown-st: rgba(31, 23, 6, 0.7);
-  --custom-brown-st: rgba(83, 57, 42, 0.7);
-  --custom-tan-st: rgba(172, 132, 90, 0.7);
-  --custom-light-brown-st: rgba(88, 80, 71, 0.7);
-  --custom-green-st: rgba(69, 107, 90, 0.7);
+  --custom-dark-purple-st: rgba(46, 15, 56, 0.7);
+  --custom-purple-st: rgba(131, 81, 168, 0.7);
+  --custom-bright-purple-st: rgba(180, 93, 187, 0.7);
+  --custom-light-blue-st: rgba(77, 123, 147, 0.7);
+  --custom-blue-st: rgba(43, 82, 164, 0.7);
+  --custom-dark-blue-st: rgba(26, 44, 84, 0.7);
   --custom-white-st: rgba(226, 226, 226, 0.7);
 
   --custom-black-t: rgba(10, 10, 10, 0.4);
-  --custom-dark-brown-t: rgba(31, 23, 6, 0.4);
-  --custom-brown-t: rgba(83, 57, 42, 0.4);
-  --custom-tan-t: rgba(172, 132, 90, 0.4);
-  --custom-light-brown-t: rgba(88, 80, 71, 0.4);
-  --custom-green-t: rgba(69, 107, 90, 0.4);
+  --custom-dark-purple-t: rgba(46, 15, 56, 0.4);
+  --custom-purple-t: rgba(131, 81, 168, 0.4);
+  --custom-bright-purple-t: rgba(180, 93, 187, 0.4);
+  --custom-light-blue-t: rgba(77, 123, 147, 0.4);
+  --custom-blue-t: rgba(43, 82, 164, 0.4);
+  --custom-dark-blue-t: rgba(26, 44, 84, 0.4);
   --custom-white-t: rgba(226, 226, 226, 0.4);
 
   --custom-black-0: rgba(10, 10, 10, 0);
-  --custom-dark-brown-0: rgba(31, 23, 6, 0);
-  --custom-brown-0: rgba(83, 57, 42, 0);
-  --custom-tan-0: rgba(172, 132, 90, 0);
-  --custom-light-brown-0: rgba(88, 80, 71, 0);
-  --custom-green-0: rgba(69, 107, 90, 0);
+  --custom-dark-purple-0: rgba(46, 15, 56, 0);
+  --custom-purple-0: rgba(131, 81, 168, 0);
+  --custom-bright-purple-0: rgba(180, 93, 187, 0);
+  --custom-light-blue-0: rgba(77, 123, 147, 0);
+  --custom-blue-0: rgba(43, 82, 164, 0.1);
+  --custom-dark-blue-0: rgba(26, 44, 84, 0);
   --custom-white-0: rgba(226, 226, 226, 0);
 
   --minor-blur: blur(3px);
@@ -47,8 +51,8 @@ html {
   --nav-color: rgba(226, 226, 226, 1);
   --nav-bg-color: rgba(226, 226, 226, 0.4);
 
-  --footer-color: rgba(31, 23, 6, 1);
-  --footer-accent: rgba(88, 80, 71, 1);
+  --footer-color: rgba(43, 82, 164, 1);
+  --footer-accent: rgba(43, 82, 164, 1);
   --footer-accent-hover: rgba(226, 226, 226, 1);
 
 }
@@ -78,8 +82,10 @@ nav {
 }
 
 h1 {
-  margin: 1rem 0;
-  font-size: 2.5rem;
+  font-family: "Oi", serif;
+  text-transform: uppercase;
+  font-size: 3em;
+  font-weight: 400;
 }
 
 /* nav styles */

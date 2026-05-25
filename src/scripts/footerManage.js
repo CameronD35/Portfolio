@@ -47,8 +47,8 @@ function setFooterColor() {
 
     if (currentPath === "/") {
 
-        document.documentElement.style.setProperty("--footer-color", "var(--custom-dark-brown)");
-        document.documentElement.style.setProperty("--footer-accent", "var(--custom-tan)");
+        document.documentElement.style.setProperty("--footer-color", "var(--custom-dark-blue)");
+        document.documentElement.style.setProperty("--footer-accent", "var(--custom-light-blue)");
         document.documentElement.style.setProperty("--footer-accent-hover", "var(--custom-white)");
 
     } else {
