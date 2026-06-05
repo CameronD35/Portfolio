@@ -162,12 +162,6 @@ for (let i = 0; i < 1000; i++) {
 
         </div>
 
-            <!-- <div class="right-side">
-
-                <PreviewGallery imageNames={["me1.webp", "me2.webp", "me3.webp"]} imageDirectory='me' width="600px" height="800px"/>
-
-            </div> -->
-
         </div>
 
 
@@ -175,13 +169,50 @@ for (let i = 0; i < 1000; i++) {
 
     <div class="skills-bg">
 
-        {skillBg}
+        <span aria-hidden="true" class="skills-overlay skills-bg skills">{skillBg}</span>
+
+        <span aria-hidden="true" class="skills">{skillBg}</span>
 
     </div>
 
 </BaseLayout>
 
+<script>
+
+    function updateMousePosition(evt: any) {
+
+        document.documentElement.style.setProperty("--mouse-x", `${evt.clientX}px`);
+        document.documentElement.style.setProperty("--mouse-y", `${evt.clientY}px`);
+
+        console.log(evt.screenX, evt.screenY);
+
+    }
+
+    window.addEventListener("mousemove", updateMousePosition);
+
+</script>
+
 <style define:vars={{}}>
+
+    .skills-overlay {
+
+        opacity: 0.1 !important;
+
+        position: fixed;
+
+        z-index: 2;
+
+        color: var(--custom-black);
+
+        mask-image: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), black 50px, transparent 100px);
+
+        pointer-events: none;
+
+        /* clip-path: circle(100px at var(--mouse-x) var(--mouse-y)); */
+
+        /* background-color: var(--custom-black); */
+
+    }
 
     a {
 
@@ -258,6 +289,13 @@ for (let i = 0; i < 1000; i++) {
         position: fixed;
         top: 0;
         width: 150vw;
+
+        z-index: -5;
+
+    }
+
+    .skills {
+
         overflow: hidden;
         text-wrap: unset;
 
@@ -267,9 +305,7 @@ for (let i = 0; i < 1000; i++) {
         color: var(--custom-black-t);
 
         opacity: 0.1;
-
-        z-index: -5;
-
+        
     }
 
     .skill {

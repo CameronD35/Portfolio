@@ -55,6 +55,9 @@ html {
   --footer-accent: rgba(43, 82, 164, 1);
   --footer-accent-hover: rgba(226, 226, 226, 1);
 
+  --mouse-x: 0px;
+  --mouse-y: 0px;
+
 }
 
 body {
