@@ -41,9 +41,9 @@ const PDFViewer = ({url}) => {
     }, [url]);
 
     return  <a href={url} target="_blank">
-                <div className="pdf-viewer" style={{height: height / 5}}>
+                <div className="pdf-viewer" style={{height: height / 5, borderRadius: 15}}>
                     <div className="download"></div>
-                    <span className="file-name">{fileName}</span><canvas style={{width: width / 5, height: height / 5}}data-name={fileName} ref={canvasRef}/>
+                    <span className="file-name" style={{borderRadius: 15}}>{fileName}</span><canvas style={{width: width / 5, height: height / 5}} data-name={fileName} ref={canvasRef}/>
                 </div>
             </a>;
 

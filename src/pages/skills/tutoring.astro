@@ -19,9 +19,10 @@ const pageTitle = "Tutoring";
 <BaseLayout pageTitle={pageTitle}>
 
 	<div class="chalkboard" style={`background-image: url(${bgImage.src})`}>
+		<canvas class="drawing-board"></canvas>
 	</div>
 	
-	<div class="std-content-box">
+	<div class="std-content-box no-select">
 
 		<h1>Tutoring</h1>
 		<h4>Since July 2025 I have been tutoring students at the College of the Canyons MESA center. Below are some of my self-reported stats.</h4>
@@ -29,7 +30,7 @@ const pageTitle = "Tutoring";
 		<div class="stats-container">
 
 			<div class="mesa-hours">
-				<span class="big-number">506</span>
+				<span class="big-number">850</span>
 				<span class="stat-desc"> hours spent tutoring at the College of the Canyons MESA center.</span>
 			</div>
 			<div class="private-hours">
@@ -75,7 +76,9 @@ const pageTitle = "Tutoring";
 <script>
 
 	import { setFooterFixing } from "../../scripts/footerManage";
+	import { initializeCanvas } from "../../scripts/drawingBoard";
 
+	initializeCanvas();
 
 	document.documentElement.style.setProperty("--nav-color", "var(--custom-white-st)");
 	document.documentElement.style.setProperty("--nav-bg-color", "#000000");
@@ -91,8 +94,9 @@ const pageTitle = "Tutoring";
 		console.log('hi');
 		(document.querySelector(".footer") as HTMLElement)?.style.setProperty("display", "flex");
 
-	}, 1000)
+	}, 1000);
 
+	const drawingResolution = 30;
 	
 
 </script>
@@ -110,6 +114,17 @@ const pageTitle = "Tutoring";
 		z-index: -1;
 
 		pointer-events: none;
+
+	}
+
+	.drawing-board{
+
+		filter: var(--BIG-blur);
+
+		width: 100vw;
+		height: 100vh;
+		inset: 10px;
+		position: absolute;
 
 	}
 
@@ -192,7 +207,6 @@ const pageTitle = "Tutoring";
 	}
 
 	.file-container {
-
 
 		padding: 2em 0;
 

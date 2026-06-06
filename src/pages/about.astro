@@ -4,21 +4,17 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import '../styles/global.css';
 import Signature from '../components/Signature.astro';
 import EducationCard from '../components/EducationCard.astro';
+import PDFViewer from '../components/PDFViewer';
 
 const pageTitle = "About Me";
 
-const identity = {
+const resume = '/pdfs/cameron-demartini-resume.pdf';
 
-    name: "Cameron DeMartini",
-    country: "United States",
-    occupation: "Mathematics & Physics Tutor",
-    hobbies: ["Graphic Design", "Programming", "RockSat"]
-
-}
+console.log(resume);
 
 const skills = ["JS/CSS/HTML", "C/C++", "Java", "Python", "Calculus", "Differential Equations", "Linear Algebra", "Mechanics", 
 "Electromagnetism", "Project Management", "LaTeX", "Adobe Photoshop", "Adobe Illustrator", "Web Design & Development", ">:]",
-"Graphic Design"];
+"Graphic Design", "Tutoring"];
 
 let skillBg = "";
 
@@ -158,6 +154,8 @@ for (let i = 0; i < 1000; i++) {
 
                 <div class="detail-title">Resume</div>
 
+                <PDFViewer url={resume} client:only="react"></PDFViewer>
+
             </div>
 
         </div>
@@ -196,7 +194,7 @@ for (let i = 0; i < 1000; i++) {
 
     .skills-overlay {
 
-        opacity: 0.1 !important;
+        opacity: 0.15 !important;
 
         position: fixed;
 
