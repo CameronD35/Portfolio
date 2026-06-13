@@ -11,6 +11,8 @@ import react from '@astrojs/react';
 
 import prefetch from '@astrojs/prefetch';
 
+import { unified } from '@astrojs/markdown-remark';
+
 // https://astro.build/config
 export default defineConfig({
   integrations: [icon({
@@ -35,14 +37,15 @@ export default defineConfig({
     }
 
   }), mdx({
-  syntaxHighlight: false,
-  remarkPlugins: [remarkMath],
-  rehypePlugins: [rehypeKatex, [rehypePrettyCode, { theme: 'github-dark' }]]
-
+    processor: unified({
+      remarkPlugins: [remarkMath],
+      rehypePlugins: [rehypeKatex, [rehypePrettyCode, { theme: 'github-dark' }]]
+    }),
 }), react(), prefetch()],
   markdown: {
-    syntaxHighlight: false,
-    remarkPlugins: [remarkMath],
-    rehypePlugins: [rehypeKatex, [rehypePrettyCode, { theme: 'github-dark' }]],
+    processor: unified({
+      remarkPlugins: [remarkMath],
+      rehypePlugins: [rehypeKatex, [rehypePrettyCode, { theme: 'github-dark' }]],
+    })
   }
 });
