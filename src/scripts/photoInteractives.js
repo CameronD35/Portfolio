@@ -36,6 +36,8 @@ function createLargeImage(dimensions, target) {
 
     const imgSpace = document.querySelector('.large-image');
 
+    imgSpace.style.display = 'inline'
+
     imgSpace.setAttribute("data-name", target.getAttribute("data-name"))
 
     // initial properties fr
@@ -67,9 +69,11 @@ function createLargeImage(dimensions, target) {
 
     }
 
+    // imgSpace.style.display = "block";
+
     // animation bruh
     imgSpace.animate([
-        {left: `${x}px`, top: `${y}px`, width: `${width}px`, height: `${height}px`, borderRadius: `0px`},
+        {left: `${x}px`, top: `${y}px`, width: `${width}px`, height: `${height}px`, borderRadius: `0px`, display: "inline"},
         {left: `calc(50vw - (${xSize} / 2))`, top: `calc(50vh - (${ySize} / 2))`, width: `calc(${xSize})`, height: `calc(${ySize})`, borderRadius: `15px`, opacity: 1}
     ], {duration: 400, fill: "forwards", easing: "cubic-bezier(0.175, 0.885, 0.32, 1.0)"});
 
@@ -122,10 +126,11 @@ function removeLargeImage() {
         {left: `${x}px`, top: `${y}px`, width: `${width}px`, height: `${height}px`, borderRadius: `0px`}
     ], {duration: 400, fill: "forwards", easing: "cubic-bezier(0.175, 0.885, 0.32, 1.0)"})
     .finished.then(() => {
-        return imgSpace.animate([{opacity: 0}], {duration: 0, fill: "forwards"})
+        return (() => {
+            imgSpace.animate([{display: 'none'}], {duration: 0, fill: "forwards"});
+            originalImage.style.opacity = 1;
+        })()
     });
-
-    setTimeout(() => {originalImage.style.opacity = 1;}, 400);
 
 }
 

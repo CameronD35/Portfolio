@@ -15,6 +15,7 @@ import { Icon } from "astro-icon/components";
 <div class="signatureContainer">
 
     {outline && <Icon name="signature" class="outline"/>}
+    {outline && <Icon name="signature" class="glow"/>}
     <Icon name="signature" class="base"/>
 
 </div>
@@ -59,6 +60,25 @@ import { Icon } from "astro-icon/components";
 
     }
 
+    .glow {
+
+        position: absolute;
+
+        opacity: 0.7;
+
+        z-index: 2;
+        mask-image: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), black 50px, transparent 100px); 
+        pointer-events: none;
+
+    }
+
+    .glow[data-icon]{
+        
+        color: var(--custom-white);
+        filter: blur(2px);
+
+    }
+
     .base[data-icon]{
         color: var(--color);
     }
@@ -75,6 +95,8 @@ import { Icon } from "astro-icon/components";
         display: flex;
         justify-content: center;
         align-items: center;
+
+        position: relative;
 
     }
 
