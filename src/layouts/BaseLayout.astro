@@ -3,6 +3,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Content from '../components/Content.astro';
 import '../styles/global.css';
+import { Image } from 'astro:assets';
 
 const { pageTitle } = Astro.props;
 ---
@@ -32,7 +33,11 @@ const { pageTitle } = Astro.props;
 
 		<Footer />
 
-		<div class="large-image"></div>
+		<div class="large-image-cont">
+
+			<Image class="large-image" src="/favicon.svg" alt="hi" width="50" height="50" style="opacity: 0"/>
+
+		</div>
 
 		<script>
 
@@ -58,3 +63,15 @@ const { pageTitle } = Astro.props;
 		</script>
 	</body>
 </html>
+
+<style>
+
+	.loading {
+
+		position: absolute;
+		top: 0;
+		left: 0;
+
+	}
+
+</style>

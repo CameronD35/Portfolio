@@ -273,15 +273,29 @@ h1 {
 
 }
 
-.large-image {
+.large-image-cont {
+
+  position: absolute;
 
   z-index: 3;
+
+}
+
+/* .large-image-cont::after {
+
+  content: 'loading...';
+  position: fixed;
+  top: 50vh;
+  left: 50vw;
+  color: white;
+
+} */
+
+.large-image {
 
   transition-timing-function: var(--standard-transition-timing);
 
   transform-origin: center;
-
-  background-size: cover;
 
 }
 

@@ -4,10 +4,11 @@ interface Props {
     width: string;
     color?: string;
     outline?: boolean;
+    outlineColor?: string[];
 
 }
 
-const { width, color = "var(--custom-white)", outline = false } = Astro.props;
+const { width, color = "var(--custom-white)", outline = false, outlineColor = "white"} = Astro.props;
 import { Icon } from "astro-icon/components";
 ---
 
@@ -19,37 +20,43 @@ import { Icon } from "astro-icon/components";
 </div>
 
 <script>
+
+    const outline = document.querySelector(".outline");
+
     function updateMousePosition(evt: any) {
 
-        document.documentElement.style.setProperty("--mouse-x", `${evt.clientX}px`);
-        document.documentElement.style.setProperty("--mouse-y", `${evt.clientY}px`);
+        const box = outline?.getBoundingClientRect();
 
-        console.log(evt.screenX, evt.screenY);
+        document.documentElement.style.setProperty("--mouse-x", `${evt.clientX - box?.left!}px`);
+        document.documentElement.style.setProperty("--mouse-y", `${evt.clientY - box?.top!}px`);
+
+        // console.log(evt.screenX, evt.screenY);
 
     }
 
     window.addEventListener("mousemove", updateMousePosition);
+
 </script>
 
-<style define:vars={{width, color}}>
+<style define:vars={{width, color, outlineColor1: outlineColor[0], outlineColor2: outlineColor[1], outlineColor3: outlineColor[2]}}>
 
     .outline {
 
         position: absolute;
 
-        opacity: 0.15 !important;
-
         z-index: 2;
-        mask-image: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), black 50px, transparent 100px);
+        mask-image: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), black 50px, transparent 100px); 
         pointer-events: none;
 
     }
 
     .outline[data-icon]{
+        
         color: rgba(0,0,0,0);
-        stroke: white;
+        stroke: var(--custom-white);
         stroke-width: 0.5px;
         paint-order: stroke;
+
     }
 
     .base[data-icon]{
