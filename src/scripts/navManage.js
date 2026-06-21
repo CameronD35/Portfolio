@@ -20,6 +20,7 @@ function toggleNavElements(evt) {
 
     const hidden = (components[0].getAttribute("data-compressed") === "true");
 
+    // this uncompresses the nav
     if (hidden && windowWidth > 650) {
 
         components.forEach((elem, i) => {
@@ -28,7 +29,7 @@ function toggleNavElements(evt) {
 
             const time = 1000 - ((i + 1) * 125);
 
-            elem.animate([{display: 'inline'}], {duration: 0, fill: "forwards"})
+            elem.animate([{display: 'block'}], {duration: 0, fill: "forwards"})
             .finished.then(() => {
 
                 return (() => {
@@ -41,6 +42,7 @@ function toggleNavElements(evt) {
 
         });
 
+    // this compresses the nav
     } else if (!hidden && windowWidth < 650) {
 
         const xFinal = components[3].querySelector("span").getBoundingClientRect()["right"];

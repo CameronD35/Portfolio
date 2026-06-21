@@ -108,10 +108,8 @@ h1 {
 
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
   
   position: static;
-  width: auto;
   background: none;
 
 }
