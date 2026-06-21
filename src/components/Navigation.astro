@@ -30,11 +30,11 @@ import { Icon } from 'astro-icon/components';
 
 <script>
 
-    import { appendDropdown, hideNavElements } from "../scripts/navManage";
+    import { appendDropdown, toggleNavElements } from "../scripts/navManage";
 
     appendDropdown();
 
-    hideNavElements();
+     window.addEventListener("resize", toggleNavElements)
 
 </script>
 
@@ -55,7 +55,12 @@ import { Icon } from 'astro-icon/components';
 
     .compressed-nav {
 
-        display: none;
+        position: fixed;
+        right: 0;
+        opacity: 0;
+        pointer-events: none;
+
+        transition-duration: 0.4s;
 
     }
 
@@ -63,25 +68,8 @@ import { Icon } from 'astro-icon/components';
         
         .compressed-nav {
 
-            display: flex;
-            justify-content: center;
-            align-items: center;
-
-        }
-
-        [data-nav="true"] {
-
-            display: none;
-
-        }
-
-    }
-
-    @keyframes hide-nav-titles {
-        
-        0% {
-
-            
+            opacity: 1;
+            pointer-events: all;
 
         }
 
