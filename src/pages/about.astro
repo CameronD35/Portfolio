@@ -24,6 +24,18 @@ for (let i = 0; i < 1000; i++) {
 
 }
 
+const allProjects = Object.values(import.meta.glob(['../content/experiences/*.md', '../content/experiences/*.mdx'], { eager: true }));
+
+console.log(allProjects);
+
+let projectTitles: string[] = [];
+
+allProjects.forEach((project: any, i) => {
+
+    projectTitles.push(project.frontmatter.title);
+
+});
+
 ---
 
 <BaseLayout pageTitle={pageTitle}>
@@ -148,6 +160,12 @@ for (let i = 0; i < 1000; i++) {
             <div class="detail">
 
                 <div class="detail-title">Experience</div>
+
+                {projectTitles.map((title: string, i) => {
+
+				    return <div class="hi">{title}</div>
+
+			    })}
 
             </div>
 

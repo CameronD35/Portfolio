@@ -12,7 +12,7 @@ const { width, color = "var(--custom-white)", outline = false, outlineColor = "w
 import { Icon } from "astro-icon/components";
 ---
 
-<div class="signatureContainer">
+<div class="signatureContainer" data-outline={outline}>
 
     {outline && <Icon name="signature" class="outline"/>}
     {outline && <Icon name="signature" class="glow"/>}
@@ -36,6 +36,24 @@ import { Icon } from "astro-icon/components";
     }
 
     window.addEventListener("mousemove", updateMousePosition);
+
+    // window.addEventListener("resize", (evt: Event) => {
+
+    //     if (evt.target.innerWidth < 650) {
+
+    //         const mainSignature = document.querySelector(`.signatureContainer[data-outline=true]`);
+
+    //         const components = mainSignature?.children!;
+
+    //         Array.from(components).forEach((component) => {
+               
+    //             3;
+
+    //         });
+
+    //     }
+
+    // })
 
 </script>
 

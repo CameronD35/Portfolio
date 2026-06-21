@@ -6,16 +6,17 @@ interface Props {
     isDropdown?: string;
     dropdownComponents?: Array<string>;
     containerName?: string;
+    hide?: string;
 
 }
 
-const { href, title, isDropdown = "false", dropdownComponents = [] } = Astro.props;
+const { href, title, isDropdown = "false", dropdownComponents = [], hide = "false" } = Astro.props;
 import { Icon } from "astro-icon/components";
 import Dropdown from "./Dropdown.astro";
 
 // console.log(dropdownComponents)
 ---
-<div class="nav-component">
+<div class="nav-component" data-nav={hide}>
 
     <a href={href} data-is-dropdown={isDropdown} data-title={title} class="nav-title">
 

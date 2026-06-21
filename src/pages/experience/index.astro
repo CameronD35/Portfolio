@@ -3,7 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import YearBox from '../../components/YearBox.astro';
 import { Icon } from "astro-icon/components";
 import "../../styles/global.css";
-import { readdirSync, statSync } from 'fs';
+import { readdirSync } from 'fs';
 import { join } from 'path';
 
 const allProjects = Object.values(import.meta.glob(['../../content/experiences/*.md', '../../content/experiences/*.mdx'], { eager: true }));
@@ -17,7 +17,7 @@ allProjects.forEach((project: any, i) => {
 
     const year = String(project.frontmatter?.year);
 
-    if (isCurr) {currentProjects.push(project); return;}
+    if (isCurr) { currentProjects.push(project); }
 
     if (projectsByYears[year]) { projectsByYears[year].push(project); }
 
@@ -67,7 +67,7 @@ const pageTitle = "Experience";
                 {currentProjects.length > 0 && <YearBox year="ONGOING" experiences={currentProjects}/>}
 
                 {sortedProjects.map(([year, projects]) => <YearBox year={year} experiences={projects}/>)}
-                
+
             </div>
 
             <div class="details-section">

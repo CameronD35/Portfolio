@@ -13,10 +13,10 @@ import { Icon } from 'astro-icon/components';
 
     <div class="other-links">
 
-        <NavComponent href="/about" title="About"/>
-        <NavComponent title="Skills" isDropdown="true" containerName="skills" dropdownComponents={["Tutoring", "Software Engineering", "Graphic Design", "Photography"]}/>
-        <NavComponent href="/experience" title="Experience"/>
-        <NavComponent href="/blog" title="Blog"/>
+        <NavComponent href="/about" title="About" hide="true"/>
+        <NavComponent title="Skills" isDropdown="true" containerName="skills" dropdownComponents={["Tutoring", "Software Engineering", "Graphic Design", "Photography"]} hide="true"/>
+        <NavComponent href="/experience" title="Experience" hide="true"/>
+        <NavComponent href="/blog" title="Blog" hide="true"/>
 
         <div class="compressed-nav nav-title">
 
@@ -30,19 +30,20 @@ import { Icon } from 'astro-icon/components';
 
 <script>
 
-    import { appendDropdown } from "../scripts/navManage";
+    import { appendDropdown, hideNavElements } from "../scripts/navManage";
 
     appendDropdown();
 
+    hideNavElements();
+
 </script>
 
-<style>
+<style is:global>
 
     .nav-links {
 
         width: 100vw;
         justify-content: space-between;
-        max-height: 10vw;
 
     }
 
@@ -65,6 +66,12 @@ import { Icon } from 'astro-icon/components';
             display: flex;
             justify-content: center;
             align-items: center;
+
+        }
+
+        [data-nav="true"] {
+
+            display: none;
 
         }
 
