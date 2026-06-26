@@ -1,17 +1,3 @@
-import createDropdown from "./handleDropdown";
-
-function appendDropdown() {
-
-    const navElems = document.querySelectorAll(`[data-is-dropdown="true"]`);
-
-    navElems.forEach((elem, i) => {
-
-        const items = ["test1", "test2"]
-        
-    })
-
-}
-
 function toggleNavElements(evt) {
 
     const windowWidth = evt.target.innerWidth;
@@ -29,18 +15,9 @@ function toggleNavElements(evt) {
 
             const time = 1000 - ((i + 1) * 125);
 
-            elem.animate([{display: 'block'}], {duration: 0, fill: "forwards"})
-            .finished.then(() => {
+            elem.animate([{display: 'none', transform: elem.style.transform, opacity: 0.4}, {display: 'block', transform: `translateX(0px)`, opacity: 1}], {duration: time, fill: "forwards", easing: "cubic-bezier(0.175, 0.885, 0.32, 1.0)"})
 
-                return (() => {
-
-                    elem.animate([{transform: `translateX(0px)`, opacity: 1}], {duration: time, fill: "forwards", easing: "cubic-bezier(0.175, 0.885, 0.32, 1.0)"});
-
-                })()
-
-            });
-
-        });
+    });
 
     // this compresses the nav
     } else if (!hidden && windowWidth < 650) {
@@ -73,4 +50,26 @@ function toggleNavElements(evt) {
 
 }
 
-export {appendDropdown, toggleNavElements}
+function popUpNav() {
+
+    const popUpNav = document.querySelector(".pop-up-nav-links");
+
+    popUpNav.classList.add("open");
+
+    window.addEventListener("click", checkForClick);
+
+}
+
+function checkForClick(evt) {
+
+    const popUpNav = document.querySelector('.pop-up-nav-links');
+
+    console.log(evt.target);
+
+    popUpNav.classList.remove("open");
+
+    window.removeEventListener("click", checkForClick);
+
+}
+
+export {toggleNavElements, popUpNav}

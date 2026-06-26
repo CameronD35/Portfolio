@@ -1,0 +1,67 @@
+---
+interface Props {
+
+    href?: string;
+    title: string;
+    isDropdown?: string;
+    dropdownComponents?: Array<string>;
+    containerName?: string;
+
+}
+
+const { href, title, isDropdown = "false", dropdownComponents = []} = Astro.props;
+import { Icon } from "astro-icon/components";
+import Dropdown from "./Dropdown.astro";
+
+---
+<div class="pop-up-nav-component">
+
+    <a href={href} data-is-dropdown={isDropdown} data-title={title} class="nav-title">
+
+        <span class="nav-link-title">
+
+            {title}
+
+        </span>
+
+        { (isDropdown === "true") && <Icon name="Dropdown_Arrow" class="arrow"/> }
+    </a>
+
+    { (isDropdown === "true") && <Dropdown containerName="skills" components={dropdownComponents}/> }
+
+</div>
+
+<style>
+
+    .pop-up-nav-component {
+
+        position: relative;
+        width: auto;
+        height: auto;
+
+    }
+
+    .arrow {
+
+        height: 0.375em;
+        width: auto;
+
+    }
+
+    [data-is-dropdown="true"] {
+
+        span::after {
+
+            display: none;
+
+        }
+
+        .nav-link-title {
+
+            cursor: default;
+
+        }
+
+    }
+
+</style>

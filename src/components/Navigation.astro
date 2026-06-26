@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
 import NavComponent from "./NavComponent.astro";
+import PopUpNavComponent from "./PopUpNavComponent.astro";
 import { Icon } from 'astro-icon/components';
 ---
 
@@ -18,7 +19,7 @@ import { Icon } from 'astro-icon/components';
         <NavComponent href="/experience" title="Experience" hide="true"/>
         <NavComponent href="/blog" title="Blog" hide="true"/>
 
-        <div class="compressed-nav nav-title">
+        <div class="compressed-nav-button nav-title">
 
             <Icon name="Nav_Icon"></Icon>
 
@@ -28,18 +29,67 @@ import { Icon } from 'astro-icon/components';
 
 </div>
 
+<div id="pop-up-main-menu" class="pop-up-nav-links">
+
+    <div class="home-link">
+
+        <PopUpNavComponent href="/" title="Home"/>
+        <PopUpNavComponent href="/about" title="About"/>
+        <PopUpNavComponent title="Skills" isDropdown="true" containerName="skills" dropdownComponents={["Tutoring", "Software Engineering", "Graphic Design", "Photography"]}/>
+        <PopUpNavComponent href="/experience" title="Experience"/>
+        <PopUpNavComponent href="/blog" title="Blog"/>
+
+    </div>
+
+</div>
+
 <script>
 
-    import { appendDropdown, toggleNavElements } from "../scripts/navManage";
+    import { toggleNavElements, popUpNav } from "../scripts/navManage";
 
-    appendDropdown();
+    window.addEventListener("resize", toggleNavElements);
 
-     window.addEventListener("resize", toggleNavElements)
+    window.dispatchEvent(new Event('resize'));
+
+    const navButton = document.querySelector(".compressed-nav-button");
+
+    navButton?.addEventListener("click", popUpNav);
 
 </script>
 
 <style is:global>
 
+    .pop-up-nav-links {
+
+        position: absolute;
+        pointer-events: none;
+        display: none;
+
+        backdrop-filter: blur(5px);
+
+        z-index: 4;
+
+        width: 100vw;
+        height: 100vh;
+
+        /* display: flex;
+
+        justify-content: center;
+        align-items: center; */
+
+    }
+
+    .open {
+
+        display: flex;
+
+        justify-content: center;
+        align-items: center;
+
+        pointer-events: all;
+
+    }
+    
     .nav-links {
 
         width: 100vw;
@@ -53,7 +103,7 @@ import { Icon } from 'astro-icon/components';
 
     }
 
-    .compressed-nav {
+    .compressed-nav-button {
 
         position: fixed !important;
         right: 0;
@@ -66,7 +116,7 @@ import { Icon } from 'astro-icon/components';
 
     @media screen and (max-width: 650px) {
         
-        .compressed-nav {
+        .compressed-nav-button {
 
             opacity: 1;
             pointer-events: all;
