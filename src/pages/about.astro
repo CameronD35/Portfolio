@@ -26,13 +26,16 @@ for (let i = 0; i < 1000; i++) {
 
 const allProjects = Object.values(import.meta.glob(['../content/experiences/*.md', '../content/experiences/*.mdx'], { eager: true }));
 
-console.log(allProjects);
+let currentProjects: any[] = [];
+let otherProjects: any[] = []
 
-let projectTitles: string[] = [];
+allProjects.forEach((project: any) => {
 
-allProjects.forEach((project: any, i) => {
+    const isCurr = (project.frontmatter.curr == "true");
 
-    projectTitles.push(project.frontmatter.title);
+    if (isCurr) { currentProjects.push(project); return}
+
+    else {otherProjects.push(project);}
 
 });
 
@@ -162,9 +165,15 @@ allProjects.forEach((project: any, i) => {
                     <div class="detail-title">Experience</div>
 
                     <ul>
-                        {projectTitles.map((title: string, i) => {
+                        {currentProjects.map((project: any, i) => {
 
-                            return <li>{title}</li>
+                            return <li class="curr">{project.frontmatter.title}</li>
+
+                        })}
+
+                        {otherProjects.map((project: any, i) => {
+
+                            return <li>{project.frontmatter.title}</li>
 
                         })}
                     </ul>
@@ -296,6 +305,12 @@ allProjects.forEach((project: any, i) => {
 
         width: 40%;
         height: 100%;
+
+    }
+
+    .curr {
+
+        font-weight: bold;
 
     }
 

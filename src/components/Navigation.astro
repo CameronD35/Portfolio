@@ -17,6 +17,7 @@ import { Icon } from 'astro-icon/components';
         <NavComponent href="/about" title="About" hide="true"/>
         <NavComponent title="Skills" isDropdown="true" containerName="skills" dropdownComponents={["Tutoring", "Software Engineering", "Graphic Design", "Photography"]} hide="true"/>
         <NavComponent href="/experience" title="Experience" hide="true"/>
+        <NavComponent href="/worksheets" title="Worksheets" hide="true"/>
         <NavComponent href="/blog" title="Blog" hide="true"/>
 
         <div class="compressed-nav-button nav-title">
@@ -114,7 +115,7 @@ import { Icon } from 'astro-icon/components';
 
     }
 
-    @media screen and (max-width: 650px) {
+    @media screen and (max-width: 750px) {
         
         .compressed-nav-button {
 

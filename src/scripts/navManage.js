@@ -6,23 +6,25 @@ function toggleNavElements(evt) {
 
     const hidden = (components[0].getAttribute("data-compressed") === "true");
 
+    const compressLength = 750;
+
     // this uncompresses the nav
-    if (hidden && windowWidth > 650) {
+    if (hidden && windowWidth > compressLength) {
 
         components.forEach((elem, i) => {
 
             elem.setAttribute("data-compressed", "false");
 
-            const time = 1000 - ((i + 1) * 125);
+            const time = 750 - ((i + 1) * 125);
 
             elem.animate([{display: 'none', transform: elem.style.transform, opacity: 0.4}, {display: 'block', transform: `translateX(0px)`, opacity: 1}], {duration: time, fill: "forwards", easing: "cubic-bezier(0.175, 0.885, 0.32, 1.0)"})
 
     });
 
     // this compresses the nav
-    } else if (!hidden && windowWidth < 650) {
+    } else if (!hidden && windowWidth < compressLength) {
 
-        const xFinal = components[3].querySelector("span").getBoundingClientRect()["right"];
+        const xFinal = components[components.length - 1].querySelector("span").getBoundingClientRect()["right"];
 
         components.forEach((elem, i) => {
 
@@ -30,7 +32,7 @@ function toggleNavElements(evt) {
 
             const xInitial = elem.querySelector("span").getBoundingClientRect()["right"];
 
-            const time = 1000 - ((i + 1) * 125);
+            const time = 750 - ((i + 1) * 125);
             const distance = xFinal - xInitial;
 
             elem.animate([{transform: `translateX(${distance}px)`, opacity: 0}], {duration: time, fill: "forwards", easing: "cubic-bezier(0.175, 0.885, 0.32, 1.0)"})
