@@ -1,0 +1,270 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import "../../styles/global.css"
+
+import bgImage from "../../images/tutoring-bg.webp";
+import PDFViewer from '../../components/PDFViewer.jsx';
+
+const worksheets = Object.keys(import.meta.glob('/public/pdfs/tutoring/*.pdf'));
+
+worksheets.forEach((i) => {
+
+	console.log(i.substring(i.indexOf('/', 2)));
+
+})
+
+const pageTitle = "Tutoring";
+---
+
+<BaseLayout pageTitle={pageTitle}>
+
+	<div class="chalkboard" style={`background-image: url(${bgImage.src})`}>
+		<canvas class="drawing-board"></canvas>
+	</div>
+	
+	<div class="std-content-box no-select">
+
+		<h1>Tutoring</h1>
+		<h4>Since July 2025 I have been tutoring students at the College of the Canyons MESA center. Below are some of my self-reported stats.</h4>
+
+		<div class="stats-container">
+
+			<div class="mesa-hours">
+				<span class="big-number">850</span>
+				<span class="stat-desc"> hours spent tutoring at the College of the Canyons MESA center.</span>
+			</div>
+			<div class="private-hours">
+				<span class="big-number">21</span>
+				<span class="stat-desc"> hours spent tutoring on my own time.</span>
+			</div>
+			<div class="subjects">
+
+				<span class="stat-desc">Experience tutoring in:</span>
+				<ul class="tutor-class-experience">
+
+					<li class="exp">Linear Algebra</li>
+					<li class="exp">Differential Equations</li>
+					<li class="exp">Calculus</li>
+					<li class="exp">Pre-Calculus</li>
+					<li class="exp">Trigonometry</li>
+					<li class="exp">Mechanics of Solids & Fluids</li>
+					<li class="exp">Electricity & Magnetism</li>
+					<li class="exp">Engineering Statics</li>
+					<li class="exp">Data Structures & Algorithms (Java)</li>
+					<li class="exp">General Chemistry</li>
+
+				</ul>
+
+			</div>
+
+			<div class="files">
+
+				<span class="stat-desc">Worksheets (Click to view/download!)</span>
+
+				<div class="file-container">
+					{worksheets.map((worksheet: string) => {return <PDFViewer url={worksheet.substring(worksheet.indexOf('/', 2))} client:only="react"></PDFViewer>})}
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+	
+</BaseLayout>
+
+<script>
+
+	import { setFooterFixing } from "../../scripts/footerManage";
+	import { initializeCanvas } from "../../scripts/drawingBoard";
+
+	initializeCanvas();
+
+	document.documentElement.style.setProperty("--nav-color", "var(--custom-white-st)");
+	document.documentElement.style.setProperty("--nav-bg-color", "#000000");
+	document.documentElement.style.setProperty("--footer-color", "#00000000");
+	document.documentElement.style.setProperty("--footer-accent", "#5c5c5c");
+	document.documentElement.style.setProperty("--footer-accent-hover", "#888888");
+
+	(document.querySelector(".footer") as HTMLElement)?.style.setProperty("display", "none");
+	
+	setTimeout(() => {
+
+		setFooterFixing();
+		console.log('hi');
+		(document.querySelector(".footer") as HTMLElement)?.style.setProperty("display", "flex");
+
+	}, 1000);
+
+	const drawingResolution = 30;
+	
+
+</script>
+
+<style>
+
+	.chalkboard {
+
+		content: '';
+		position: fixed;
+		inset: -10px;
+		
+		background-size: cover;
+		
+		z-index: -1;
+
+		pointer-events: none;
+
+	}
+
+	.drawing-board{
+
+		filter: var(--BIG-blur);
+
+		width: 100vw;
+		height: 100vh;
+		inset: 10px;
+		position: absolute;
+
+	}
+
+	.std-content-box {
+		
+		position: relative;
+
+		color: var(--custom-white-st);
+		
+		z-index: 1;
+
+	}
+
+	.stats-container {
+
+		display: grid;
+
+		grid-template-columns: 1fr 1fr 1fr 1fr;
+		grid-template-rows: auto auto auto auto;
+		gap: 1em;
+
+	}
+
+	.stats-container > div {
+
+		padding: 1em;
+		position: relative;
+		/* gap: 2em; */
+		align-items: center;
+		justify-content: center;
+		border-radius: 2em;
+		border-style: dashed;
+		border-color: var(--custom-white-st);
+		overflow: hidden;
+		/* overflow-wrap: anywhere; */
+
+		transition: 0.4s;
+
+	}
+
+	.stats-container div:hover {
+
+		box-shadow: 0 0 10px var(--custom-black-t);
+
+	}
+
+	.mesa-hours {
+
+		grid-row: 1 / 3;
+		grid-column: 1 / 3;
+		display: flex;
+		flex-direction: column;
+
+	}
+
+	.private-hours {
+
+		grid-row: 1 / 3;
+		grid-column: 3 / 5;
+		display: flex;
+		flex-direction: column;
+
+	}
+
+	.subjects {
+
+		grid-column: 1 / 5;
+		display: flex;
+		flex-direction: column;
+		flex-wrap: wrap;
+
+	}
+
+	.files {
+
+		grid-column: 1 / 5;
+		display: flex;
+		flex-direction: column;
+
+	}
+
+	.file-container {
+
+		padding: 2em 0;
+
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+		max-width: 100%;
+
+		place-items: center;
+		place-content: center;
+		padding-inline-start: 0;
+
+		gap: 2em;
+
+	}
+
+	.big-number {
+
+		font-size: 6em;
+		font-weight: 900;
+
+	}
+
+	.stat-desc {
+
+		font-size: 1.5em;
+		text-align: center;
+
+	}
+
+	.tutor-class-experience {
+
+		display: grid;
+		list-style-type: none;
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+		max-width: 100%;
+
+		place-items: center;
+		place-content: center;
+		padding-inline-start: 0;
+
+		gap: 2em;
+
+	}
+
+	.exp {
+
+		font-weight: 600;
+
+	}
+
+	@media screen and (max-width: 850px) {
+        
+        h1, h4 {
+
+            text-align: center;
+
+        }
+
+    }
+
+</style>

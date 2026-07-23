@@ -74,4 +74,10 @@ function checkForClick(evt) {
 
 }
 
+function showIcon(){
+
+    
+
+}
+
 export {toggleNavElements, popUpNav}

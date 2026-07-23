@@ -8,16 +8,15 @@ import { Icon } from 'astro-icon/components';
 <div id="main-menu" class="nav-links">
     <div class="home-link">
 
-        <NavComponent href="/" title="Home"/>
+        <NavComponent href="/" title="Home" icon="abbreviated-signature" fullIcon="signature" useIcon="true"/>
         
     </div>
 
     <div class="other-links">
 
         <NavComponent href="/about" title="About" hide="true"/>
-        <NavComponent title="Skills" isDropdown="true" containerName="skills" dropdownComponents={["Tutoring", "Software Engineering", "Graphic Design", "Photography"]} hide="true"/>
-        <NavComponent href="/experience" title="Experience" hide="true"/>
-        <NavComponent href="/worksheets" title="Worksheets" hide="true"/>
+        <NavComponent href="/tutoring" title="Tutoring" hide="true"/>
+        <NavComponent title="Experience" isDropdown="true" containerName="experience" dropdownComponents={["Software Engineering", "Graphic Design", "Photography", "Worksheets"]} hide="true"/>
         <NavComponent href="/blog" title="Blog" hide="true"/>
 
         <div class="compressed-nav-button nav-title">
@@ -36,8 +35,8 @@ import { Icon } from 'astro-icon/components';
 
         <PopUpNavComponent href="/" title="Home"/>
         <PopUpNavComponent href="/about" title="About"/>
-        <PopUpNavComponent title="Skills" isDropdown="true" containerName="skills" dropdownComponents={["Tutoring", "Software Engineering", "Graphic Design", "Photography"]}/>
-        <PopUpNavComponent href="/experience" title="Experience"/>
+        <PopUpNavComponent href="/tutoring" title="Tutoring"/>
+        <PopUpNavComponent title="Experience" isDropdown="true" containerName="experience" dropdownComponents={["Software Engineering", "Graphic Design", "Photography", "Worksheets"]}/>
         <PopUpNavComponent href="/blog" title="Blog"/>
 
     </div>

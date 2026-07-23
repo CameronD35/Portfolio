@@ -1,35 +1,41 @@
 ---
 interface Props {
 
-    href?: string;
     title: string;
+    href?: string;
     isDropdown?: string;
     dropdownComponents?: Array<string>;
     containerName?: string;
     hide?: string;
+    icon?: string;
+    fullIcon?: string;
+    classList?: string;
+    useIcon?: string;
 
 }
 
-const { href, title, isDropdown = "false", dropdownComponents = [], hide = "false" } = Astro.props;
+const { href, title, classList = "", isDropdown = "false", dropdownComponents = [], hide = "false", containerName, icon = null, useIcon = "false"} = Astro.props;
 import { Icon } from "astro-icon/components";
 import Dropdown from "./Dropdown.astro";
 
-// console.log(dropdownComponents)
+console.log(icon);
 ---
-<div class="nav-component" data-nav={hide}>
+<div class={"nav-component " + classList} data-nav={hide}>
 
     <a href={href} data-is-dropdown={isDropdown} data-title={title} class="nav-title">
 
-        <span class="nav-link-title">
+        {useIcon == "false" && <span class="nav-link-title">
 
             {title}
 
-        </span>
+        </span>}
+
+        {(icon && useIcon) && <Icon name={icon} class="nav-icon"></Icon>}
 
         { (isDropdown === "true") && <Icon name="Dropdown_Arrow" class="arrow"/> }
     </a>
 
-    { (isDropdown === "true") && <Dropdown containerName="skills" components={dropdownComponents}/> }
+    { (isDropdown === "true") && <Dropdown containerName={`${containerName}`} components={dropdownComponents}/> }
 
 </div>
 

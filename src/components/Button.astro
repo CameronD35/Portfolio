@@ -4,12 +4,14 @@ import "../styles/global.css"
 interface Props {
 
     styleFlags?: Array<string>;
+    bgColor?: string;
+    textColor?: string;
     href?: string;
     msg: string;
 
 }
 
-const {styleFlags = null, href = "/", msg} = Astro.props;
+const {styleFlags = null, href = "/", msg, bgColor = "var(--custom-black-t)", textColor = "var(--custom-white)"} = Astro.props;
 
 const styleString = styleFlags?.join(" ");
 
@@ -27,18 +29,18 @@ const styleString = styleFlags?.join(" ");
 
 </a>
 
-<style>
+<style define:vars={{bgColor, textColor}}>
 
     a {
 
         text-decoration: none;
-        color: var(--custom-black-st);
+        color: var(--textColor);
 
     }
 
     .button {
 
-        background-color: var(--custom-white-t);
+        background-color: var(--bgColor);
         backdrop-filter: var(--minor-blur);
         position: relative;
 
@@ -55,7 +57,19 @@ const styleString = styleFlags?.join(" ");
 
     }
 
-    .button::after {
+    .leftOrigin {
+
+        transform-origin: left;
+
+    }
+
+    .rightOrigin{
+
+        transform-origin: right;
+
+    }
+
+    /* .button::after {
 
         content: '';
         position: absolute;
@@ -78,13 +92,25 @@ const styleString = styleFlags?.join(" ");
         opacity: 0;
 
 
-    }
+    } */
 
     .button:hover {
 
         scale: 1.2;
         box-shadow: 0px 0px 20px var(--custom-black-t);
         
+    }
+
+    .text {
+
+        opacity: 0.7;
+        transition-duration: 0.4s;
+
+    }
+
+    .button:hover .text {
+
+        opacity: 1;
 
     }
 
@@ -102,6 +128,16 @@ const styleString = styleFlags?.join(" ");
 
             font-size: 1.5em;
             font-weight: 700;
+
+        }
+
+    }
+
+    @media screen and (max-width: 850px) {
+
+        .button {
+
+            transform-origin: center !important;
 
         }
 

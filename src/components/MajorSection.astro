@@ -8,7 +8,6 @@ interface Props {
 
     title: string;
     desc?: string;
-    link?: string;
     isLeft?: string;
     color?: string;
     buttonmsg?: string;
@@ -18,7 +17,28 @@ interface Props {
 
 }
 
-const { title, desc = "This is a fire description.", link, isLeft = "false", color = "var(--custom-black)", buttonmsg = title, href = "/", imageDirectory = href.split("/")[2], imageNames = ["MDOSC.webp", "StellersJay9-16.webp", "VibinLizard.webp"]} = Astro.props;
+const { title, desc = "This is a fire description.", isLeft = "false", color = "var(--custom-black)", buttonmsg = title, href = "/", imageDirectory = href.split("/"), imageNames = ["MDOSC.webp", "StellersJay9-16.webp", "VibinLizard.webp"]} = Astro.props;
+
+const imageDir = (() => {
+
+    if (typeof imageDirectory == "object") {
+
+        return imageDirectory[imageDirectory.length - 1];
+
+    } else {
+
+        return imageDirectory;
+
+    }
+
+})();
+
+console.log(imageDir)
+
+let originDir;
+
+if (isLeft == "true") { originDir = "left"; }
+else if (isLeft == "false") { originDir = "right"; }
 
 ---
 
@@ -28,7 +48,7 @@ const { title, desc = "This is a fire description.", link, isLeft = "false", col
 
         <div class="galleryBox">
 
-            <PreviewGallery imageNames={imageNames} imageDirectory={imageDirectory} width="400px" height="600px"/>
+            <PreviewGallery imageNames={imageNames} imageDirectory={imageDir} width="400px" height="600px"/>
 
         </div>
 
@@ -41,7 +61,7 @@ const { title, desc = "This is a fire description.", link, isLeft = "false", col
 
             </div>
 
-            <Button msg={buttonmsg} href={href} styleFlags={["big"]}/>
+            <Button msg={buttonmsg} href={href} styleFlags={["big", `${originDir}Origin`]} bgColor="var(--custom-black-t)", textColor="var(--custom-white)"/>
 
         </div>
 
