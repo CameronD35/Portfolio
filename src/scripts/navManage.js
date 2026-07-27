@@ -17,7 +17,7 @@ function toggleNavElements(evt) {
 
             const time = 750 - ((i + 1) * 125);
 
-            elem.animate([{display: 'none', transform: elem.style.transform, opacity: 0.4}, {display: 'block', transform: `translateX(0px)`, opacity: 1}], {duration: time, fill: "forwards", easing: "cubic-bezier(0.175, 0.885, 0.32, 1.0)"})
+            elem.animate([{display: 'none', transform: elem.style.transform, opacity: 0, filter: "blur(5px)"}, {display: 'block', transform: `translateX(0px)`, filter: "none", opacity: 1}], {duration: time, fill: "forwards", easing: "cubic-bezier(0.175, 0.885, 0.32, 1.0)"})
 
     });
 
@@ -35,7 +35,7 @@ function toggleNavElements(evt) {
             const time = 750 - ((i + 1) * 125);
             const distance = xFinal - xInitial;
 
-            elem.animate([{transform: `translateX(${distance}px)`, opacity: 0}], {duration: time, fill: "forwards", easing: "cubic-bezier(0.175, 0.885, 0.32, 1.0)"})
+            elem.animate([{transform: `translateX(${distance}px) scale(0.5)`, opacity: 0, filter: "blur(5px)"}], {duration: time, fill: "forwards", easing: "cubic-bezier(0.175, 0.885, 0.32, 1.0)"})
             .finished.then(() => {
 
                 return (() => {

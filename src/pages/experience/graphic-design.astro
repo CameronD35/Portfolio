@@ -33,11 +33,13 @@ const pageTitle = "Graphic Design";
 
 <BaseLayout pageTitle={pageTitle}>
 	
+	<div class="bg"></div>
+
 	<div class="std-content-box">
 
 		<h1>Graphic Design</h1>
 
-		<h4>Art has themes. So, instead of separating all of my designs I allocated each one a theme.</h4>
+		<h4>Below are some general themes for some of my favorite designs!</h4>
 
 		<ul class="theme-list">
 			{Object.keys(themes).map((theme: any, i) => {
@@ -53,13 +55,88 @@ const pageTitle = "Graphic Design";
 
 <script>
 
-    import { setThemeAssetScroll } from "../../scripts/themeManage";
+	import { setThemeAssetScroll } from "../../scripts/themeManage";
 
     setThemeAssetScroll();
+
+    const cards = document.querySelectorAll(".card");
+	const bg: HTMLElement = document.querySelector(".bg")!;
+
+    cards?.forEach((card, i) => {
+
+		let color: string = card.computedStyleMap().get("--color")[0];
+
+		let center = card.scrollHeight;
+
+        card.addEventListener("mouseenter", () => {
+
+			console.log(center);
+
+			const dimensions = card.getBoundingClientRect();
+			
+			const width = dimensions.width;
+			const height = dimensions.height;
+			const x = dimensions.x;
+			const y = dimensions.y;
+
+			// bg.style.transformOrigin = `${x + width/2}px ${y + height/2}px`;
+
+			bg.style.backgroundColor = color;
+
+			bg.animate([{transform: `scaleY(1)`, filter: 'none'}], {duration: 400, fill: "forwards", easing: "cubic-bezier(0.175, 0.885, 0.32, 1.0)"});
+			card.style.boxShadow = `0px 0px 20px var(--custom-black-t)`
+
+			document.documentElement.style.setProperty("--nav-color", "var(--custom-white)");
+			document.documentElement.style.setProperty("--nav-bg-color", "var(--custom-black-t)");
+			document.documentElement.style.setProperty("--footer-color", color);
+			document.documentElement.style.setProperty("--footer-accent", "var(--custom-white)");
+
+			document.querySelector("h1").style.color = 'var(--custom-white)'
+			document.querySelector("h4").style.color = 'var(--custom-white)'
+
+
+        });
+
+		card.addEventListener("mouseleave", () => {
+
+			console.log(color);
+
+			bg.style.backgroundColor = color;
+
+			bg.animate([{transform: `scaleY(0)`, filter: 'blur(5px)'}], {duration: 400, fill: "forwards", easing: "cubic-bezier(0.175, 0.885, 0.32, 1.0)"});
+
+			document.documentElement.style.setProperty("--nav-color", "var(--custom-black)");
+			document.documentElement.style.setProperty("--nav-bg-color", "var(--custom-white-t)");
+			document.documentElement.style.setProperty("--footer-color", "var(--custom-white)");
+			document.documentElement.style.setProperty("--footer-accent", "var(--custom-black-st)");
+			document.documentElement.style.setProperty("--footer-accent-hover", "var(--custom-black)");
+
+			document.querySelector("h1").style.color = 'var(--custom-black)'
+			document.querySelector("h4").style.color = 'var(--custom-black)'
+
+        });
+
+    })
 
 </script>
 
 <style>
+
+	.bg {
+
+		position: fixed;
+		width: 100vw;
+		height: 100vh;
+		background-color: red;
+
+		filter: blur(5px);
+
+		z-index: -1;
+
+		transform-origin: top;
+		transform: scaleY(0);
+
+	}
 
 	.theme-list {
 
@@ -67,6 +144,8 @@ const pageTitle = "Graphic Design";
         flex-direction: column;
 		list-style-type: none;
         padding: 0;
+		margin-left: -2em;
+		margin-right: -2em;
         display: flow-root;
 
 

@@ -3,7 +3,8 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import "../../styles/global.css"
 
 import bgImage from "../../images/tutoring-bg.webp";
-import PDFViewer from '../../components/PDFViewer.jsx';
+import Button from '../../components/Button.astro';
+import { Icon } from 'astro-icon/components';
 
 const worksheets = Object.keys(import.meta.glob('/public/pdfs/tutoring/*.pdf'));
 
@@ -12,6 +13,20 @@ worksheets.forEach((i) => {
 	console.log(i.substring(i.indexOf('/', 2)));
 
 })
+
+const courses: Record<string, string> = {
+	"Linear Algebra": "An introduction to vector spaces, inner products, and mathematical proofs.",
+	"Differential Equations": "Techniques for solving ordinary differential equations.",
+	"Multi-Variable Calculus": "Derivatives, integrals, and the study of change in three dimensions or higher.",
+	"Calculus": "Derivatives, integrals, and the study of change.",
+	"Pre-Calculus": "Advanced algebra and trigonometric techniques.",
+	"Trigonometry": "The study of periodic functions, angles, and geometries.",
+	"Mechanics of Solids & Fluids": "The study of linear and rotational kinematics and kinetics.",
+	"Electricity & Magnetism": "The study of electromagnetic fields and circuits.",
+	"Engineering Statics": "The study of rigid structures.",
+	"Data Structures & Algorithms (Java)": "The study of data storage, access, and structures in Object-Oriented Programming.",
+	"General Chemistry": "Introduction to stoichiometry, equilibria, and chemical reactions.",
+}
 
 const pageTitle = "Tutoring";
 ---
@@ -25,48 +40,75 @@ const pageTitle = "Tutoring";
 	<div class="std-content-box no-select">
 
 		<h1>Tutoring</h1>
-		<h4>Since July 2025 I have been tutoring students at the College of the Canyons MESA center. Below are some of my self-reported stats.</h4>
+		<h4>You may be here because you saw that I am a private tutor in San Luis Obispo, California, or maybe you're curious about my experience!</h4>
 
-		<div class="stats-container">
+		<div class="section-title">What is my Experience?</div>
 
-			<div class="mesa-hours">
-				<span class="big-number">850</span>
-				<span class="stat-desc"> hours spent tutoring at the College of the Canyons MESA center.</span>
+		<p>
+			For (almost exactly) one year, I worked as a Mathematics & Physics Tutor in Santa Clarita, California, where I racked up over <b>1000 hours</b> of work. My workplace (but really my home) was the MESA
+			center at <a href="https://www.canyons.edu">College of the Canyons</a>, where I mentored students through the following subjects:
+		</p>
+
+		<br>
+
+		<div class="subjects">
+
+			{Object.keys(courses).map((course: string, i) => {
+
+				return (
+					<div class="course-container">
+						<div class="course">{course}</div>
+						<div class="tooltip">{courses[course]}</div>
+					</div>
+				)
+
+			})}
+
+		</div>
+
+		<br>
+
+		<p>
+			Beyond my time at MESA I have spent <b>over 50 hours</b> private tutoring the same subjects as well as years of helping my younger sister with K-12 mathematics. Now that I am transferring to the California Polytechnic University, San Luis Obispo (or Cal Poly SLO), I hope to continue to help mathematics and physics students.
+		</p>
+
+		<br>
+
+		<p>
+			Here are some statements from those who I have worked with before:
+		</p>
+
+		<br>
+
+		<div class="statement">
+			<div class="quote">
+				<Icon name="quotation-left" class="mark-left"/>
+				This is a quote from a person or maybe an alien.
+				<Icon name="quotation-right" class="mark-right"/>
 			</div>
-			<div class="private-hours">
-				<span class="big-number">21</span>
-				<span class="stat-desc"> hours spent tutoring on my own time.</span>
+			<div class="author">
+				<span>- Not an Alien, Neila Corp.</span>
 			</div>
-			<div class="subjects">
+		</div>
 
-				<span class="stat-desc">Experience tutoring in:</span>
-				<ul class="tutor-class-experience">
+		<br>
 
-					<li class="exp">Linear Algebra</li>
-					<li class="exp">Differential Equations</li>
-					<li class="exp">Calculus</li>
-					<li class="exp">Pre-Calculus</li>
-					<li class="exp">Trigonometry</li>
-					<li class="exp">Mechanics of Solids & Fluids</li>
-					<li class="exp">Electricity & Magnetism</li>
-					<li class="exp">Engineering Statics</li>
-					<li class="exp">Data Structures & Algorithms (Java)</li>
-					<li class="exp">General Chemistry</li>
+		<div class="section-title">Interested in Booking Some Time?</div>
 
-				</ul>
+		<br>
 
-			</div>
+		<p>
+			Please feel free to reach out to me via my email: 
+		</p>
 
-			<div class="files">
+		<a href="mailto:camerondemartini@gmail.com">camerondemartini@gmail.com</a>
 
-				<span class="stat-desc">Worksheets (Click to view/download!)</span>
+		<br><br>
 
-				<div class="file-container">
-					{worksheets.map((worksheet: string) => {return <PDFViewer url={worksheet.substring(worksheet.indexOf('/', 2))} client:only="react"></PDFViewer>})}
-				</div>
+		<div class="section-title">Interested in Some Worksheets?</div>
 
-			</div>
-
+		<div class="worksheet-button">
+			<Button styleFlags={["big", "leftOrigin"]} bgColor="var(--custom-white-t)" textColor="var(--custom-black)" href="/tutoring/worksheets">Check them out here!</Button>
 		</div>
 
 	</div>
@@ -86,17 +128,34 @@ const pageTitle = "Tutoring";
 	document.documentElement.style.setProperty("--footer-accent", "#5c5c5c");
 	document.documentElement.style.setProperty("--footer-accent-hover", "#888888");
 
-	(document.querySelector(".footer") as HTMLElement)?.style.setProperty("display", "none");
-	
-	setTimeout(() => {
+	// const drawingResolution = 30;
 
-		setFooterFixing();
-		console.log('hi');
-		(document.querySelector(".footer") as HTMLElement)?.style.setProperty("display", "flex");
+	const courseContainers = document.querySelectorAll(".course-container");
 
-	}, 1000);
+	courseContainers.forEach((container) => {
 
-	const drawingResolution = 30;
+		const course = container.querySelector(".course");
+		const tooltip = container.querySelector(".tooltip");
+
+		container?.addEventListener("mouseenter", () => {
+
+			console.log("enter");
+
+			course?.animate([{transform: `scale(0.5)`, opacity: 0, filter: "blur(5px)"}], {duration: 400, fill: "forwards", easing: "cubic-bezier(0.175, 0.885, 0.32, 1.0)"});
+			tooltip?.animate([{transform: `scale(1)`, opacity: 1, filter: "none"}], {duration: 400, fill: "forwards", easing: "cubic-bezier(0.175, 0.885, 0.32, 1.0)"});
+
+		})
+
+		container?.addEventListener("mouseleave", () => {
+
+			console.log("leave");
+
+			course?.animate([{transform: `scale(1)`, opacity: 1, filter: "none"}], {duration: 400, fill: "forwards", easing: "cubic-bezier(0.175, 0.885, 0.32, 1.0)"});
+			tooltip?.animate([{transform: `scale(0)`, opacity: 0, filter: "blur(5px)"}], {duration: 400, fill: "forwards", easing: "cubic-bezier(0.175, 0.885, 0.32, 1.0)"});
+
+		})
+
+	})
 	
 
 </script>
@@ -117,7 +176,7 @@ const pageTitle = "Tutoring";
 
 	}
 
-	.drawing-board{
+	.drawing-board {
 
 		filter: var(--BIG-blur);
 
@@ -138,132 +197,116 @@ const pageTitle = "Tutoring";
 
 	}
 
-	.stats-container {
+	.section-title {
 
-		display: grid;
-
-		grid-template-columns: 1fr 1fr 1fr 1fr;
-		grid-template-rows: auto auto auto auto;
-		gap: 1em;
-
-	}
-
-	.stats-container > div {
-
-		padding: 1em;
-		position: relative;
-		/* gap: 2em; */
-		align-items: center;
-		justify-content: center;
-		border-radius: 2em;
-		border-style: dashed;
-		border-color: var(--custom-white-st);
-		overflow: hidden;
-		/* overflow-wrap: anywhere; */
-
-		transition: 0.4s;
-
-	}
-
-	.stats-container div:hover {
-
-		box-shadow: 0 0 10px var(--custom-black-t);
-
-	}
-
-	.mesa-hours {
-
-		grid-row: 1 / 3;
-		grid-column: 1 / 3;
-		display: flex;
-		flex-direction: column;
-
-	}
-
-	.private-hours {
-
-		grid-row: 1 / 3;
-		grid-column: 3 / 5;
-		display: flex;
-		flex-direction: column;
+		font-size: 2em;
+		font-weight: 700;
 
 	}
 
 	.subjects {
-
-		grid-column: 1 / 5;
+		
+		margin: 2em 0;
 		display: flex;
-		flex-direction: column;
 		flex-wrap: wrap;
+		justify-content: center;
+		gap: 1em;
 
 	}
 
-	.files {
+	.course-container {
 
-		grid-column: 1 / 5;
+		flex: 0 0 300px;
+		font-weight: 600;
+		text-align: center;
+		position: relative;
+		pointer-events: all;
+
+	}
+
+	.tooltip {
+
+		color: var(--custom-white-st);
+		font-size: 0.75em;
+		text-align: center;
+		position: absolute;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		opacity: 0;
+		transform: scale(0);
+
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 1;
+
+		transition-duration: 0.4s;
+
+	}
+
+	.mark-left[data-icon], .mark-right[data-icon] {
+
+		font-size: 0.5em;
+		color: var(--custom-white-st);
+		transform: translateY(-1em);
+
+	}
+
+	.mark-left {
+
+		margin-right: 10px;
+
+	}
+
+	.mark-right {
+
+		margin-left: 10px;
+
+	}
+
+	.quote {
+
+		font-weight: 500;
+		font-size: 2em;
+
+	}
+
+	.author {
+
+		text-align: right;
+		
+	}
+
+	.worksheet-button {
+
+		display: flex;
+		margin: 1em 0;
+
+	}
+
+	.statement {
+
 		display: flex;
 		flex-direction: column;
-
-	}
-
-	.file-container {
-
-		padding: 2em 0;
-
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-		max-width: 100%;
-
-		place-items: center;
-		place-content: center;
-		padding-inline-start: 0;
-
-		gap: 2em;
-
-	}
-
-	.big-number {
-
-		font-size: 6em;
-		font-weight: 900;
-
-	}
-
-	.stat-desc {
-
-		font-size: 1.5em;
-		text-align: center;
-
-	}
-
-	.tutor-class-experience {
-
-		display: grid;
-		list-style-type: none;
-		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-		max-width: 100%;
-
-		place-items: center;
-		place-content: center;
-		padding-inline-start: 0;
-
-		gap: 2em;
-
-	}
-
-	.exp {
-
-		font-weight: 600;
-
+		width: fit-content;
+			
 	}
 
 	@media screen and (max-width: 850px) {
         
-        h1, h4 {
+        h1, h4, .section-title {
 
             text-align: center;
 
         }
+
+		.worksheet-button {
+
+			justify-content: center;
+
+		}
 
     }
 

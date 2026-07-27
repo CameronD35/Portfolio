@@ -13,61 +13,36 @@ worksheets.forEach((i) => {
 
 })
 
-const pageTitle = "Tutoring";
+const pageTitle = "Worksheets";
 ---
 
-<BaseLayout pageTitle={pageTitle}>
 
-	<div class="chalkboard" style={`background-image: url(${bgImage.src})`}>
-		<canvas class="drawing-board"></canvas>
-	</div>
+<BaseLayout pageTitle={pageTitle}>
 	
 	<div class="std-content-box no-select">
 
-		<h1>Tutoring</h1>
-		<h4>Since July 2025 I have been tutoring students at the College of the Canyons MESA center. Below are some of my self-reported stats.</h4>
+		<h1>Worksheets</h1>
+		<h4>Showcased here is some of my most proud work. Everything here is free to download (and hopefully helpful)!</h4>
 
-		<div class="stats-container">
+        <div class="worksheet-container">
+            {worksheets.map((worksheet: string, i) => {
+                if (i % 2 != 0) {
 
-			<div class="mesa-hours">
-				<span class="big-number">850</span>
-				<span class="stat-desc"> hours spent tutoring at the College of the Canyons MESA center.</span>
-			</div>
-			<div class="private-hours">
-				<span class="big-number">21</span>
-				<span class="stat-desc"> hours spent tutoring on my own time.</span>
-			</div>
-			<div class="subjects">
+                    return <div class="worksheet-section left">
+                        <span>name</span>
+                        <PDFViewer url={worksheet.substring(worksheet.indexOf('/', 2))} client:only="react"></PDFViewer>
+                    </div>
 
-				<span class="stat-desc">Experience tutoring in:</span>
-				<ul class="tutor-class-experience">
+                } else {
 
-					<li class="exp">Linear Algebra</li>
-					<li class="exp">Differential Equations</li>
-					<li class="exp">Calculus</li>
-					<li class="exp">Pre-Calculus</li>
-					<li class="exp">Trigonometry</li>
-					<li class="exp">Mechanics of Solids & Fluids</li>
-					<li class="exp">Electricity & Magnetism</li>
-					<li class="exp">Engineering Statics</li>
-					<li class="exp">Data Structures & Algorithms (Java)</li>
-					<li class="exp">General Chemistry</li>
+                    return <div class="worksheet-section right">
+                        <span>name</span>
+                        <PDFViewer url={worksheet.substring(worksheet.indexOf('/', 2))} client:only="react"></PDFViewer>
+                    </div>
 
-				</ul>
-
-			</div>
-
-			<div class="files">
-
-				<span class="stat-desc">Worksheets (Click to view/download!)</span>
-
-				<div class="file-container">
-					{worksheets.map((worksheet: string) => {return <PDFViewer url={worksheet.substring(worksheet.indexOf('/', 2))} client:only="react"></PDFViewer>})}
-				</div>
-
-			</div>
-
-		</div>
+                }
+            })}
+        </div>
 
 	</div>
 	
@@ -103,67 +78,50 @@ const pageTitle = "Tutoring";
 
 <style>
 
-	.chalkboard {
-
-		content: '';
-		position: fixed;
-		inset: -10px;
-		
-		background-size: cover;
-		
-		z-index: -1;
-
-		pointer-events: none;
-
-	}
-
-	.drawing-board{
-
-		filter: var(--BIG-blur);
-
-		width: 100vw;
-		height: 100vh;
-		inset: 10px;
-		position: absolute;
-
-	}
-
 	.std-content-box {
 		
 		position: relative;
 
-		color: var(--custom-white-st);
+		color: var(--custom-black);
 		
 		z-index: 1;
 
 	}
 
-	.stats-container {
+	.worksheet-container {
 
-		display: grid;
-
-		grid-template-columns: 1fr 1fr 1fr 1fr;
-		grid-template-rows: auto auto auto auto;
+		display: flex;
+        flex-direction: column;
 		gap: 1em;
 
 	}
 
-	.stats-container > div {
+    .worksheet-section {
 
-		padding: 1em;
+        padding: 0.5em;
 		position: relative;
+        display: flex;
 		/* gap: 2em; */
+		justify-content: space-between;
 		align-items: center;
-		justify-content: center;
-		border-radius: 2em;
+		border-radius: 1.5em;
 		border-style: dashed;
-		border-color: var(--custom-white-st);
-		overflow: hidden;
-		/* overflow-wrap: anywhere; */
 
 		transition: 0.4s;
 
-	}
+    }
+
+    .left {
+
+        flex-direction: row;
+        
+    }
+
+    .right {
+
+        flex-direction: row-reverse;
+        
+    }
 
 	.stats-container div:hover {
 
@@ -268,3 +226,4 @@ const pageTitle = "Tutoring";
     }
 
 </style>
+

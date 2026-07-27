@@ -1,10 +1,21 @@
 ---
-const { platform, username, color, hoverColor } = Astro.props;
+interface Props {
+
+    platform?: string;
+    username?: string;
+    color?: string;
+    hoverColor?: string;
+    href?: string;
+
+}
+
+
+const { platform, username, color, hoverColor, href } = Astro.props;
 ---
 
-<a href={`https://www.${platform.toLowerCase()}.com/${username}`} target="_blank">
-<slot/>
-</a>
+{href && <a href={href} target="_blank"><slot/></a>}
+
+{!href && <a href={`https://www.${platform.toLowerCase()}.com/${username}`} target="_blank"><slot/></a>}
 
 <style define:vars={{color, hoverColor}}>
     a {

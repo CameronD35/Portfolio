@@ -49,19 +49,27 @@ const { pageTitle } = Astro.props;
 			import { setHeaderFixing, setHeaderColor } from "../scripts/headerManage.js";
 			import handleDropdown from "../scripts/handleDropdown";
 
-			setFooterFixing();
-			setFooterColor();
+
+			window.addEventListener('resize', () => {
+
+				setFooterFixing();
+
+			});
 
 			setHeaderFixing();
 			setHeaderColor();
 			
 			handleDropdown();
 
-			window.addEventListener('resize', () => {
+			setFooterFixing();
+			setFooterColor();
 
-				setFooterFixing();
+			// Source - https://stackoverflow.com/a/47654868
+			// Posted by Will
+			// Retrieved 2026-07-26, License - CC BY-SA 3.0
 
-			})
+
+
 
 		</script>
 	</body>

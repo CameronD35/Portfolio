@@ -47,29 +47,31 @@ Object.keys(assets).forEach((asset) => {
 
 <li class="theme-card">
 
-        <div class="card">
+    <div class="card">
 
-            <Icon name={`${title}`} class="logo"/>
+        <Icon name={`${title}`} class="logo"/>
 
-            <span class="desc">{desc}</span>
-                
-            <Icon name={`${title}`} class="bg-image"/>
+        <span class="desc">{desc}</span>
+            
+        <Icon name={`${title}`} class="bg-image"/>
 
-            <div class="left-shadow"></div>
+        <div class="left-shadow"></div>
 
-            <div class="asset-container">
+        <div class="asset-container">
 
-                {Object.keys(relevantAssets).map((asset) => {
+            {Object.keys(relevantAssets).map((asset) => {
 
-                    return <div class="asset-box"> <Image src={relevantAssets[asset]()} alt={"litty"} class="asset"/> </div>;
+                return <div class="asset-box"> <Image src={relevantAssets[asset]()} alt={"litty"} class="asset"/> </div>;
 
-                })}
-
-            </div>
-
-            <div class="right-shadow"></div>
+            })}
 
         </div>
+
+        <div class="right-shadow"></div>
+
+    </div>
+
+    <div class="background"></div>
 
 </li>
 
@@ -144,8 +146,27 @@ Object.keys(assets).forEach((asset) => {
 
     .theme-card {
 
-        padding: 1.5rem 0;
-        
+        padding: 0;
+        position: relative;
+
+    }
+
+    .background {
+
+        position: absolute;
+
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        transform: scaleX(0.75);
+        z-index: -2;
+        border-radius: 2em;
+
+        background-color: var(--color);
+        pointer-events: none;
+
+        /* transition-timing-function: var(--standard-transition-timing-no-bounce); */
+        transition-duration: 0.8s;
 
     }
 
@@ -182,15 +203,32 @@ Object.keys(assets).forEach((asset) => {
         overflow: hidden;
         position: relative;
         background-size: cover;
+        transform-origin: center;
+        margin: 1.5em 2em;
+
+        transition-duration: 0.4s;
 
         gap: 1em;
+
+    }
+
+    .card::after {
+
+        content: "";
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+        
+        /* background-color: red; */
 
 
     }
 
-    .card:hover{
+    .theme-card:hover{
 
-        .bg-image {
+        .card .bg-image {
 
             scale: 1.2;
             filter: none;
