@@ -34,6 +34,7 @@ const pageTitle = "Graphic Design";
 <BaseLayout pageTitle={pageTitle}>
 	
 	<div class="bg"></div>
+	<div class="bg-bottom"></div>
 
 	<div class="std-content-box">
 
@@ -61,29 +62,19 @@ const pageTitle = "Graphic Design";
 
     const cards = document.querySelectorAll(".card");
 	const bg: HTMLElement = document.querySelector(".bg")!;
+	const bgBottom: HTMLElement = document.querySelector(".bg-bottom")!;
 
-    cards?.forEach((card, i) => {
+    cards?.forEach((card: any, i) => {
 
 		let color: string = card.computedStyleMap().get("--color")[0];
 
-		let center = card.scrollHeight;
-
         card.addEventListener("mouseenter", () => {
 
-			console.log(center);
-
-			const dimensions = card.getBoundingClientRect();
-			
-			const width = dimensions.width;
-			const height = dimensions.height;
-			const x = dimensions.x;
-			const y = dimensions.y;
-
-			// bg.style.transformOrigin = `${x + width/2}px ${y + height/2}px`;
-
 			bg.style.backgroundColor = color;
+			bgBottom.style.backgroundColor = color;
 
-			bg.animate([{transform: `scaleY(1)`, filter: 'none'}], {duration: 400, fill: "forwards", easing: "cubic-bezier(0.175, 0.885, 0.32, 1.0)"});
+			bg.animate([{transform: `scaleY(0.5)`, filter: 'none'}], {duration: 400, fill: "forwards", easing: "cubic-bezier(0.175, 0.885, 0.32, 1.0)"});
+			bgBottom.animate([{transform: `scaleY(0.5)`, filter: 'none'}], {duration: 400, fill: "forwards", easing: "cubic-bezier(0.175, 0.885, 0.32, 1.0)"});
 			card.style.boxShadow = `0px 0px 20px var(--custom-black-t)`
 
 			document.documentElement.style.setProperty("--nav-color", "var(--custom-white)");
@@ -91,8 +82,8 @@ const pageTitle = "Graphic Design";
 			document.documentElement.style.setProperty("--footer-color", color);
 			document.documentElement.style.setProperty("--footer-accent", "var(--custom-white)");
 
-			document.querySelector("h1").style.color = 'var(--custom-white)'
-			document.querySelector("h4").style.color = 'var(--custom-white)'
+			document.querySelector("h1")!.style.color = 'var(--custom-white)'
+			document.querySelector("h4")!.style.color = 'var(--custom-white)'
 
 
         });
@@ -102,8 +93,10 @@ const pageTitle = "Graphic Design";
 			console.log(color);
 
 			bg.style.backgroundColor = color;
+			bgBottom.style.backgroundColor = color;
 
 			bg.animate([{transform: `scaleY(0)`, filter: 'blur(5px)'}], {duration: 400, fill: "forwards", easing: "cubic-bezier(0.175, 0.885, 0.32, 1.0)"});
+			bgBottom.animate([{transform: `scaleY(0)`, filter: 'blur(5px)'}], {duration: 400, fill: "forwards", easing: "cubic-bezier(0.175, 0.885, 0.32, 1.0)"});
 
 			document.documentElement.style.setProperty("--nav-color", "var(--custom-black)");
 			document.documentElement.style.setProperty("--nav-bg-color", "var(--custom-white-t)");
@@ -127,13 +120,27 @@ const pageTitle = "Graphic Design";
 		position: fixed;
 		width: 100vw;
 		height: 100vh;
-		background-color: red;
 
 		filter: blur(5px);
 
 		z-index: -1;
 
 		transform-origin: top;
+		transform: scaleY(0);
+
+	}
+
+	.bg-bottom {
+
+		position: fixed;
+		width: 100vw;
+		height: 100vh;
+
+		filter: blur(5px);
+
+		z-index: -1;
+
+		transform-origin: bottom;
 		transform: scaleY(0);
 
 	}

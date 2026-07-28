@@ -31,17 +31,10 @@ Object.keys(assets).forEach((asset) => {
 
         relevantAssets[asset] = assets[asset];
 
+
     }
 
 });
-
-// console.log(relevantAssets);
-
-// const image = frontmatter?.image.url;
-
-// console.log(image)
-
-// if (!images[image]) throw new Error(`"${image}" does not exist in glob: "src/assets/blogs/*.{jpeg,jpg,png,gif}"`);
 
 ---
 
@@ -61,7 +54,7 @@ Object.keys(assets).forEach((asset) => {
 
             {Object.keys(relevantAssets).map((asset) => {
 
-                return <div class="asset-box"> <Image src={relevantAssets[asset]()} alt={"litty"} class="asset"/> </div>;
+                return <div class="asset-box" data-url={relevantAssets[asset]()}> <Image src={relevantAssets[asset]()} alt={"litty"} class="asset"/> </div>;
 
             })}
 
@@ -130,6 +123,8 @@ Object.keys(assets).forEach((asset) => {
         width: fit-content;
         height: 100%;
         position: relative;
+        background-image: attr(data-url);
+        backdrop-filter: blur(5px);
 
     }
 
@@ -223,20 +218,6 @@ Object.keys(assets).forEach((asset) => {
         
         /* background-color: red; */
 
-
-    }
-
-    .theme-card:hover{
-
-        .card .bg-image {
-
-            scale: 1.2;
-            filter: none;
-            opacity: 0.05;
-
-        }
-
-        /* cursor: pointer; */
 
     }
 
