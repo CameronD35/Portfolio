@@ -5,6 +5,8 @@ import "../../styles/global.css"
 import bgImage from "../../images/tutoring-bg.webp";
 import Button from '../../components/Button.astro';
 import { Icon } from 'astro-icon/components';
+import { actions } from 'astro:actions';
+import { isInputError } from 'astro:actions';
 
 const worksheets = Object.keys(import.meta.glob('/public/pdfs/tutoring/*.pdf'));
 
@@ -28,7 +30,16 @@ const courses: Record<string, string> = {
 	"General Chemistry": "Introduction to stoichiometry, equilibria, and chemical reactions.",
 }
 
+const options: Array<string> = ["Calculus AB", "Calculus BC", "Chemistry / AP Chemistry", "Physics / AP Physics", "Algebra I", "Algebra II", "Trigonometry",];
+
 const pageTitle = "Tutoring";
+
+const result = Astro.getActionResult(actions.send);
+
+if (result?.data) { return Astro.redirect("/tutoring"); }
+
+const inputErrors = isInputError(result?.error) ? result.error.fields : {};
+
 ---
 
 <BaseLayout pageTitle={pageTitle}>
@@ -99,11 +110,37 @@ const pageTitle = "Tutoring";
 			Please feel free to send me an email:
 		</p>
 
-		<!-- <form action="/api/send">
-			<button>Send Email.</button>
-		</form> -->
+		<form action={actions.send} method="post">
+			<fieldset>
+				<legend>What is your name?</legend>
 
-		<a href="mailto:camerondemartini@gmail.com">camerondemartini@gmail.com</a>
+				<input type="text" name="name" placeholder="Name" required aria-describedby={inputErrors.name ? "name-error" : undefined}>
+				{inputErrors.name && <p id="name-error">{inputErrors.name[0]}</p>}
+			</fieldset>
+			<fieldset>
+				<legend>Which email do you wish to communicate with?</legend>
+				<input type="email" name="email" placeholder="Email" required aria-describedby={inputErrors.email ? "email-error" : undefined}>
+				{inputErrors.email && <p id="email-error">{inputErrors.email[0]}</p>}
+			</fieldset>
+			<fieldset>
+				<legend>What course(s) are looking for help in?</legend>
+
+				{options.map((option) => {
+
+					const formattedOption = option.toLowerCase().replaceAll(" ", "-");
+
+						return <label class="option">{option}
+								<input type="checkbox" checked="checked" id={formattedOption} name={formattedOption} value={formattedOption}/>
+								<span class="checkmark"></span>
+						</label>
+
+				})}
+				
+			</fieldset>
+			<button>Send Email.</button>
+		</form>
+
+		<!-- <a href="mailto:camerondemartini@gmail.com">camerondemartini@gmail.com</a> -->
 
 		<br><br>
 
@@ -119,7 +156,6 @@ const pageTitle = "Tutoring";
 
 <script>
 
-	import { setFooterFixing } from "../../scripts/footerManage";
 	import { initializeCanvas } from "../../scripts/drawingBoard";
 
 	initializeCanvas();
@@ -141,7 +177,7 @@ const pageTitle = "Tutoring";
 
 		container?.addEventListener("mouseenter", () => {
 
-			console.log("enter");
+			// console.log("enter");
 
 			course?.animate([{transform: `scale(0.5)`, opacity: 0, filter: "blur(5px)"}], {duration: 400, fill: "forwards", easing: "cubic-bezier(0.175, 0.885, 0.32, 1.0)"});
 			tooltip?.animate([{transform: `scale(1)`, opacity: 1, filter: "none"}], {duration: 400, fill: "forwards", easing: "cubic-bezier(0.175, 0.885, 0.32, 1.0)"});
@@ -150,7 +186,7 @@ const pageTitle = "Tutoring";
 
 		container?.addEventListener("mouseleave", () => {
 
-			console.log("leave");
+			// console.log("leave");
 
 			course?.animate([{transform: `scale(1)`, opacity: 1, filter: "none"}], {duration: 400, fill: "forwards", easing: "cubic-bezier(0.175, 0.885, 0.32, 1.0)"});
 			tooltip?.animate([{transform: `scale(0)`, opacity: 0, filter: "blur(5px)"}], {duration: 400, fill: "forwards", easing: "cubic-bezier(0.175, 0.885, 0.32, 1.0)"});
@@ -163,6 +199,124 @@ const pageTitle = "Tutoring";
 </script>
 
 <style>
+
+	.option {
+
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		position: relative;
+		margin-left: 0.5em;
+		padding-left: 2.5em;
+		margin-bottom: 1em;
+		cursor: pointer;
+		-webkit-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+		transition-duration: 400ms;
+
+	}
+
+	.option input {
+		position: absolute;
+		opacity: 0;
+		cursor: pointer;
+		height: 0;
+		width: 0;
+	}
+
+	.checkmark {
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 25px;
+		width: 25px;
+		background-color: var(--custom-white-st);
+		transition-duration: 200ms;
+		border-radius: 0.25em;
+	}
+
+	/* CHECKBOX CODE ADAPTED FROM: https://www.w3schools.com/howto/howto_css_custom_checkbox.asp */
+
+	.option:hover input ~ .checkmark {
+		background-color: var(--custom-white);
+	}
+
+	.option input:checked ~ .checkmark {
+		background-color: var(--custom-light-blue);
+		box-shadow: 0px 0px 5px var(--custom-light-blue-st);
+	}
+
+
+	.checkmark:after {
+		content: "";
+		position: absolute;
+		transition-duration: 200ms;
+		opacity: 0;
+		/* transform: scale(0) blur(5px); */
+	}
+
+	.option input:checked ~ .checkmark:after {
+		opacity: 1;
+		transform: scale(1) blur(0);
+	}
+
+	.option .checkmark:after {
+		left: 9px;
+		top: 5px;
+		width: 5px;
+		height: 10px;
+		border: solid var(--custom-white);
+		border-width: 0 3px 3px 0;
+		border-radius: 2px;
+		-webkit-transform: rotate(45deg);
+		-ms-transform: rotate(45deg);
+		transform: rotate(45deg);
+	}
+
+	form {
+
+		display: flex;
+		flex-direction: column;
+		gap: 1em;
+
+	}
+
+	label {
+
+		display: flex;
+		flex-direction: column;
+		gap: 0.25em;
+
+	}
+
+	fieldset {
+
+		background-color: transparent;
+		border: 2px solid var(--custom-white-st);
+		border-radius: 0.5em;
+		padding: 5px;
+		color: var(--custom-white-st);
+		font-family: "Inter", sans-serif;
+		
+	}
+
+	input[type="text"], input[type="email"] {
+
+		background-color: transparent;
+		border: none;
+		width: 100%;
+		color: var(--custom-white-st);
+		font-family: "Inter", sans-serif;
+
+	}
+
+	input[type="checkbox"] {
+
+		background-color: transparent;
+
+	}
 
 	.chalkboard {
 
