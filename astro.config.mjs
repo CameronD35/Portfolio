@@ -13,6 +13,8 @@ import prefetch from '@astrojs/prefetch';
 
 import { unified } from '@astrojs/markdown-remark';
 
+import netlify from '@astrojs/netlify';
+
 // https://astro.build/config
 export default defineConfig({
   integrations: [icon({
@@ -42,10 +44,13 @@ export default defineConfig({
       rehypePlugins: [rehypeKatex, [rehypePrettyCode, { theme: 'github-dark' }]]
     }),
 }), react(), prefetch()],
+
   markdown: {
     processor: unified({
       remarkPlugins: [remarkMath],
       rehypePlugins: [rehypeKatex, [rehypePrettyCode, { theme: 'github-dark' }]],
     })
-  }
+  },
+  output: "server",
+  adapter: netlify()
 });

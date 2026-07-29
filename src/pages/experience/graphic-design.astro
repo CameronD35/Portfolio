@@ -16,17 +16,59 @@ import "../../styles/global.css";
 
 // }
 
-const themes: Record<string, string> = {
+const themes: Record<string, Record<string, any>> = {
 
-	'justin-bieber': 'This is THE Bustin Jieber.',
-	'atomalis': 'All of my designs for the RockSat 2026 ATOMALiS project.',
-	'goofy': 'I like to have fun with my designs sometimes...',
-	'atlas': 'All of my RockSat ATLAS related designs.',
-	'marztg': 'All of my designs related to my gaming YouTube channel (formerly Mario Stereo).',
+	'justin-bieber': {
+		'desc': 'This is THE Bustin Jieber.',
+		'images': [],
+		'color': '#3d1745'
+	},
+	'atomalis': {
+		'desc': 'All of my designs for the RockSat 2026 ATOMALiS project.',
+		'images': [],
+		'color': '#c48d0b'
+	},
+	'goofy': {
+		'desc': 'I like to have fun with my designs sometimes...',
+		'images': [],
+		'color': 'var(--custom-black)'
+	},
+	'atlas': {
+		'desc': 'All of my RockSat ATLAS related designs.',
+		'images': [],
+		'color': '#451718'
+	},
+	'marztg': {
+		'desc': 'All of my designs related to my gaming YouTube channel (formerly Mario Stereo).',
+		'images': [],
+		'color': '#17451b'
+	}
 
 }
 
-const colors = ['#3d1745', '#c48d0b', 'var(--custom-black)', '#451718', '#17451b'];
+const assets = import.meta.glob<{default: ImageMetadata}>('/src/assets/themes/**/*.{jpeg,jpg,webp,png,gif,svg}', {eager: true});
+
+console.log(assets);
+
+Object.keys(themes).forEach((theme: any) => {
+
+	const directory = "/src/assets/themes/" + theme;
+
+	Object.keys(assets).forEach((asset) => {
+
+		const assetDirectory = asset.substring(0, directory.length);
+
+		if (assetDirectory === directory) {
+
+        	themes[theme]['images'].push(assets[asset]);
+
+    	}
+			
+	});
+
+});
+
+console.log(themes);
 
 const pageTitle = "Graphic Design";
 ---
@@ -43,11 +85,15 @@ const pageTitle = "Graphic Design";
 		<h4>Below are some general themes for some of my favorite designs!</h4>
 
 		<ul class="theme-list">
-			{Object.keys(themes).map((theme: any, i) => {
 
-				return <DesignTheme title={theme} desc={themes[theme]} color={colors[i]}/>
+			{Object.keys(themes).map((theme: any) => {
+
+				console.log("hello" + theme);
+
+				return <DesignTheme data={themes[theme]} title={theme}/>
 
 			})}
+
 		</ul>
 
 	</div>
@@ -56,7 +102,8 @@ const pageTitle = "Graphic Design";
 
 <script>
 
-	import { setThemeAssetScroll } from "../../scripts/themeManage";
+	import { filter } from "lodash";
+import { setThemeAssetScroll } from "../../scripts/themeManage";
 
     setThemeAssetScroll();
 
@@ -64,39 +111,71 @@ const pageTitle = "Graphic Design";
 	const bg: HTMLElement = document.querySelector(".bg")!;
 	const bgBottom: HTMLElement = document.querySelector(".bg-bottom")!;
 
+	const siblings = (n: any) => [...n.parentElement.parentElement.children].filter(c=>c!=n.parentElement);
+
     cards?.forEach((card: any, i) => {
 
 		let color: string = card.computedStyleMap().get("--color")[0];
 
-        card.addEventListener("mouseenter", () => {
+        card.addEventListener("mouseenter", (evt: any) => {
+
+			const target = evt.target;
+
+			console.log(target);
+
+			// Source - https://stackoverflow.com/a/45157649
+			// Posted by roundar, modified by community. See post 'Timeline' for change history
+			// Retrieved 2026-07-28, License - CC BY-SA 3.0
+
+			const otherCards = siblings(target);
+			
+			console.log(target, otherCards);
+
 
 			bg.style.backgroundColor = color;
 			bgBottom.style.backgroundColor = color;
 
-			bg.animate([{transform: `scaleY(0.5)`, filter: 'none'}], {duration: 400, fill: "forwards", easing: "cubic-bezier(0.175, 0.885, 0.32, 1.0)"});
-			bgBottom.animate([{transform: `scaleY(0.5)`, filter: 'none'}], {duration: 400, fill: "forwards", easing: "cubic-bezier(0.175, 0.885, 0.32, 1.0)"});
-			card.style.boxShadow = `0px 0px 20px var(--custom-black-t)`
+			bg.animate([{transform: `scaleY(0.5)`}], {duration: 400, fill: "forwards", easing: "cubic-bezier(0.175, 0.885, 0.32, 1.0)"});
+			bgBottom.animate([{transform: `scaleY(0.5)`}], {duration: 400, fill: "forwards", easing: "cubic-bezier(0.175, 0.885, 0.32, 1.0)"});
+			// card.style.boxShadow = `0px 0px 20px var(--custom-black-t)`;
+			card.style.scale = `1.02`;
 
 			document.documentElement.style.setProperty("--nav-color", "var(--custom-white)");
 			document.documentElement.style.setProperty("--nav-bg-color", "var(--custom-black-t)");
 			document.documentElement.style.setProperty("--footer-color", color);
 			document.documentElement.style.setProperty("--footer-accent", "var(--custom-white)");
 
-			document.querySelector("h1")!.style.color = 'var(--custom-white)'
-			document.querySelector("h4")!.style.color = 'var(--custom-white)'
+			document.querySelector("h1")!.style.color = 'var(--custom-white)';
+			document.querySelector("h4")!.style.color = 'var(--custom-white)';
+
+			otherCards.forEach((otherCard) => {
+
+				otherCard.animate([{filter: `grayscale(1) blur(5px) contrast(0.7)`}], {duration: 300, fill: "forwards", easing: "cubic-bezier(0.175, 0.885, 0.32, 1.0)"});
+
+			});
 
 
         });
 
-		card.addEventListener("mouseleave", () => {
+		card.addEventListener("mouseleave", (evt: any) => {
 
-			console.log(color);
+			const target = evt.target;
+
+			console.log(target);
+
+			// Source - https://stackoverflow.com/a/45157649
+			// Posted by roundar, modified by community. See post 'Timeline' for change history
+			// Retrieved 2026-07-28, License - CC BY-SA 3.0
+
+			const otherCards = siblings(target);
 
 			bg.style.backgroundColor = color;
 			bgBottom.style.backgroundColor = color;
 
-			bg.animate([{transform: `scaleY(0)`, filter: 'blur(5px)'}], {duration: 400, fill: "forwards", easing: "cubic-bezier(0.175, 0.885, 0.32, 1.0)"});
-			bgBottom.animate([{transform: `scaleY(0)`, filter: 'blur(5px)'}], {duration: 400, fill: "forwards", easing: "cubic-bezier(0.175, 0.885, 0.32, 1.0)"});
+			bg.animate([{transform: `scaleY(0)`}], {duration: 400, fill: "forwards", easing: "cubic-bezier(0.175, 0.885, 0.32, 1.0)"});
+			bgBottom.animate([{transform: `scaleY(0)`}], {duration: 400, fill: "forwards", easing: "cubic-bezier(0.175, 0.885, 0.32, 1.0)"});
+			// card.style.boxShadow = ``;
+			card.style.scale = `1.00`;
 
 			document.documentElement.style.setProperty("--nav-color", "var(--custom-black)");
 			document.documentElement.style.setProperty("--nav-bg-color", "var(--custom-white-t)");
@@ -104,8 +183,14 @@ const pageTitle = "Graphic Design";
 			document.documentElement.style.setProperty("--footer-accent", "var(--custom-black-st)");
 			document.documentElement.style.setProperty("--footer-accent-hover", "var(--custom-black)");
 
-			document.querySelector("h1").style.color = 'var(--custom-black)'
-			document.querySelector("h4").style.color = 'var(--custom-black)'
+			document.querySelector("h1")!.style.color = 'var(--custom-black)';
+			document.querySelector("h4")!.style.color = 'var(--custom-black)';
+
+			otherCards.forEach((otherCard) => {
+
+				otherCard.animate([{filter: `grayscale(0) opacity(1)`}], {duration: 300, fill: "forwards"});
+
+			});
 
         });
 
@@ -121,8 +206,6 @@ const pageTitle = "Graphic Design";
 		width: 100vw;
 		height: 100vh;
 
-		filter: blur(5px);
-
 		z-index: -1;
 
 		transform-origin: top;
@@ -135,8 +218,6 @@ const pageTitle = "Graphic Design";
 		position: fixed;
 		width: 100vw;
 		height: 100vh;
-
-		filter: blur(5px);
 
 		z-index: -1;
 
