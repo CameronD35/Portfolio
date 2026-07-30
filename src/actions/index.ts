@@ -12,15 +12,22 @@ export const server = {
         input: z.object({
             name: z.string(),
             email: z.email(),
+            courses: z.array(z.string()).min(1, "Please select at least one course!"),
+            body: z.string(),
         }),
-        handler: async () => {
+        handler: async ({name, email, courses, body}) => {
 
             const {data, error} = await resend.emails.send({
 
                 from: 'Cameron <cameron@booking.camerondemartini.com>',
                 to: ['camerondemartini@gmail.com'],
-                subject: 'test email',
-                html: '<p>Let\'s see if this works...</p>'
+                cc: [email],
+                subject: `New Tutoring Information Request from ${name}`,
+                html: `<h1>${name}</h1>
+                <p>Looking for help in: ${courses.join(", ")}</p>
+                <p>Additional Notes: ${body}</p>
+                
+                `
 
             });
 

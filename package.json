@@ -38,12 +38,16 @@
     "@iconify-json/mdi": "^1.2.3",
     "@types/d3": "^7.4.3",
     "@types/lodash": "^4.17.23",
-    "eslint-plugin-astro": "^1.5.0",
-    "eslint-plugin-mdx": "^2.0.5"
+    "eslint": "^10.8.0",
+    "eslint-plugin-astro": "^3.0.1",
+    "eslint-plugin-mdx": "^3.8.1"
   },
   "allowScripts": {
     "esbuild@0.28.1": true,
     "fsevents@2.3.3": true,
     "sharp@0.34.5": true
+  },
+  "engines": {
+    "node": "24.x"
   }
 }

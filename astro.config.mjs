@@ -9,8 +9,6 @@ import icon from 'astro-icon';
 
 import react from '@astrojs/react';
 
-import prefetch from '@astrojs/prefetch';
-
 import { unified } from '@astrojs/markdown-remark';
 
 import netlify from '@astrojs/netlify';
@@ -43,7 +41,7 @@ export default defineConfig({
       remarkPlugins: [remarkMath],
       rehypePlugins: [rehypeKatex, [rehypePrettyCode, { theme: 'github-dark' }]]
     }),
-}), react(), prefetch()],
+}), react()],
 
   markdown: {
     processor: unified({
@@ -52,5 +50,6 @@ export default defineConfig({
     })
   },
   output: "server",
-  adapter: netlify()
+  adapter: netlify(),
+  prefetch: true,
 });

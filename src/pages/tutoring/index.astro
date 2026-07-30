@@ -111,18 +111,21 @@ const inputErrors = isInputError(result?.error) ? result.error.fields : {};
 		</p>
 
 		<form action={actions.send} method="post">
+
 			<fieldset>
 				<legend>What is your name?</legend>
 
 				<input type="text" name="name" placeholder="Name" required aria-describedby={inputErrors.name ? "name-error" : undefined}>
 				{inputErrors.name && <p id="name-error">{inputErrors.name[0]}</p>}
 			</fieldset>
+
 			<fieldset>
 				<legend>Which email do you wish to communicate with?</legend>
 				<input type="email" name="email" placeholder="Email" required aria-describedby={inputErrors.email ? "email-error" : undefined}>
 				{inputErrors.email && <p id="email-error">{inputErrors.email[0]}</p>}
 			</fieldset>
-			<fieldset>
+
+			<fieldset class="courses-box">
 				<legend>What course(s) are looking for help in?</legend>
 
 				{options.map((option) => {
@@ -130,17 +133,22 @@ const inputErrors = isInputError(result?.error) ? result.error.fields : {};
 					const formattedOption = option.toLowerCase().replaceAll(" ", "-");
 
 						return <label class="option">{option}
-								<input type="checkbox" checked="checked" id={formattedOption} name={formattedOption} value={formattedOption}/>
+								<input type="checkbox" id={formattedOption} name="courses" value={option} aria-describedby={inputErrors.courses ? "courses-error" : undefined}/>
 								<span class="checkmark"></span>
 						</label>
 
 				})}
-				
+				{inputErrors.courses && <p id="courses-error">{inputErrors.courses[0]}</p>}
 			</fieldset>
-			<button>Send Email.</button>
-		</form>
 
-		<!-- <a href="mailto:camerondemartini@gmail.com">camerondemartini@gmail.com</a> -->
+			<fieldset>
+				<legend>Wish to add anything else?</legend>
+				<textarea name="body" rows="4" placeholder="Feel free to describe your goals in detail, describe your availability, etc." required aria-describedby={inputErrors.body ? "body-error" : undefined}></textarea>
+				{inputErrors.body && <p id="body-error">{inputErrors.body[0]}</p>}
+			</fieldset>
+
+			<button>Send Email</button>
+		</form>
 
 		<br><br>
 
@@ -200,6 +208,45 @@ const inputErrors = isInputError(result?.error) ? result.error.fields : {};
 
 <style>
 
+	button {
+
+        background-color: transparent;
+        backdrop-filter: var(--minor-blur);
+        position: relative;
+
+        border: 2px solid var(--custom-white-st);
+		color: var(--custom-white-st);
+
+        padding: 1em 2em;
+        border-radius: 0.5em;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        transition: 0.4s var(--standard-transition-timing-no-bounce);
+		font-family: "Inter", sans-serif;
+		font-weight: 600;
+
+	}
+
+	button:hover {
+
+		cursor: pointer;
+		background-color: var(--custom-white-st);
+		color: var(--custom-black);
+
+	}
+
+	.courses-box {
+		
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: 1em 4em;
+
+	}
+
 	.option {
 
 		display: flex;
@@ -233,7 +280,7 @@ const inputErrors = isInputError(result?.error) ? result.error.fields : {};
 		height: 25px;
 		width: 25px;
 		background-color: var(--custom-white-st);
-		transition-duration: 200ms;
+		transition: 200ms var(--standard-transition-timing-no-bounce);
 		border-radius: 0.25em;
 	}
 
@@ -246,20 +293,25 @@ const inputErrors = isInputError(result?.error) ? result.error.fields : {};
 	.option input:checked ~ .checkmark {
 		background-color: var(--custom-light-blue);
 		box-shadow: 0px 0px 5px var(--custom-light-blue-st);
+
 	}
 
 
 	.checkmark:after {
 		content: "";
 		position: absolute;
-		transition-duration: 200ms;
+		transition: 600ms var(--standard-transition-timing-no-bounce);
 		opacity: 0;
-		/* transform: scale(0) blur(5px); */
+
+		transform: rotate(45deg) scale(2);
+		filter: blur(2px);
+
 	}
 
 	.option input:checked ~ .checkmark:after {
 		opacity: 1;
-		transform: scale(1) blur(0);
+		filter: blur(0px);
+		transform: rotate(45deg) scale(1);
 	}
 
 	.option .checkmark:after {
@@ -296,19 +348,36 @@ const inputErrors = isInputError(result?.error) ? result.error.fields : {};
 		background-color: transparent;
 		border: 2px solid var(--custom-white-st);
 		border-radius: 0.5em;
-		padding: 5px;
+
 		color: var(--custom-white-st);
 		font-family: "Inter", sans-serif;
+
+		margin: 0;
 		
 	}
 
-	input[type="text"], input[type="email"] {
+	input[type="text"], input[type="email"], textarea {
 
 		background-color: transparent;
 		border: none;
 		width: 100%;
 		color: var(--custom-white-st);
 		font-family: "Inter", sans-serif;
+		font-size: 1.25em;
+		font-weight: 600;
+
+
+	}
+
+	input[type="text"]::placeholder, input[type="email"]::placeholder, textarea::placeholder {
+
+		color: var(--custom-white-t);
+
+	}
+
+	textarea {
+
+		resize: none;
 
 	}
 
