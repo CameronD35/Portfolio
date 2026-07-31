@@ -10,7 +10,7 @@ function setHeaderFixing() {
 
     const mainMenu = document.querySelector("#main-menu");
 
-    console.log(`${currentHeaderState}, ${headerHeight}, ${userScrollDistance}`);
+    // console.log(`${currentHeaderState}, ${headerHeight}, ${userScrollDistance}`);
 
 }
 
@@ -18,7 +18,7 @@ function setHeaderColor() {
 
     const currentPath = window.location.pathname;
 
-    console.log(currentPath, currentPath === "/")
+    // console.log(currentPath, currentPath === "/")
 
     if (currentPath !== "/") {
 

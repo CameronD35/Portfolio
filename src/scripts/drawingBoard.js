@@ -24,16 +24,16 @@ function initializeCanvas() {
         mouseX = evt.clientX;
         mouseY = evt.clientY;
 
-		console.log("hello");
+		// console.log("hello");
 		window.addEventListener("mousemove", beginDrawing);
 
-        console.log(timer);
+        // console.log(timer);
 
 	});
 
 	window.addEventListener("mouseup", () => {
 
-		console.log("bye");
+		// console.log("bye");
 		window.removeEventListener("mousemove", beginDrawing);
 
 	});

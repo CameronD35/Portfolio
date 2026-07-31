@@ -14,7 +14,22 @@ worksheets.forEach((i) => {
 
 	console.log(i.substring(i.indexOf('/', 2)));
 
-})
+});
+
+const statements = [
+
+	{
+		author: "Jesse Cruz",
+		social: "https://www.instagram.com/jessecruz07/",
+		title: "College of the Canyons MESA Tutor Lead",
+		statement: `Cameron is one of the best tutors the MESA Center has ever had. 
+		He always goes the extra mile to make sure every student understands the concepts. 
+		He is patient, adaptable, approachable, and kind to everyone he tutors. He breaks 
+		down important concepts and makes even the most difficult ones easy for students to 
+		understand. If you need help with upper-division classes, he is the person you want tutoring you.`
+	}
+
+]
 
 const courses: Record<string, string> = {
 	"Linear Algebra": "An introduction to vector spaces, inner products, and mathematical proofs.",
@@ -30,7 +45,12 @@ const courses: Record<string, string> = {
 	"General Chemistry": "Introduction to stoichiometry, equilibria, and chemical reactions.",
 }
 
-const options: Array<string> = ["Calculus AB", "Calculus BC", "Chemistry / AP Chemistry", "Physics / AP Physics", "Algebra I", "Algebra II", "Trigonometry",];
+const options: Record<string, Array<string>> = {
+	"High School": ["Calculus AB / BC", "Algebra I", "Algebra II", "Trigonometry", "Geometry", "Chemistry / AP Chemistry", "Physics / AP Physics"],
+	"College": ["Calculus I", "Calculus II", "Multi-Variable Calulus (Calculus III)", "Differential Equations", "Linear Algebra", "Physics: Mechanics (General Physics I)",
+		"Physics: Electricity & Magnetism (General Physics II)", "Modern Physics: Thermodynamics, Optics, Relativity & Quantum Mechanics", "General Chemistry I", "General Chemistry II"
+	],
+};
 
 const pageTitle = "Tutoring";
 
@@ -92,14 +112,19 @@ const inputErrors = isInputError(result?.error) ? result.error.fields : {};
 		<br>
 
 		<div class="statement">
-			<div class="quote">
-				<Icon name="quotation-left" class="mark-left"/>
-				This is a quote from a person or maybe an alien.
-				<Icon name="quotation-right" class="mark-right"/>
-			</div>
-			<div class="author">
-				<span>- Not an Alien, Neila Corp.</span>
-			</div>
+			{statements.map((statement) => {
+
+				return <div class="quote">
+						<Icon name="quotation-left" class="mark-left"/>
+						{statement.statement}
+						<Icon name="quotation-right" class="mark-right"/>
+					</div>
+					<div class="author">
+						<a href={statement.social}>- {statement.author}</a>
+						<span>, {statement.title}</span>
+					</div>
+
+			})}
 		</div>
 
 		<br>
@@ -126,16 +151,44 @@ const inputErrors = isInputError(result?.error) ? result.error.fields : {};
 			</fieldset>
 
 			<fieldset class="courses-box">
+				<legend>What education level are you?</legend>
+				{Object.keys(options).map((educationLevel) => {
+
+					const formattedEducationLevel = educationLevel.replaceAll(" ", "-").toLowerCase();
+					console.log(formattedEducationLevel);
+
+					return <label class="option education-level">{educationLevel}
+									<input type="radio" id={formattedEducationLevel} name="level" value={educationLevel} style="text-transform: capitalize;" aria-describedby={inputErrors.level ? "level-error" : undefined}/>
+									<span class="radio-circle"></span>
+							</label>	
+
+				})}
+				{inputErrors.level && <p id="level-error">{inputErrors.level[0]}</p>}
+			</fieldset>
+
+			<fieldset class="courses-box">
 				<legend>What course(s) are looking for help in?</legend>
 
-				{options.map((option) => {
+				<span class="select-one" data-visible="true">Please select an education level!</span>
 
-					const formattedOption = option.toLowerCase().replaceAll(" ", "-");
+				{Object.keys(options).map((educationLevel) => {
 
-						return <label class="option">{option}
-								<input type="checkbox" id={formattedOption} name="courses" value={option} aria-describedby={inputErrors.courses ? "courses-error" : undefined}/>
-								<span class="checkmark"></span>
-						</label>
+					const formattedEducationLevel = educationLevel.replaceAll(" ", "-").toLowerCase();
+
+					return <div class={`${formattedEducationLevel} level`} style="display: none">
+
+						{options[educationLevel].map((option) => {
+
+							const formattedOption = option.toLowerCase().replaceAll(" ", "-");
+
+							return <label class="option">{option}
+									<input type="checkbox" id={formattedOption} name="courses" value={option} aria-describedby={inputErrors.courses ? "courses-error" : undefined}/>
+									<span class="checkmark"></span>
+							</label>	
+
+						})}
+
+					</div>
 
 				})}
 				{inputErrors.courses && <p id="courses-error">{inputErrors.courses[0]}</p>}
@@ -155,7 +208,8 @@ const inputErrors = isInputError(result?.error) ? result.error.fields : {};
 		<div class="section-title">Interested in Some Worksheets?</div>
 
 		<div class="worksheet-button">
-			<Button styleFlags={["big", "leftOrigin"]} bgColor="var(--custom-white-t)" textColor="var(--custom-black)" href="/tutoring/worksheets">Check them out here!</Button>
+			Coming Soon!
+			<!-- <Button styleFlags={["big", "leftOrigin"]} bgColor="var(--custom-white-t)" textColor="var(--custom-black)" href="/tutoring/worksheets">Check them out here!</Button> -->
 		</div>
 
 	</div>
@@ -201,12 +255,62 @@ const inputErrors = isInputError(result?.error) ? result.error.fields : {};
 
 		})
 
-	})
+	});
+
+	const educationLevels: NodeListOf<HTMLElement> = document.querySelectorAll(".education-level input");
+
+	const selectOne: HTMLElement = document.querySelector(".select-one")!;
+
+	console.log(educationLevels)
+
+	educationLevels.forEach((level, i) => {
+
+		console.log("text")
+
+		level.addEventListener("change", (evt: any) => {
+
+			const choice: HTMLElement = document.querySelector(`.${level.id}`)!;
+			
+
+			// if (evt.target.checked) { console.log(choice + " is checked"); }
+			// else { console.log(level.id + " is unchecked"); }
+
+			if (level.id === "high-school") {document.querySelector(`.college`)!.style.display = "none";}
+			if (level.id === "college") {document.querySelector(`.high-school`)!.style.display = "none";}
+
+			choice.style.display = "block";
+			selectOne.style.display = "none";
+
+		});
+
+	});
 	
+
 
 </script>
 
 <style>
+
+	.select-one {
+
+		color: var(--custom-white-t);
+		font-family: "Inter", sans-serif;
+		font-size: 1.25em;
+		font-weight: 600;
+
+		[data-visible="true"] {
+
+			opacity: 1;
+
+		}
+
+		[data-visible="false"] {
+
+			opacity: 0;
+
+		}
+
+	}
 
 	button {
 
@@ -238,11 +342,11 @@ const inputErrors = isInputError(result?.error) ? result.error.fields : {};
 
 	}
 
-	.courses-box {
+	.courses-box div, .courses-box {
 		
 		display: flex;
 		flex-wrap: wrap;
-		justify-content: center;
+		justify-content: start;
 		gap: 1em 4em;
 
 	}
@@ -282,6 +386,44 @@ const inputErrors = isInputError(result?.error) ? result.error.fields : {};
 		background-color: var(--custom-white-st);
 		transition: 200ms var(--standard-transition-timing-no-bounce);
 		border-radius: 0.25em;
+	}
+
+	.radio-circle {
+
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 25px;
+		width: 25px;
+		background-color: var(--custom-white-st);
+		transition: 200ms var(--standard-transition-timing-no-bounce);
+		border-radius: 100%;
+
+	}
+
+	.radio-circle:after {
+		content: "";
+		position: absolute;
+		transition: 600ms var(--standard-transition-timing-no-bounce);
+		opacity: 0;
+
+		transform: scale(2);
+		filter: blur(2px);
+
+	}
+
+	.option input:checked ~ .radio-circle:after {
+		opacity: 1;
+		filter: blur(0px);
+		transform: scale(1);
+		box-shadow: 0px 0px 5px var(--custom-light-blue-st);
+	}
+
+	.option .radio-circle:after {
+		width: 25px;
+		height: 25px;
+		background-color: var(--custom-light-blue);
+		border-radius: 100%;
 	}
 
 	/* CHECKBOX CODE ADAPTED FROM: https://www.w3schools.com/howto/howto_css_custom_checkbox.asp */
@@ -365,7 +507,14 @@ const inputErrors = isInputError(result?.error) ? result.error.fields : {};
 		font-family: "Inter", sans-serif;
 		font-size: 1.25em;
 		font-weight: 600;
+		transition-duration: 200ms;
 
+
+	}
+
+	input[type="text"]:focus, input[type="email"]:focus, textarea:focus {
+
+		color: var(--custom-white);
 
 	}
 
@@ -494,14 +643,31 @@ const inputErrors = isInputError(result?.error) ? result.error.fields : {};
 	.quote {
 
 		font-weight: 500;
-		font-size: 2em;
+		font-size: 1.5em;
 
 	}
 
 	.author {
 
-		text-align: right;
+		margin-top: 0.5em;
+		text-align: left;
 		
+	}
+
+	.author a {
+
+		text-decoration: none;
+		font-style: italic;
+		font-weight: 700;
+		color: var(--custom-white-st);
+
+	}
+
+	.author span {
+
+		font-weight: 700;
+		color: var(--custom-white-st);
+
 	}
 
 	.worksheet-button {
