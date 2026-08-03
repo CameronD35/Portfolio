@@ -58,6 +58,14 @@ html {
   --mouse-x: 0px;
   --mouse-y: 0px;
 
+  
+
+}
+
+html {
+
+  background-color: var(--footer-color);
+
 }
 
 body {
@@ -216,6 +224,16 @@ h1 {
 
   padding: 4em 2em 0em 2em;
 
+}
+
+@media screen and (max-width: 500px) {
+
+  .std-content-box h1 {
+
+    font-size: 2em;
+  
+  }
+  
 }
 
 .pdf-viewer {

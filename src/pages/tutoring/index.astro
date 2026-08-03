@@ -62,7 +62,7 @@ const inputErrors = isInputError(result?.error) ? result.error.fields : {};
 
 ---
 
-<BaseLayout pageTitle={pageTitle}>
+<BaseLayout pageTitle={pageTitle} navBackgroundColor='var(--custom-black)'>
 
 	<div class="chalkboard" style={`background-image: url(${bgImage.src})`}>
 		<canvas class="drawing-board"></canvas>

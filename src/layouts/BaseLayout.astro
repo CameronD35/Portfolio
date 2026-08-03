@@ -5,7 +5,14 @@ import Content from '../components/Content.astro';
 import '../styles/global.css';
 import { Image } from 'astro:assets';
 
-const { pageTitle } = Astro.props;
+interface Props {
+
+	pageTitle: string,
+	navBackgroundColor?: string
+
+}
+
+const { pageTitle, navBackgroundColor = "var(--footer-color)" } = Astro.props;
 
 ---
 
@@ -13,7 +20,7 @@ const { pageTitle } = Astro.props;
 
 <html lang="en">
 	<head>
-		<meta charset="utf-8" content="initial-scale=1, viewport-fit=cover"/>
+		<meta charset="utf-8" content="initial-scale=1"/>
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/katex.min.css">
 		<meta name="viewport" content="width=device-width" />
@@ -25,7 +32,7 @@ const { pageTitle } = Astro.props;
 		<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Oi&display=swap" rel="stylesheet">
 
 	</head>
-	<body>
+	<body data-color={navBackgroundColor}>
 		<Header />
 
 		<Content>
@@ -45,6 +52,7 @@ const { pageTitle } = Astro.props;
 		<script>
 
 			import "../scripts/menu.js"; 
+			import "../scripts/isMobile.js"
 			import { setFooterFixing, setFooterColor } from "../scripts/footerManage.js";
 			import { setHeaderFixing, setHeaderColor } from "../scripts/headerManage.js";
 			import handleDropdown from "../scripts/handleDropdown";
@@ -64,22 +72,16 @@ const { pageTitle } = Astro.props;
 			setFooterFixing();
 			setFooterColor();
 
-			// Source - https://stackoverflow.com/a/47654868
-			// Posted by Will
-			// Retrieved 2026-07-26, License - CC BY-SA 3.0
+			const nav: HTMLElement = document.querySelector("nav")!;
 
+			const color = document.body.getAttribute("data-color")!;
 
+			if (window.isMobile()) { nav.style.backgroundColor = color; nav.style.boxShadow = "0 0 10px var(--custom-black-t)" }
 
 
 		</script>
 	</body>
 </html>
-
-<script>
-
-	// console.log("referrer:" + document.referrer.split("/").toString());
-
-</script>
 
 <style>
 
