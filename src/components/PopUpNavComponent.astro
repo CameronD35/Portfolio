@@ -9,7 +9,7 @@ interface Props {
 
 }
 
-const { href, title, isDropdown = "false", dropdownComponents = []} = Astro.props;
+const { href, title, isDropdown = "false", dropdownComponents = [], containerName} = Astro.props;
 import { Icon } from "astro-icon/components";
 import Dropdown from "./Dropdown.astro";
 
@@ -27,7 +27,7 @@ import Dropdown from "./Dropdown.astro";
         { (isDropdown === "true") && <Icon name="Dropdown_Arrow" class="arrow"/> }
     </a>
 
-    { (isDropdown === "true") && <Dropdown containerName="skills" components={dropdownComponents}/> }
+    { (isDropdown === "true") && <Dropdown containerName={`${containerName}`} components={dropdownComponents}/> }
 
 </div>
 
@@ -38,13 +38,25 @@ import Dropdown from "./Dropdown.astro";
         position: relative;
         width: auto;
         height: auto;
+        opacity: 0;
 
+    }
+
+    .pop-up-nav-component .nav-link-title {
+
+        color: var(--custom-white);
+
+    }
+
+    .pop-up-nav-component:has([data-is-dropdown="true"]) {
+        z-index: 10;
     }
 
     .arrow {
 
         height: 0.375em;
         width: auto;
+        color: var(--custom-white);
 
     }
 

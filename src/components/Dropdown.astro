@@ -41,7 +41,8 @@ const {components, containerName} = Astro.props;
         width: 100%;
         height: auto;
         background-color: var(--custom-black-t);
-        backdrop-filter: var(--BIG-blur) !important;
+        backdrop-filter: var(--BIG-blur);
+        --webkit-backdrop-filter: var(--BIG-blur);
         box-shadow: 0px 0px 10px var(--custom-black-t);
         position: absolute;
         top: 100%;
@@ -50,7 +51,6 @@ const {components, containerName} = Astro.props;
         z-index: 3;
         transition: 0.5s var(--standard-transition-timing-no-bounce);
         transform-origin: top;
-        filter: unset;
 
         ul .seperator {
 

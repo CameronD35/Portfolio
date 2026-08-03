@@ -190,7 +190,7 @@ h1 {
 
 }
 
-.nav-component:hover {
+.nav-component:hover, .pop-up-nav-component:hover {
 
   span::after {
 

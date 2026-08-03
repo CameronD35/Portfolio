@@ -17,7 +17,7 @@ function toggleNavElements(evt) {
 
             const time = 750 - ((i + 1) * 125);
 
-            elem.animate([{display: 'none', transform: elem.style.transform, opacity: 0, filter: "blur(5px)"}, {display: 'block', transform: `translateX(0px)`, filter: "none", opacity: 1}], {duration: time, fill: "forwards", easing: "cubic-bezier(0.175, 0.885, 0.32, 1.0)"})
+            elem.animate([{display: 'none', transform: elem.style.transform, opacity: 0, filter: "blur(5px)"}, {display: 'block', transform: `translateX(0px)`, filter: "none", opacity: 1}], {duration: time, fill: "forwards", easing: "cubic-bezier(0.175, 0.885, 0.32, 1.05)"})
 
     });
 
@@ -56,27 +56,52 @@ function popUpNav() {
 
     const popUpNav = document.querySelector(".pop-up-nav-links");
 
+    const components = document.querySelectorAll(`.pop-up-nav-component`);
+
+    console.log(components)
+
     popUpNav.classList.add("open");
 
-    window.addEventListener("click", checkForClick);
+    components.forEach((elem, i) => {
 
-}
+        const time = 750 - ((i + 1) * 125);
 
-function checkForClick(evt) {
+        const sign = (i % 2 == 0? "-" : "");
 
-    const popUpNav = document.querySelector('.pop-up-nav-links');
+        elem.animate([{transform: `translateX(${sign}50px)`, filter: "blur(15px)", opacity: 0}, {transform: `none`, filter: "none", opacity: 1}], {duration: time, fill: "forwards", easing: "cubic-bezier(0.175, 0.885, 0.32, 1.05)"});
 
-    console.log(evt.target);
-
-    popUpNav.classList.remove("open");
-
-    window.removeEventListener("click", checkForClick);
-
-}
-
-function showIcon(){
-
+    });
     
+    popUpNav.addEventListener("click", closePopUp);
+
+}
+
+function closePopUp(evt) {
+
+    const target = evt.target;
+
+    const popUpNav = document.querySelector(".pop-up-nav-links");
+    const components = document.querySelectorAll(`.pop-up-nav-component`);
+
+    if (target.contains(components[0])) {
+
+        components.forEach((elem, i) => {
+
+            const time = 750 - ((i + 1) * 125);
+
+            const sign = (i % 2 == 0? "-" : "");
+
+            elem.animate([{transform: `none`, filter: "blur(0px)", opacity: 1}, {transform: `translateX(${sign}50px)`, filter: "blur(15px)", opacity: 0}], {duration: time, fill: "forwards", easing: "cubic-bezier(0.175, 0.885, 0.32, 1.05)"});
+
+        });
+
+        popUpNav.classList.remove("open");
+
+        popUpNav.addEventListener("click", closePopUp);
+
+        removeEventListener(popUpNav, closePopUp);
+
+    }
 
 }
 

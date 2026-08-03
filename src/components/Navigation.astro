@@ -31,15 +31,10 @@ import { Icon } from 'astro-icon/components';
 
 <div id="pop-up-main-menu" class="pop-up-nav-links">
 
-    <div class="home-link">
-
-        <PopUpNavComponent href="/" title="Home"/>
-        <PopUpNavComponent href="/about" title="About"/>
-        <PopUpNavComponent href="/tutoring" title="Tutoring"/>
-        <PopUpNavComponent title="Experience" isDropdown="true" containerName="experience" dropdownComponents={["Software Engineering", "Graphic Design", "Photography", "Worksheets"]}/>
-        <PopUpNavComponent href="/blog" title="Blog"/>
-
-    </div>
+    <PopUpNavComponent href="/about" title="About"/>
+    <PopUpNavComponent href="/tutoring" title="Tutoring"/>
+    <PopUpNavComponent title="Experience" isDropdown="true" containerName="experience" dropdownComponents={["Software Engineering", "Graphic Design", "Photography"]}/>
+    <PopUpNavComponent href="/blog" title="Blog"/>
 
 </div>
 
@@ -53,6 +48,8 @@ import { Icon } from 'astro-icon/components';
 
     const navButton = document.querySelector(".compressed-nav-button");
 
+    console.log(navButton)
+
     navButton?.addEventListener("click", popUpNav);
 
 </script>
@@ -61,31 +58,40 @@ import { Icon } from 'astro-icon/components';
 
     .pop-up-nav-links {
 
-        position: absolute;
-        pointer-events: none;
-        display: none;
-
-        backdrop-filter: blur(5px);
-
+        position: fixed;
         z-index: 4;
+        opacity: 0;
+        pointer-events: none;
 
         width: 100vw;
         height: 100vh;
 
-        /* display: flex;
-
-        justify-content: center;
-        align-items: center; */
-
-    }
-
-    .open {
-
         display: flex;
+        flex-direction: column;
 
         justify-content: center;
         align-items: center;
+        transform-origin: top;
+        transition-duration: 50ms;
 
+    }
+
+    .pop-up-nav-links::after {
+
+        content: "";
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        backdrop-filter: blur(10px);
+        background-color: var(--custom-black-t);
+        z-index: -1;
+
+    }
+
+    .pop-up-nav-links.open {
+
+        opacity: 1;
         pointer-events: all;
 
     }
