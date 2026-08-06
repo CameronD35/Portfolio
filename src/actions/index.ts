@@ -21,7 +21,7 @@ export const server = {
             const {data, error} = await resend.emails.send({
 
                 from: 'Cameron <cameron@booking.camerondemartini.com>',
-                to: ['camerondemartini@gmail.com'],
+                to: ['cameron@camerondemartini.com'],
                 cc: [email],
                 subject: `New Tutoring Information Request from ${name}`,
                 html: `<h1>${name}</h1>

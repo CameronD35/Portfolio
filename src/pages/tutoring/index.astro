@@ -207,8 +207,6 @@ const inputErrors = isInputError(result?.error) ? result.error.fields : {};
 
 		<p class="promo">{promoMessage}</p>
 
-
-
 		<div class="section-title">Interested in Some Worksheets?</div>
 
 		<div class="worksheet-button">
@@ -304,8 +302,11 @@ const inputErrors = isInputError(result?.error) ? result.error.fields : {};
 		color: var(--custom-black);
 		text-align: center;
 		padding: 5px;
-		width: 100vw;
-		transform: translateX(-1em);
+		border-radius: 0.5em;
+
+		width: 100%;
+		height: auto;
+		position: relative;
 
 	}
 
@@ -313,6 +314,7 @@ const inputErrors = isInputError(result?.error) ? result.error.fields : {};
 
 		content: "";
 		position: absolute;
+		border-radius: 0.5em;
 		/* background-color: red; */
 		background-size: 400%;
 		width: 100%;
