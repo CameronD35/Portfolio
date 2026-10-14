@@ -34,7 +34,7 @@ const statements = [
 ]
 
 const courses: Record<string, string> = {
-	"Linear Algebra": "An introduction to vector spaces, inner products, and mathematical proofs.",
+	"Linear Algebra": "An introduction to vector spaces, inner products, and proof-based mathematics.",
 	"Differential Equations": "Techniques for solving ordinary differential equations.",
 	"Multi-Variable Calculus": "Derivatives, integrals, and the study of change in three dimensions or higher.",
 	"Calculus": "Derivatives, integrals, and the study of change.",
@@ -43,6 +43,7 @@ const courses: Record<string, string> = {
 	"Mechanics of Solids & Fluids": "The study of linear and rotational kinematics and kinetics.",
 	"Electricity & Magnetism": "The study of electromagnetic fields and circuits.",
 	"Engineering Statics": "The study of rigid structures.",
+	"Engineering Dynamics": "The study of rigid bodies subject to non-equalibrium conditions.",
 	"Data Structures & Algorithms (Java)": "The study of data storage, access, and structures in Object-Oriented Programming.",
 	"General Chemistry": "Introduction to stoichiometry, equilibria, and chemical reactions.",
 }
@@ -342,7 +343,7 @@ const inputErrors = isInputError(result?.error) ? result.error.fields : {};
 	.select-one {
 
 		color: var(--custom-white-t);
-		font-family: "Inter", sans-serif;
+		font-family: "Atkinson Hyperlegible", sans-serif;
 		font-size: 1.25em;
 		font-weight: 600;
 
@@ -377,7 +378,7 @@ const inputErrors = isInputError(result?.error) ? result.error.fields : {};
         align-items: center;
 
         transition: 0.4s var(--standard-transition-timing-no-bounce);
-		font-family: "Inter", sans-serif;
+		font-family: "Atkinson Hyperlegible", sans-serif;
 		font-weight: 600;
 
 	}
@@ -540,7 +541,7 @@ const inputErrors = isInputError(result?.error) ? result.error.fields : {};
 		border-radius: 0.5em;
 
 		color: var(--custom-white-st);
-		font-family: "Inter", sans-serif;
+		font-family: "Atkinson Hyperlegible", sans-serif;
 
 		margin: 0;
 		
@@ -552,7 +553,7 @@ const inputErrors = isInputError(result?.error) ? result.error.fields : {};
 		border: none;
 		width: 100%;
 		color: var(--custom-white-st);
-		font-family: "Inter", sans-serif;
+		font-family: "Atkinson Hyperlegible", sans-serif;
 		font-size: 1.25em;
 		font-weight: 600;
 		transition-duration: 200ms;

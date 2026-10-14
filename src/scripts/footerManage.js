@@ -43,12 +43,12 @@ function setFooterColor() {
 
     const currentPath = window.location.pathname;
 
-    console.log(currentPath, currentPath === "/")
+  console.log(currentPath, currentPath === "/");
 
     if (currentPath === "/") {
 
-        document.documentElement.style.setProperty("--footer-color", "var(--custom-dark-blue)");
-        document.documentElement.style.setProperty("--footer-accent", "var(--custom-light-blue)");
+        document.documentElement.style.setProperty("--footer-color", "var(--custom-black-0)");
+        document.documentElement.style.setProperty("--footer-accent", "var(--custom-white-st");
         document.documentElement.style.setProperty("--footer-accent-hover", "var(--custom-white)");
 
     } else {

@@ -1,97 +1,91 @@
 ---
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import Content from '../components/Content.astro';
-import '../styles/global.css';
-import { Image } from 'astro:assets';
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import Content from "../components/Content.astro";
+import "../styles/global.css";
+import { Image } from "astro:assets";
 
 interface Props {
-
-	pageTitle: string,
-	navBackgroundColor?: string
-
+    pageTitle: string;
+    navBackgroundColor?: string;
 }
 
 const { pageTitle, navBackgroundColor = "var(--footer-color)" } = Astro.props;
-
 ---
 
-
-
 <html lang="en">
-	<head>
-		<meta charset="utf-8" content="initial-scale=1"/>
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/katex.min.css">
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{pageTitle}</title>
+    <head>
+        <meta charset="utf-8" content="initial-scale=1" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/katex.min.css"
+        />
+        <meta name="viewport" content="width=device-width" />
+        <meta name="generator" content={Astro.generator} />
+        <title>{pageTitle}</title>
 
-		<link rel="preconnect" href="https://fonts.googleapis.com">
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Oi&display=swap" rel="stylesheet">
-		<link href="https://fonts.googleapis.com/css2?family=Unlock&display=swap" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&display=swap&family=Unlock&display=swap"
+            rel="stylesheet"
+        />
+        <!-- <link
+            href="https://fonts.googleapis.com/css2?family=Unlock&display=swap"
+            rel="stylesheet"
+        /> -->
+    </head>
+    <body data-color={navBackgroundColor}>
+        <Header />
 
-	</head>
-	<body data-color={navBackgroundColor}>
-		<Header />
+        <Content>
+            <slot />
+        </Content>
 
-		<Content>
-			
-        	<slot />
+        <Footer />
 
-		</Content>
+        <script>
+            import "../scripts/menu.js";
+            import "../scripts/isMobile.js";
+            import {
+                setFooterFixing,
+                setFooterColor,
+            } from "../scripts/footerManage.js";
+            import {
+                setHeaderFixing,
+                setHeaderColor,
+            } from "../scripts/headerManage.js";
+            import handleDropdown from "../scripts/handleDropdown";
 
-		<Footer />
+            window.addEventListener("resize", () => {
+                setFooterFixing();
+            });
 
-		<div class="large-image-cont">
+            setHeaderFixing();
+            setHeaderColor();
 
-			<Image class="large-image" src="/favicon.svg" alt="hi" width="50" height="50" style="display: none"/>
+            handleDropdown();
 
-		</div>
+            setFooterFixing();
+            setFooterColor();
 
-		<script>
+            const nav: HTMLElement = document.querySelector("nav")!;
 
-			import "../scripts/menu.js"; 
-			import "../scripts/isMobile.js"
-			import { setFooterFixing, setFooterColor } from "../scripts/footerManage.js";
-			import { setHeaderFixing, setHeaderColor } from "../scripts/headerManage.js";
-			import handleDropdown from "../scripts/handleDropdown";
+            const color = document.body.getAttribute("data-color")!;
 
-
-			window.addEventListener('resize', () => {
-
-				setFooterFixing();
-
-			});
-
-			setHeaderFixing();
-			setHeaderColor();
-			
-			handleDropdown();
-
-			setFooterFixing();
-			setFooterColor();
-
-			const nav: HTMLElement = document.querySelector("nav")!;
-
-			const color = document.body.getAttribute("data-color")!;
-
-			if (window.isMobile()) { nav.style.backgroundColor = color; nav.style.boxShadow = "0 0 10px var(--custom-black-t)" }
-
-
-		</script>
-	</body>
+            if (window.isMobile()) {
+                nav.style.backgroundColor = color;
+                nav.style.boxShadow = "0 0 10px var(--custom-black-t)";
+            }
+        </script>
+    </body>
 </html>
 
 <style>
-
-	.loading {
-
-		position: absolute;
-		top: 0;
-		left: 0;
-
-	}
-
+    .loading {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
 </style>

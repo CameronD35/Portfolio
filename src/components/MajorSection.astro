@@ -42,7 +42,7 @@ else if (isLeft == "false") { originDir = "right"; }
 
 ---
 
-<FullWidthSection height="100vh" color=`${color}`>
+<FullWidthSection height="100vh" color=`rgba(0,0,0,0)`>
 
     <div class="majorContentBox" data-isLeft=`${isLeft}`>
 
@@ -56,7 +56,7 @@ else if (isLeft == "false") { originDir = "right"; }
 
             <div class="title-subtitle">
 
-                <span class="title">{title.toUpperCase()}</span>
+                <span class="emphasis title">{title.toUpperCase()}</span>
                 <span>{desc}</span>
 
             </div>
@@ -98,6 +98,7 @@ else if (isLeft == "false") { originDir = "right"; }
         .title {
 
             text-align: left !important;
+            text-shadow: -3px 3px 10px var(--custom-white-t);
 
         }
 
@@ -115,6 +116,12 @@ else if (isLeft == "false") { originDir = "right"; }
 
             text-align: right !important;
 
+        }
+
+        .title {
+
+            text-shadow: 3px -3px 10px var(--custom-white-t);
+            
         }
 
     }
@@ -146,8 +153,9 @@ else if (isLeft == "false") { originDir = "right"; }
 
     .title {
 
-        font-family: "Oi", serif;
-        font-size: min(4.5em, 5vw);
+        font-style: bold;
+        font-size: min(10em, 5vw);
+        line-height: 1em;
         text-align: right;
 
     }

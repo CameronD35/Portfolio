@@ -1,6 +1,6 @@
 html {
   background-color: var(--custom-white);
-  font-family: "Inter", sans-serif;
+  font-family: "Atkinson Hyperlegible", sans-serif;
 }
 
 :root{
@@ -58,7 +58,11 @@ html {
   --mouse-x: 0px;
   --mouse-y: 0px;
 
-  
+}
+
+.emphasis {
+
+    font-family: "Unlock", sans-serif;
 
 }
 
@@ -93,7 +97,7 @@ nav {
 }
 
 h1 {
-  font-family: "Oi", serif;
+  font-family: "Unlock", sans-serif;
   text-transform: uppercase;
   font-size: 3em;
   font-weight: 400;
@@ -116,7 +120,7 @@ h1 {
 
   display: flex;
   flex-direction: row;
-  
+
   position: static;
   background: none;
 
@@ -180,7 +184,7 @@ h1 {
 
   }
 
-  
+
 
 }
 
@@ -231,9 +235,9 @@ h1 {
   .std-content-box h1 {
 
     font-size: 2em;
-  
+
   }
-  
+
 }
 
 .pdf-viewer {
@@ -382,5 +386,5 @@ Retrieved 2026-06-05, License - CC BY-SA 4.0
      -khtml-user-select: none;
        -moz-user-select: none;
         -ms-user-select: none;
-            user-select: none;                         
+            user-select: none;
 }
